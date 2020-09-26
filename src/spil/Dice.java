@@ -24,7 +24,6 @@ public class Dice {
         return Integer.toString(faceValue);
     }
 
-
     public static int getFaceValue() { return faceValue; }
 
 }
