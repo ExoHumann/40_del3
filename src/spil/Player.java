@@ -12,7 +12,6 @@ public class Player {
         this.Score = Score;
     }
 
-
     public void setWin(){ this.win++; }
     public int getWin(){ return this.win; }
 

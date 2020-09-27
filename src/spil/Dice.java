@@ -4,29 +4,36 @@ import java.util.Random;
 
 public class Dice {
 
-    private static int diceAmount;
-    private static int faceValue = 0;
+    private int dice1;
+    private int dice2;
 
 
-    public Dice(int faceValue, int diceAmount) {
-        Dice.faceValue = faceValue;
-        Dice.diceAmount = diceAmount;
+    public Dice(int dice1, int dice2) {
+        this.dice1 = dice1;
+        this.dice2 = dice2;
+        roll();
     }
 
 
-    public static int roll(){
+    public int roll(){
         Random r = new Random();
-        faceValue = r.nextInt(6)+1;
-        return faceValue;
+        dice1 = r.nextInt(6)+1;
+        dice2 = r.nextInt(6)+1;
+        return getSum();
     }
+
+    boolean getEns(){
+        return dice1 == dice2;
+    }
+
+    public void setDice(int dice1, int dice2) { this.dice1 = dice1; this.dice2 = dice2;}
+    public int getDice1() { return dice1; }
+    public int getDice2() { return dice2; }
+    public int getSum() { return dice1 + dice2;}
+
 
     public String toString(){
-        return Integer.toString(faceValue);
+        return Integer.toString(dice2);
     }
-
-    public int getFaceValue() { return faceValue; }
-
-
-
 }
 

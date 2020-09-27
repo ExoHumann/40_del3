@@ -4,12 +4,17 @@ public class Game {
     private final Player player;
     private final Player computer;
     private final int gamesAmount;
+    private final Dice cDice;
+    private final Dice pDice;
 
 
-    public Game(Player player, Player computer, int games){
+    public Game(Player player, Player computer, int games, Dice cDice, Dice pDice){
         this.player = player;
         this.computer = computer;
+        this.cDice = cDice;
+        this.pDice = pDice;
         gamesAmount = games;
+
 
         play();
         displayWins(this.computer.getWin(), this.player.getWin());
@@ -26,16 +31,15 @@ public class Game {
         int pScore = player.getScore();
         int cScore = computer.getScore();
 
+
         for (int i = 0; i < gamesAmount; i++) {
 
             while (cScore < 40 && pScore < 40) {
-                int playerRoll1 = Dice.roll();
-                int playerRoll2 = Dice.roll();
-                int computerRoll1 = Dice.roll();
-                int computerRoll2 = Dice.roll();
 
-                int playerSum = playerRoll1 + playerRoll2;
-                int computerSum = computerRoll1 + computerRoll2;
+                pDice.roll();
+                int playerSum = pDice.getSum();
+                cDice.roll();
+                int computerSum = cDice.getSum();
 
                 pScore = pScore + playerSum;
                 computer.setScore(pScore);
@@ -56,5 +60,7 @@ public class Game {
             cScore = 0;
             pScore = 0;
         }
+
+
     }
 }
