@@ -1,43 +1,29 @@
 package spil;
 
-public class Player extends Dice {
+public class Player {
 
-    private static String playerName;
-    private static int playerPoint;
+    private String name;
+    private int Score;
     private int win = 0;
     private int tie = 0;
 
-    public Player(int faceValue, int maxNumber) {
-        super(faceValue, maxNumber);
+    public Player(String name, int Score) {
+        this.name = name;
+        this.Score = Score;
     }
 
-    public void setWin(){
-        this.win++;
-    }
 
-    public int getWin(){
-        return this.win;
-    }
-    public void setTie(){
-        this.tie++;
-    }
+    public void setWin(){ this.win++; }
+    public int getWin(){ return this.win; }
 
-    public int getTie(){
-        return this.tie;
-    }
+    public void setTie(){ this.tie++; }
+    public int getTie(){ return this.tie; }
 
-    public void setPlayerName(String name){
-        playerName = name;
-    }
-    public String getPlayerName(){
-        return playerName;
-    }
-    public void setPlayerPoint(int point){
-        playerPoint = point;
-    }
-    public int getPlayerPoint(){
-        return playerPoint;
-    }
+    public void setName(String name){ this.name = name; }
+    public String getName(){ return name; }
+
+    public void setScore(int point){ Score = point; }
+    public int getScore(){ return Score; }
 
 
 }

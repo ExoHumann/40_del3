@@ -4,19 +4,19 @@ import java.util.Random;
 
 public class Dice {
 
-    private static int faceValue;
-    private static int maxNumber = 6;
+    private static int diceAmount;
+    private static int faceValue = 0;
 
 
-    public Dice(int faceValue, int maxNumber) {
-        this.faceValue = faceValue;
-        this.maxNumber = maxNumber;
+    public Dice(int faceValue, int diceAmount) {
+        Dice.faceValue = faceValue;
+        Dice.diceAmount = diceAmount;
     }
 
 
     public static int roll(){
         Random r = new Random();
-        faceValue = r.nextInt(maxNumber)+1;
+        faceValue = r.nextInt(6)+1;
         return faceValue;
     }
 
@@ -24,7 +24,9 @@ public class Dice {
         return Integer.toString(faceValue);
     }
 
-    public static int getFaceValue() { return faceValue; }
+    public int getFaceValue() { return faceValue; }
+
+
 
 }
 
