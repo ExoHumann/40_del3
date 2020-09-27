@@ -21,44 +21,35 @@ public class Game {
         }
 
     public void displayWins(int computerWins, int playerWins) {
-        System.out.println(player.getName() + " has won " + computerWins + " Games");
-        System.out.println(computer.getName() + " has won " + playerWins + " Games");
+        System.out.println(player.getName() + " Has Won " + computerWins + " Games");
+        System.out.println(computer.getName() + " Has Won " + playerWins + " Games");
         System.out.println("Tied games are " + player.getTie());
     }
 
 
     private void play() {
-        int pScore = player.getScore();
-        int cScore = computer.getScore();
-
 
         for (int i = 0; i < gamesAmount; i++) {
 
-            while (cScore < 40 && pScore < 40) {
-
+            while (computer.getScore() < 40 && player.getScore() < 40) {
                 pDice.roll();
-                int playerSum = pDice.getSum();
                 cDice.roll();
-                int computerSum = cDice.getSum();
 
-                pScore = pScore + playerSum;
-                computer.setScore(pScore);
-
-                cScore = cScore + computerSum;
-                computer.setScore(cScore);
+                player.setScore(player.getScore() + pDice.getSum());
+                computer.setScore(computer.getScore() + cDice.getSum());
             }
 
-            if (pScore < cScore) {
+            if (player.getScore() < computer.getScore()) {
                 computer.setWin();
-            } else if (cScore < pScore) {
+            } else if (computer.getScore() < player.getScore()) {
                 player.setWin();
-            } else if (pScore == cScore) {
+            } else if (player.getScore() == computer.getScore()) {
                 player.setTie();
                 computer.setTie();
             }
 
-            cScore = 0;
-            pScore = 0;
+            player.setScore(0);
+            computer.setScore(0);
         }
 
 

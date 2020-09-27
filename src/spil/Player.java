@@ -3,13 +3,13 @@ package spil;
 public class Player {
 
     private String name;
-    private int Score;
+    private int score;
     private int win = 0;
     private int tie = 0;
 
-    public Player(String name, int Score) {
+    public Player(String name, int score) {
         this.name = name;
-        this.Score = Score;
+        this.score = score;
     }
 
     public void setWin(){ this.win++; }
@@ -21,8 +21,8 @@ public class Player {
     public void setName(String name){ this.name = name; }
     public String getName(){ return name; }
 
-    public void setScore(int point){ Score = point; }
-    public int getScore(){ return Score; }
+    public void setScore(int score){ this.score = score; }
+    public int getScore(){ return score; }
 
 
 }
