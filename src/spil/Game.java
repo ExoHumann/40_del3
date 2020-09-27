@@ -36,6 +36,7 @@ public class Game {
                 cDice.roll();
 
                 player.setScore(player.getScore() + pDice.getSum());
+
                 computer.setScore(computer.getScore() + cDice.getSum());
             }
 
@@ -47,6 +48,7 @@ public class Game {
                 player.setTie();
                 computer.setTie();
             }
+
 
             player.setScore(0);
             computer.setScore(0);
