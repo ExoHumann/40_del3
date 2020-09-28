@@ -1,12 +1,21 @@
 package test;
 
+import spil.Dice;
+
 import java.util.Random;
 
-public class TestDice {
+public class TestDice extends Dice {
 
     //Max and min i defined
     private static final int Max_dots = 6;
     private static final int min = 1;
+
+    public TestDice(int dice1, int dice2) {
+        super(dice1, dice2);
+    }
+
+
+
 
     public static void main(String[] args) {
 

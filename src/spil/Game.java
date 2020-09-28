@@ -32,23 +32,21 @@ public class Game {
         for (int i = 0; i < gamesAmount; i++) {
 
             while (computer.getScore() < 40 && player.getScore() < 40) {
-                pDice.roll();
-                cDice.roll();
+                player.setScore(player.getScore() + pDice.roll());
+                computer.setScore(computer.getScore() + cDice.roll());
+                System.out.println(player.getName() + " " + pDice.getDice1() + "+" + pDice.getDice2() + "=" + pDice.getSum() + " Score= " + player.getScore());
+                System.out.println(computer.getName() + " " + cDice.getDice1() + "+" + cDice.getDice2() + "=" + cDice.getSum() + " Score= " + computer.getScore());
 
-                player.setScore(player.getScore() + pDice.getSum());
-
-                computer.setScore(computer.getScore() + cDice.getSum());
             }
 
-            if (player.getScore() < computer.getScore()) {
+            if (player.getScore() > computer.getScore()) {
                 computer.setWin();
-            } else if (computer.getScore() < player.getScore()) {
+            } else if (computer.getScore() > player.getScore()) {
                 player.setWin();
             } else if (player.getScore() == computer.getScore()) {
                 player.setTie();
                 computer.setTie();
             }
-
 
             player.setScore(0);
             computer.setScore(0);
