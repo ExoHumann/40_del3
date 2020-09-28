@@ -39,19 +39,31 @@ public class Game {
 
             }
 
-            if (player.getScore() > computer.getScore()) {
-                computer.setWin();
-            } else if (computer.getScore() > player.getScore()) {
-                player.setWin();
-            } else if (player.getScore() == computer.getScore()) {
-                player.setTie();
-                computer.setTie();
+            if (pDice.getEns()) {
+                if(pDice.getDice1() == 1){
+                    player.setScore(0);
+                }
+                player.setScore(player.getScore() + pDice.roll());
+                System.out.println(player.getName() + " " + pDice.getSum() + " Score " + player.getScore());
+            } else if (cDice.getEns()) {
+                if(cDice.getDice1() == 1){
+                    computer.setScore(0);
+                }
+                computer.setScore(computer.getScore() + cDice.roll());
+                System.out.println(computer.getName() + " " + cDice.getSum()  + " Score " + computer.getScore());
             }
-
-            player.setScore(0);
-            computer.setScore(0);
         }
 
+        if (player.getScore() > computer.getScore()) {
+            computer.setWin();
+        } else if (computer.getScore() > player.getScore()) {
+            player.setWin();
+        } else if (player.getScore() == computer.getScore()) {
+            player.setTie();
+            computer.setTie();
+        }
 
-    }
+        player.setScore(0);
+            computer.setScore(0);
+        }
 }
