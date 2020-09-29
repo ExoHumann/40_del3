@@ -6,31 +6,30 @@ public class TestDice {
 
     public static void main(String[] args) {
 
-        int rollCount;
-        int die;
-
         System.out.println("Inddtast antal terning-kast");
 
+        // User specifies amount of die rolls
         Scanner input = new Scanner(System.in);
-        rollCount = input.nextInt();
+        int rollCount = input.nextInt();
 
-
-
-
+        // Array for roll results for each die value
         int[] diceCount ={0,0,0,0,0,0};
 
         Random r = new Random();
 
-        //Loop x times
+        // Loop x times
         for (int i = 0; i < rollCount; i++) {
 
-            die = r.nextInt(6)+1;
-            diceCount[die-1]++;
+            // Generate die value
+            int die = r.nextInt(6)+1;
 
+            // Increment die index
+            diceCount[die-1]++;
         }
+
+        // Display results
         System.out.println("Fordeling at kast:");
         for (int i=0;i<6;i++){
-
             System.out.println(i+1 + ": " + diceCount[i]);
         }
     }
