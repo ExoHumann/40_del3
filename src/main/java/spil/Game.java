@@ -1,24 +1,27 @@
 package spil;
 
+import gui_main.GUI;
+
 public class Game {
     private final Player player;
     private final Player computer;
     private final int gamesAmount;
     private final Dice cDice;
     private final Dice pDice;
+    final GUI gameGUI;
 
-
-    public Game(Player player, Player computer, int games, Dice cDice, Dice pDice){
+    public Game(GUI gameGUI, Player player, Player computer, int games, Dice cDice, Dice pDice){
         this.player = player;
         this.computer = computer;
         this.cDice = cDice;
         this.pDice = pDice;
         gamesAmount = games;
+        this.gameGUI = gameGUI;
 
 
         play();
         displayWins(this.computer.getWin(), this.player.getWin());
-        }
+    }
 
     public void displayWins(int computerWins, int playerWins) {
         System.out.println(player.getName() + " Has Won " + computerWins + " Games");
@@ -33,6 +36,7 @@ public class Game {
 
             while (computer.getScore() < 40 && player.getScore() < 40) {
                 player.setScore(player.getScore() + pDice.roll());
+                gameGUI.setDice(pDice.getDice1(),pDice.getDice2());
                 computer.setScore(computer.getScore() + cDice.roll());
                 System.out.println(player.getName() + " " + pDice.getDice1() + "+" + pDice.getDice2() + "=" + pDice.getSum() + " Score= " + player.getScore());
                 System.out.println(computer.getName() + " " + cDice.getDice1() + "+" + cDice.getDice2() + "=" + cDice.getSum() + " Score= " + computer.getScore());
@@ -40,30 +44,30 @@ public class Game {
             }
 
             if (pDice.getEns()) {
-                if(pDice.getDice1() == 1){
+                if (pDice.getDice1() == 1) {
                     player.setScore(0);
                 }
                 player.setScore(player.getScore() + pDice.roll());
-                System.out.println(player.getName() + " " + pDice.getSum() + " Score " + player.getScore());
+                System.out.println("Extra turn for: " + player.getName() + " " + pDice.getSum() + " Score " + player.getScore());
             } else if (cDice.getEns()) {
-                if(cDice.getDice1() == 1){
+                if (cDice.getDice1() == 1) {
                     computer.setScore(0);
                 }
                 computer.setScore(computer.getScore() + cDice.roll());
-                System.out.println(computer.getName() + " " + cDice.getSum()  + " Score " + computer.getScore());
+                System.out.println("Extra turn for: " + computer.getName() + " " + cDice.getSum() + " Score " + computer.getScore());
             }
-        }
 
-        if (player.getScore() > computer.getScore()) {
-            computer.setWin();
-        } else if (computer.getScore() > player.getScore()) {
-            player.setWin();
-        } else if (player.getScore() == computer.getScore()) {
-            player.setTie();
-            computer.setTie();
-        }
+            if (player.getScore() > computer.getScore()) {
+                computer.setWin();
+            } else if (computer.getScore() > player.getScore()) {
+                player.setWin();
+            } else if (player.getScore() == computer.getScore()) {
+                player.setTie();
+                computer.setTie();
+            }
 
-        player.setScore(0);
+            player.setScore(0);
             computer.setScore(0);
         }
+    }
 }
