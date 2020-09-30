@@ -6,7 +6,7 @@ public class TestDice {
 
     public static void main(String[] args) {
 
-        System.out.println("Inddtast antal terning-kast");
+        System.out.println("Enter amount of test rolls:");
 
         // User specifies amount of die rolls
         Scanner input = new Scanner(System.in);
@@ -28,7 +28,7 @@ public class TestDice {
         }
 
         // Display results
-        System.out.println("Fordeling at kast:");
+        System.out.println("Distribution of rolls:");
         for (int i=0;i<6;i++){
             System.out.println(i+1 + ": " + diceCount[i]);
         }
