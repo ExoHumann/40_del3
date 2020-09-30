@@ -6,7 +6,6 @@ import gui_fields.GUI_Street;
 import gui_main.GUI;
 
 import java.awt.*;
-import java.util.Scanner;
 
 public class Main {
 
@@ -17,7 +16,7 @@ public class Main {
         //Create a board and fill it with fields
         GUI_Field[] fields = new GUI_Field[40];
         for(int i =0;i<40;i++){
-            fields[i]=new GUI_Street(String.valueOf(i+1),"","","",Color.green,Color.blue);
+            fields[i]=new GUI_Street(String.valueOf(i),"","","",Color.green,Color.blue);
         }
         GUI gameGUI = new GUI(fields,Color.green);
         //Create the player and set him values like name score and car and add them to the board.
@@ -31,17 +30,15 @@ public class Main {
         fields[0].setCar(player, true);
         fields[0].setCar(computer, true);
 
-        if (fields[0].hasCar(player)){
-            gameGUI.showMessage("Moving the car");
-            fields[0].removeAllCars();
-            fields[1].setCar(player, true);
-        }
+        System.out.println(player.getCurrentPosition());
+        player.move(40); //position%40
+        System.out.println(player.getCurrentPosition());
 
         // Create two dice
         Dice cDice = new Dice(0,0);
         Dice pDice = new Dice(0,0);
         // Create new game from game class
-        new Game(gameGUI, player, computer, 10, cDice, pDice);
+        new Game(gameGUI, player, computer, 1, cDice, pDice);
     }
 
 }

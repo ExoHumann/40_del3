@@ -7,12 +7,16 @@ import gui_main.GUI;
 
 import java.awt.*;
 
-public class gameGUI {
+public class GameGUI {
     GUI_Field[] fields;
     static private Player player;
     static private Player computer;
 
-    public gameGUI() {
+    public GameGUI(GUI gui) {
+        gui.getFields();
+
+
+
 
     }
 }
