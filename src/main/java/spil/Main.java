@@ -30,6 +30,13 @@ public class Main {
         //Place the players car on the first field.
         fields[0].setCar(player, true);
         fields[0].setCar(computer, true);
+
+        if (fields[0].hasCar(player)){
+            gameGUI.showMessage("Moving the car");
+            fields[0].removeAllCars();
+            fields[1].setCar(player, true);
+        }
+
         // Create two dice
         Dice cDice = new Dice(0,0);
         Dice pDice = new Dice(0,0);
