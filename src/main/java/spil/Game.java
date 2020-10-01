@@ -64,15 +64,35 @@ public class Game {
             while (player.getScore() < 40 && computer.getScore() < 40) {
 
                 movePlayer(player, pDice);
+                movePlayer(computer, cDice);
                 diceInfo(player, pDice);
 
                 if (pDice.getEns()) {
                     if (pDice.getDice1() == 1) {
                         moveToStart(player);
                     }
+                    /*if (pDice.getDice1() == 6){
+                        movePlayer(player, pDice);
+                        diceInfo(player, pDice);
+                        if (pDice.getEns()) {
+                            if (pDice.getDice1() == 6){
+                                moveToStart(player);
+                                diceInfo(player, pDice);
+                            }
+                        }*/
+
                     System.out.println("Extra Turn");
                     movePlayer(player, pDice);
                     diceInfo(player, pDice);
+                }
+
+                if (pDice.getEns()) {
+                    if (pDice.getDice1() == 1) {
+                        moveToStart(computer);
+                    }
+                    System.out.println("Extra Turn");
+                    movePlayer(computer, cDice);
+                    diceInfo(computer, cDice);
                 }
 
             }
