@@ -11,14 +11,16 @@ public class Main {
 
     public static void main(String[] args) {
 
-        GUI_Car car1 = new GUI_Car(Color.red,Color.red, GUI_Car.Type.CAR, GUI_Car.Pattern.FILL);
-        GUI_Car car2 = new GUI_Car(Color.blue,Color.blue, GUI_Car.Type.CAR, GUI_Car.Pattern.FILL);
+
         //Create a board and fill it with fields
         GUI_Field[] fields = new GUI_Field[40];
         for(int i =0;i<40;i++){
             fields[i]=new GUI_Street(String.valueOf(i),"","","",Color.green,Color.blue);
-        }
-        GUI gameGUI = new GUI(fields,Color.green);
+        } GUI gameGUI = new GUI(fields,Color.green);
+
+        GUI_Car car1 = new GUI_Car(Color.red,Color.red, GUI_Car.Type.CAR, GUI_Car.Pattern.FILL);
+        GUI_Car car2 = new GUI_Car(Color.blue,Color.blue, GUI_Car.Type.CAR, GUI_Car.Pattern.FILL);
+
         //Create the player and set him values like name score and car and add them to the board.
         String playerName = gameGUI.getUserString("Indtast spiller 1");
         Player player = new Player(playerName, 0, car1);
@@ -38,7 +40,7 @@ public class Main {
         Dice cDice = new Dice(0,0);
         Dice pDice = new Dice(0,0);
         // Create new game from game class
-        new Game(gameGUI, player, computer, 1, cDice, pDice);
+        new Game(gameGUI, player, computer, 10, cDice, pDice);
     }
 
 }

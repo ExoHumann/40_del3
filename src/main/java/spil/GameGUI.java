@@ -13,10 +13,5 @@ public class GameGUI {
     static private Player computer;
 
     public GameGUI(GUI gui) {
-        gui.getFields();
-
-
-
-
     }
 }

@@ -12,7 +12,7 @@ public class Game {
     final GUI gameGUI;
     private GUI_Field[] fields;
 
-    public Game(GUI gameGUI, Player player, Player computer, int games, Dice cDice, Dice pDice){
+    public Game(GUI gameGUI, Player player, Player computer, int games, Dice cDice, Dice pDice) {
         this.player = player;
         this.computer = computer;
         this.cDice = cDice;
@@ -34,43 +34,51 @@ public class Game {
 
 
     private void play() {
+ /*public void movePlayer(Player player, Dice dice){
+        int prePos = player.getCurrentPosition();
+        player.move(dice.roll());
+        player.setBalance(player.getScore());
+        player.setScore(player.getScore() + dice.getSum());
 
+        int pos = player.getCurrentPosition();
+        if (fields[prePos].hasCar(player)){
+            gameGUI.showMessage("Roll The Dice: " + player.getName() + "'s Turn");
+            gameGUI.setDice(dice.getDice1(), dice.getDice2());
+            fields[prePos].removeAllCars();
+            fields[pos].setCar(player,true);
+
+            if (dice.getEns()) {
+                if (dice.getDice1() == 1) {
+                    player.setBalance(0);
+                    player.setCurrentPosition(0);
+                    fields[prePos].hasCar(player);
+                    fields[prePos].removeAllCars();
+                    fields[0].setCar(player,true);
+                }
+            }
+        }
+   }*/
         for (int i = 0; i < gamesAmount; i++) {
+
 
             while (computer.getScore() < 40 && player.getScore() < 40) {
 
                 movePlayer(player, pDice);
-                movePlayer(computer, cDice);
+                diceInfo(player, pDice);
 
+                moveToStart(player, pDice);
+                diceInfo(player, pDice);
 
-
-                /*if (fields[0].hasCar(player)){
-                    gameGUI.showMessage("Moving the car");
-                    fields[0].removeAllCars();
-                    fields[1].setCar(player, true);
-                }*/
-/*''''''''''
-                player.setScore(player.getScore() + pDice.roll());
-                computer.setScore(computer.getScore() + cDice.roll());
-
-                System.out.println(player.getName() + " " + pDice.getDice1() + "+" + pDice.getDice2() + "=" + pDice.getSum() + " Score= " + player.getScore());
-                System.out.println(computer.getName() + " " + cDice.getDice1() + "+" + cDice.getDice2() + "=" + cDice.getSum() + " Score= " + computer.getScore());
-*/
-
+/*
                 if (pDice.getEns()) {
                     if (pDice.getDice1() == 1) {
-                        player.setScore(0);
+                        moveToStart(player, pDice);
                     }
-                    player.setScore(player.getScore() + pDice.roll());
-                    System.out.println("Extra turn for: " + player.getName() + " " + pDice.getSum() + " Score " + player.getScore());
+                    System.out.println("Extra Turn");
+                    diceInfo(player, pDice);
+
                 }
-                if (cDice.getEns()) {
-                    if (cDice.getDice1() == 1) {
-                        computer.setScore(0);
-                    }
-                    computer.setScore(computer.getScore() + cDice.roll());
-                    System.out.println("Extra turn for: " + computer.getName() + " " + cDice.getSum() + " Score " + computer.getScore());
-                }
+*/
             }
 
             if (player.getScore() > computer.getScore()) {
@@ -87,29 +95,39 @@ public class Game {
         }
     }
 
-    public void movePlayer(Player player, Dice dice){
+    private void diceInfo(Player player, Dice dice) {
+        System.out.println(player.getName() + " " + dice.getDice1() + "+" + dice.getDice2() + "=" + dice.getSum() + " Position = " + player.getCurrentPosition() + " Score: " + player.getScore());
+    }
+
+    private void movePlayer(Player player, Dice dice) {
         int prePos = player.getCurrentPosition();
+        player.setBalance(prePos);
+        gameGUI.showMessage("Roll The Dice: " + player.getName() + "'s Turn");
         player.move(dice.roll());
-        player.setBalance(player.getScore());
         player.setScore(player.getScore() + dice.getSum());
 
         int pos = player.getCurrentPosition();
-        if (fields[prePos].hasCar(player)){
-            gameGUI.showMessage("Roll The Dice: " + player.getName() + "'s Turn");
+        if (fields[prePos].hasCar(player)) {
             gameGUI.setDice(dice.getDice1(), dice.getDice2());
             fields[prePos].removeAllCars();
-            fields[pos].setCar(player,true);
+            fields[pos].setCar(player, true);
+            player.setBalance(pos);
 
-            if (dice.getEns()) {
-                if (dice.getDice1() == 1) {
-                    player.setScore(0);
-                    player.setCurrentPosition(0);
-                    fields[prePos].hasCar(player);
+        }
+
+    }
+
+    private void moveToStart(Player player, Dice dice) {
+        int prePos = player.getCurrentPosition();
+        if (dice.getEns()) {
+            if (dice.getDice1() == 1) {
+                if (fields[prePos].hasCar(player)) {
                     fields[prePos].removeAllCars();
-                    fields[0].setCar(player,true);
+                    fields[0].setCar(player, true);
+                    player.setBalance(0);
+                    player.setCurrentPosition(0);
+                    player.setScore(0);
                 }
-                player.setScore(player.getScore() + dice.roll());
-                System.out.println("Extra turn for: " + player.getName() + " " + dice.getSum() + " Score " + player.getScore());
             }
         }
     }
