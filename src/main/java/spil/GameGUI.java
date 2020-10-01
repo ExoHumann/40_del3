@@ -32,6 +32,7 @@ public class GameGUI {
         GameGUI.gui = new GUI(fields,Color.cyan);
 
     }
+    //Players are added to the game and they are placed on the board
 
     public void AddPlayers(Player player1, Player player2){
         GameGUI.player1 = player1;
