@@ -1,144 +1,100 @@
 package spil;
 
-import gui_fields.GUI_Field;
-import gui_main.GUI;
-
 public class Game {
-    private final Player player;
-    private final Player computer;
-    private final int gamesAmount;
+    private final Player player1;
+    private final Player player2;
     private final Dice cDice;
     private final Dice pDice;
-    final GUI gameGUI;
-    private GUI_Field[] fields;
+    private boolean twoSixesP1 = false;
+    private boolean twoSixesP2 = false;
+    private boolean gameEnd = false;
 
-    public Game(GUI gameGUI, Player player, Player computer, int games, Dice cDice, Dice pDice) {
-        this.player = player;
-        this.computer = computer;
+
+    public Game(GameGUI gui, Dice cDice, Dice pDice,Player player1,Player player2){
+        this.player1 = player1;
+        this.player2 = player2;
         this.cDice = cDice;
         this.pDice = pDice;
-        gamesAmount = games;
-        this.gameGUI = gameGUI;
-        this.fields = gameGUI.getFields();
-
-
         play();
-        displayWins(this.computer.getWin(), this.player.getWin());
-    }
-
-    public void displayWins(int computerWins, int playerWins) {
-        System.out.println(player.getName() + " Has Won " + computerWins + " Games");
-        System.out.println(computer.getName() + " Has Won " + playerWins + " Games");
-        System.out.println("Tied games are " + player.getTie());
     }
 
 
     private void play() {
- /*public void movePlayer(Player player, Dice dice){
-        int prePos = player.getCurrentPosition();
-        player.move(dice.roll());
-        player.setBalance(player.getScore());
-        player.setScore(player.getScore() + dice.getSum());
-
-        int pos = player.getCurrentPosition();
-        if (fields[prePos].hasCar(player)){
-            gameGUI.showMessage("Roll The Dice: " + player.getName() + "'s Turn");
-            gameGUI.setDice(dice.getDice1(), dice.getDice2());
-            fields[prePos].removeAllCars();
-            fields[pos].setCar(player,true);
-
-            if (dice.getEns()) {
-                if (dice.getDice1() == 1) {
-                    player.setBalance(0);
-                    player.setCurrentPosition(0);
-                    fields[prePos].hasCar(player);
-                    fields[prePos].removeAllCars();
-                    fields[0].setCar(player,true);
-                }
-            }
-        }
-   }*/
-        for (int i = 0; i < gamesAmount; i++) {
-
-
-            while (player.getScore() < 40 && computer.getScore() < 40) {
-
-                movePlayer(player, pDice);
-                movePlayer(computer, cDice);
-                diceInfo(player, pDice);
-
-                if (pDice.getEns()) {
-                    if (pDice.getDice1() == 1) {
-                        moveToStart(player);
+        
+        while(!gameEnd) {
+            do {
+                if (GameGUI.hasReachedGoalP1) {
+                    if (GameGUI.rollDiceAction(player1)) {
+                        pDice.roll();
+                        GameGUI.showDice(pDice.getDice1(), pDice.getDice2());
+                        if (pDice.getEquals()) {
+                            //Game end
+                            gameEnd = true;
+                            GameGUI.gameEnd(player1);
+                        }
                     }
-                    /*if (pDice.getDice1() == 6){
-                        movePlayer(player, pDice);
-                        diceInfo(player, pDice);
-                        if (pDice.getEns()) {
-                            if (pDice.getDice1() == 6){
-                                moveToStart(player);
-                                diceInfo(player, pDice);
+                } else {
+                    if (GameGUI.rollDiceAction(player1)) {
+                        pDice.roll();
+                        GameGUI.showDice(pDice.getDice1(), pDice.getDice2());
+                        if (pDice.getEquals()) {
+                            if (pDice.getDice1() == 1) {
+                                GameGUI.moveToStart(player1);
+                            } else if (pDice.getDice1() == 6) {
+                                if (twoSixesP1) {
+                                    //Player 1 rolled two sixes two times in a row
+                                    GameGUI.gameEnd(player1);
+                                    gameEnd = true;
+                                } else {
+                                    twoSixesP1 = true;
+                                }
+                            } else {
+                                GameGUI.movePlayer(player1, pDice.getSum());
                             }
-                        }*/
-
-                    System.out.println("Extra Turn");
-                    movePlayer(player, pDice);
-                    diceInfo(player, pDice);
-                }
-
-                if (pDice.getEns()) {
-                    if (pDice.getDice1() == 1) {
-                        moveToStart(computer);
+                        } else {
+                            GameGUI.movePlayer(player1, pDice.getSum());
+                        }
                     }
-                    System.out.println("Extra Turn");
-                    movePlayer(computer, cDice);
-                    diceInfo(computer, cDice);
                 }
-
             }
+            while (pDice.getEquals()) ;
 
-            if (player.getScore() > computer.getScore()) {
-                computer.setWin();
-            } else if (computer.getScore() > player.getScore()) {
-                player.setWin();
-            } else if (player.getScore() == computer.getScore()) {
-                player.setTie();
-                computer.setTie();
+            do {
+                if (GameGUI.hasReachedGoalP2) {
+                    if (GameGUI.rollDiceAction(player2)) {
+                        cDice.roll();
+                        GameGUI.showDice(cDice.getDice1(), cDice.getDice2());
+                        if (cDice.getEquals()) {
+                            //Game end
+                            gameEnd = true;
+                            GameGUI.gameEnd(player2);
+                        }
+                    }
+                } else {
+                    if (GameGUI.rollDiceAction(player2)) {
+                        cDice.roll();
+                        GameGUI.showDice(cDice.getDice1(), cDice.getDice2());
+                        if (cDice.getEquals()) {
+                            if (cDice.getDice1() == 1) {
+                                GameGUI.moveToStart(player2);
+                            } else if (cDice.getDice1() == 6) {
+                                if (twoSixesP2) {
+                                    //Player 2 rolled two sixes two times in a row
+                                    GameGUI.gameEnd(player2);
+                                    gameEnd = true;
+                                } else {
+                                    twoSixesP2 = true;
+                                }
+                            } else {
+                                GameGUI.movePlayer(player2, cDice.getSum());
+                            }
+                        } else {
+                            GameGUI.movePlayer(player2, cDice.getSum());
+                        }
+                    }
+                }
             }
-
-            moveToStart(player);
-            moveToStart(computer);
-        }
-    }
-
-    private void diceInfo(Player player, Dice dice) {
-        System.out.println(player.getName() + " " + dice.getDice1() + "+" + dice.getDice2() + "=" + dice.getSum() + " Position = " + player.getCurrentPosition() + " Score: " + player.getScore());
-    }
-
-    private void movePlayer(Player player, Dice dice) {
-        int prePos = player.getCurrentPosition();
-        player.setBalance(prePos);
-        gameGUI.showMessage("Roll The Dice: " + player.getName() + "'s Turn");
-        player.move(dice.roll());
-        player.setScore(player.getScore() + dice.getSum());
-
-        int pos = player.getCurrentPosition();
-        if (fields[prePos].hasCar(player)) {
-            gameGUI.setDice(dice.getDice1(), dice.getDice2());
-            fields[prePos].removeAllCars();
-            fields[pos].setCar(player, true);
-            player.setBalance(pos);
-        }
-    }
-
-    private void moveToStart(Player player) {
-        int prePos = player.getCurrentPosition();
-        if (fields[prePos].hasCar(player)) {
-            fields[prePos].removeAllCars();
-            fields[0].setCar(player, true);
-            player.setBalance(0);
-            player.setCurrentPosition(0);
-            player.setScore(0);
+            while (cDice.getEquals());
         }
     }
 }
