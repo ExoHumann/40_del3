@@ -61,24 +61,20 @@ public class Game {
         for (int i = 0; i < gamesAmount; i++) {
 
 
-            while (computer.getScore() < 40 && player.getScore() < 40) {
+            while (player.getScore() < 40 && computer.getScore() < 40) {
 
                 movePlayer(player, pDice);
                 diceInfo(player, pDice);
 
-                moveToStart(player, pDice);
-                diceInfo(player, pDice);
-
-/*
                 if (pDice.getEns()) {
                     if (pDice.getDice1() == 1) {
-                        moveToStart(player, pDice);
+                        moveToStart(player);
                     }
                     System.out.println("Extra Turn");
+                    movePlayer(player, pDice);
                     diceInfo(player, pDice);
-
                 }
-*/
+
             }
 
             if (player.getScore() > computer.getScore()) {
@@ -90,8 +86,8 @@ public class Game {
                 computer.setTie();
             }
 
-            player.setScore(0);
-            computer.setScore(0);
+            moveToStart(player);
+            moveToStart(computer);
         }
     }
 
@@ -112,23 +108,17 @@ public class Game {
             fields[prePos].removeAllCars();
             fields[pos].setCar(player, true);
             player.setBalance(pos);
-
         }
-
     }
 
-    private void moveToStart(Player player, Dice dice) {
+    private void moveToStart(Player player) {
         int prePos = player.getCurrentPosition();
-        if (dice.getEns()) {
-            if (dice.getDice1() == 1) {
-                if (fields[prePos].hasCar(player)) {
-                    fields[prePos].removeAllCars();
-                    fields[0].setCar(player, true);
-                    player.setBalance(0);
-                    player.setCurrentPosition(0);
-                    player.setScore(0);
-                }
-            }
+        if (fields[prePos].hasCar(player)) {
+            fields[prePos].removeAllCars();
+            fields[0].setCar(player, true);
+            player.setBalance(0);
+            player.setCurrentPosition(0);
+            player.setScore(0);
         }
     }
 }

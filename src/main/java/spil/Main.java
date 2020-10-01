@@ -15,7 +15,7 @@ public class Main {
         //Create a board and fill it with fields
         GUI_Field[] fields = new GUI_Field[40];
         for(int i =0;i<40;i++){
-            fields[i]=new GUI_Street(String.valueOf(i),"","","",Color.green,Color.blue);
+            fields[i]=new GUI_Street(String.valueOf(i),"","","",Color.yellow,Color.red);
         } GUI gameGUI = new GUI(fields,Color.green);
 
         GUI_Car car1 = new GUI_Car(Color.red,Color.red, GUI_Car.Type.CAR, GUI_Car.Pattern.FILL);
@@ -32,14 +32,11 @@ public class Main {
         fields[0].setCar(player, true);
         fields[0].setCar(computer, true);
 
-        System.out.println(player.getCurrentPosition());
-        player.move(40); //position%40
-        System.out.println(player.getCurrentPosition());
-
         // Create two dice
         Dice cDice = new Dice(0,0);
         Dice pDice = new Dice(0,0);
-        // Create new game from game class
+
+        // Create new game from game constructor in game class
         new Game(gameGUI, player, computer, 10, cDice, pDice);
     }
 
