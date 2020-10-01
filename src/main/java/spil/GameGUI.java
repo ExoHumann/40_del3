@@ -13,7 +13,6 @@ public class GameGUI {
     static public boolean hasReachedGoalP1 =false;
     static public boolean hasReachedGoalP2 =false;
 
-
     /**
      * Creates and returns GUI object with 2 players
      */

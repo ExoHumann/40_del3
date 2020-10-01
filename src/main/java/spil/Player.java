@@ -29,11 +29,9 @@ public class Player extends GUI_Player {
     public int getCurrentPosition() {
         return currentPosition;
     }
-
     public  void setCurrentPosition(int position){
         this.currentPosition = position;
     }
-
     public void move(int position){
         this.currentPosition = (currentPosition + position) % 40;
     }

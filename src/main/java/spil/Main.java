@@ -9,17 +9,6 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
 
-        //Scanner in = new Scanner(System.in);
-
-        /*
-        System.out.println("Set your name");
-        String pName = in.nextLine();
-        System.out.println("Set computers name");
-        String cName = in.nextLine();
-        Player player = new Player(pName, 0);
-        Player computer = new Player(cName, 0);
-        */
-
         GameGUI gameGui = new GameGUI();
 
         GUI_Car car1 = new GUI_Car(Color.red,Color.red, GUI_Car.Type.CAR, GUI_Car.Pattern.FILL);

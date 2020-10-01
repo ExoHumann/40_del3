@@ -1,6 +1,7 @@
 package spil;
 
 public class Game {
+
     private final Player player1;
     private final Player player2;
     private final Dice cDice;
