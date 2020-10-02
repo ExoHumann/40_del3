@@ -1,69 +1,101 @@
 package spil;
 
 public class Game {
-    private final Player player;
-    private final Player computer;
-    private final int gamesAmount;
+
+    private final Player player1;
+    private final Player player2;
     private final Dice cDice;
     private final Dice pDice;
+    private boolean twoSixesP1 = false;
+    private boolean twoSixesP2 = false;
+    private boolean gameEnd = false;
 
 
-    public Game(Player player, Player computer, int games, Dice cDice, Dice pDice){
-        this.player = player;
-        this.computer = computer;
+    public Game(GameGUI gui, Dice cDice, Dice pDice,Player player1,Player player2){
+        this.player1 = player1;
+        this.player2 = player2;
         this.cDice = cDice;
         this.pDice = pDice;
-        gamesAmount = games;
-
-
         play();
-        displayWins(this.computer.getWin(), this.player.getWin());
-        }
-
-    public void displayWins(int computerWins, int playerWins) {
-        System.out.println(player.getName() + " Has Won " + computerWins + " Games");
-        System.out.println(computer.getName() + " Has Won " + playerWins + " Games");
-        System.out.println("Tied games are " + player.getTie());
     }
 
 
     private void play() {
-
-        for (int i = 0; i < gamesAmount; i++) {
-
-            while (computer.getScore() < 40 && player.getScore() < 40) {
-                player.setScore(player.getScore() + pDice.roll());
-                computer.setScore(computer.getScore() + cDice.roll());
-                System.out.println(player.getName() + " " + pDice.getDice1() + "+" + pDice.getDice2() + "=" + pDice.getSum() + " Score= " + player.getScore());
-                System.out.println(computer.getName() + " " + cDice.getDice1() + "+" + cDice.getDice2() + "=" + cDice.getSum() + " Score= " + computer.getScore());
-
-            }
-
-            if (pDice.getEns()) {
-                if(pDice.getDice1() == 1){
-                    player.setScore(0);
+        
+        while(!gameEnd) {
+            do {
+                if (GameGUI.hasReachedGoalP1) {
+                    if (GameGUI.rollDiceAction(player1)) {
+                        pDice.roll();
+                        GameGUI.showDice(pDice.getDice1(), pDice.getDice2());
+                        if (pDice.getEquals()) {
+                            //Game end
+                            gameEnd = true;
+                            GameGUI.gameEnd(player1);
+                        }
+                    }
+                } else {
+                    if (GameGUI.rollDiceAction(player1)) {
+                        pDice.roll();
+                        GameGUI.showDice(pDice.getDice1(), pDice.getDice2());
+                        if (pDice.getEquals()) {
+                            if (pDice.getDice1() == 1) {
+                                GameGUI.moveToStart(player1);
+                            } else if (pDice.getDice1() == 6) {
+                                if (twoSixesP1) {
+                                    //Player 1 rolled two sixes two times in a row
+                                    GameGUI.gameEnd(player1);
+                                    gameEnd = true;
+                                } else {
+                                    twoSixesP1 = true;
+                                }
+                            } else {
+                                GameGUI.movePlayer(player1, pDice.getSum());
+                            }
+                        } else {
+                            GameGUI.movePlayer(player1, pDice.getSum());
+                        }
+                    }
                 }
-                player.setScore(player.getScore() + pDice.roll());
-                System.out.println(player.getName() + " " + pDice.getSum() + " Score " + player.getScore());
-            } else if (cDice.getEns()) {
-                if(cDice.getDice1() == 1){
-                    computer.setScore(0);
-                }
-                computer.setScore(computer.getScore() + cDice.roll());
-                System.out.println(computer.getName() + " " + cDice.getSum()  + " Score " + computer.getScore());
             }
-        }
+            while (pDice.getEquals()) ;
 
-        if (player.getScore() > computer.getScore()) {
-            computer.setWin();
-        } else if (computer.getScore() > player.getScore()) {
-            player.setWin();
-        } else if (player.getScore() == computer.getScore()) {
-            player.setTie();
-            computer.setTie();
+            do {
+                if (GameGUI.hasReachedGoalP2) {
+                    if (GameGUI.rollDiceAction(player2)) {
+                        cDice.roll();
+                        GameGUI.showDice(cDice.getDice1(), cDice.getDice2());
+                        if (cDice.getEquals()) {
+                            //Game end
+                            gameEnd = true;
+                            GameGUI.gameEnd(player2);
+                        }
+                    }
+                } else {
+                    if (GameGUI.rollDiceAction(player2)) {
+                        cDice.roll();
+                        GameGUI.showDice(cDice.getDice1(), cDice.getDice2());
+                        if (cDice.getEquals()) {
+                            if (cDice.getDice1() == 1) {
+                                GameGUI.moveToStart(player2);
+                            } else if (cDice.getDice1() == 6) {
+                                if (twoSixesP2) {
+                                    //Player 2 rolled two sixes two times in a row
+                                    GameGUI.gameEnd(player2);
+                                    gameEnd = true;
+                                } else {
+                                    twoSixesP2 = true;
+                                }
+                            } else {
+                                GameGUI.movePlayer(player2, cDice.getSum());
+                            }
+                        } else {
+                            GameGUI.movePlayer(player2, cDice.getSum());
+                        }
+                    }
+                }
+            }
+            while (cDice.getEquals());
         }
-
-        player.setScore(0);
-            computer.setScore(0);
-        }
+    }
 }

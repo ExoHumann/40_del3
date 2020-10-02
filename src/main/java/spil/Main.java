@@ -1,26 +1,28 @@
 package spil;
 
+import gui_fields.GUI_Car;
 import gui_main.GUI;
 
+import java.awt.*;
 import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
 
-        GUI gui = new GUI();
-        Scanner in = new Scanner(System.in);
+        GameGUI gameGui = new GameGUI();
 
-        System.out.println("Set your name");
-        String pName = in.nextLine();
-        System.out.println("Set computers name");
-        String cName = in.nextLine();
+        GUI_Car car1 = new GUI_Car(Color.red,Color.red, GUI_Car.Type.CAR, GUI_Car.Pattern.FILL);
+        GUI_Car car2 = new GUI_Car(Color.blue,Color.blue, GUI_Car.Type.CAR, GUI_Car.Pattern.FILL);
 
-        Player player = new Player(pName, 0);
-        Player computer = new Player(cName, 0);
+        Player player1 = new Player(GameGUI.GetPlayerName(),0,car1);
+        Player player2 = new Player(GameGUI.GetPlayerName(),0,car2);
+        gameGui.AddPlayers(player1,player2);
+
 
         Dice cDice = new Dice(0,0);
         Dice pDice = new Dice(0,0);
 
-       new Game(player, computer, 1, cDice, pDice);
+        new Game(gameGui, cDice, pDice,player1,player2);
+
     }
 }
