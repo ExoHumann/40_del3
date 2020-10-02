@@ -1,5 +1,4 @@
 package test;
-import java.util.Random;
 import java.util.Scanner;
 import spil.Dice;
 
