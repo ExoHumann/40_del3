@@ -25,14 +25,14 @@ public class Game {
         System.out.println("Tied games are " + player1.getTie());
     }
     private void diceInfo(Player player, Dice dice) {
-        System.out.println(player.getName() + " " + dice.getDice1() + "+" + dice.getDice2() + "=" + dice.getSum() + " Position = " + player.getCurrentPosition() + " Score: " + player.getScore());
+        System.out.println(player.getName() + " " + dice.getDice1() + "+" + dice.getDice2() + "=" + dice.getSum() + " Position = " + player.getCurrentPosition() + " Balance: " + player.getBalance());
     }
 
     private void play() {
 
         for (int i = 0; i < gamesAmount; i++) {
 
-        while (player1.getScore() < 40 && player2.getScore() < 40) {
+        while (player1.getBalance() < 40 && player2.getBalance() < 40) {
 
             GameGUI.movesPlayer(player1, pDice);
             diceInfo(player1, pDice);
@@ -41,11 +41,11 @@ public class Game {
 
         }
 
-        if (player1.getScore() > player2.getScore()) {
+        if (player1.getBalance() > player2.getBalance()) {
             player1.setWin();
-        } else if (player2.getScore() > player1.getScore()) {
+        } else if (player2.getBalance() > player1.getBalance()) {
             player2.setWin();
-        } else if (player1.getScore() == player2.getScore()) {
+        } else if (player1.getBalance() == player2.getBalance()) {
             player1.setTie();
             player2.setTie();
         }

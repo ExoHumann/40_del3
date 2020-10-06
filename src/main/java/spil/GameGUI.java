@@ -18,7 +18,7 @@ public class GameGUI {
 
         //Populate the entire fields array with street tile
         for(int i =0;i<40;i++){
-            fields[i]=new GUI_Street(String.valueOf(i+1),"","","",Color.yellow,Color.black);
+            fields[i]=new GUI_Street(String.valueOf(i),"","","",Color.yellow,Color.black);
         }
         //Set the subText of the first field to "start"
         fields[0].setSubText("Start");
@@ -40,17 +40,15 @@ public class GameGUI {
     //Moves the player around the board
     public static void movesPlayer(Player player, Dice dice) {
         int prePos = player.getCurrentPosition();
-        player.setBalance(prePos);
         gui.showMessage("Roll The Dice: " + player.getName() + "'s Turn");
         player.move(dice.roll());
-        player.setScore(player.getScore() + dice.getSum());
+        player.setBalance(player.getBalance() + dice.getSum());
 
         int pos = player.getCurrentPosition();
         if (fields[prePos].hasCar(player)) {
             gui.setDice(dice.getDice1(), dice.getDice2());
             fields[prePos].setCar(player, false);
             fields[pos].setCar(player, true);
-            player.setBalance(pos);
         }
     }
 
