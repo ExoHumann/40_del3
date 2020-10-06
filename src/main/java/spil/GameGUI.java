@@ -29,7 +29,7 @@ public class GameGUI {
     }
 
     //Players are added to the game and they are placed on the board
-    public void AddPlayers(Player player1, Player player2){
+    public void addPlayers(Player player1, Player player2){
         GameGUI.player1 = player1;
         GameGUI.player2 = player2;
         gui.addPlayer(player1);
@@ -63,6 +63,6 @@ public class GameGUI {
         }
     }
 
-    public static String GetPlayerName(){ return gui.getUserString("Write player name: "); }
+    public static String getPlayerName(){ return gui.getUserString("Write player name: "); }
 
 }
