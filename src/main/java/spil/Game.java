@@ -49,7 +49,7 @@ public class Game {
             player1.setTie();
             player2.setTie();
         }
-
+        
         GameGUI.movesToStart(player1);
         GameGUI.movesToStart(player2);
         }

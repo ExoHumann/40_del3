@@ -17,9 +17,10 @@ public class GameGUI {
         GUI_Street street = new GUI_Street(); //Create new empty street tile
 
         //Populate the entire fields array with street tile
-        for(int i =0;i<40;i++){
+        for(int i =0;i<40  ;i++){
             fields[i]=new GUI_Street(String.valueOf(i),"","","",Color.yellow,Color.black);
         }
+
         //Set the subText of the first field to "start"
         fields[0].setSubText("Start");
 

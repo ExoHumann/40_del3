@@ -11,8 +11,8 @@ public class Player extends GUI_Player {
     private int tie = 0;
     private int currentPosition;
 
-    public Player(String playerName, int score, GUI_Car car) {
-        super(playerName, score, car);
+    public Player(String playerName, int balance, GUI_Car car) {
+        super(playerName, balance, car);
         this.name = playerName;
         this.currentPosition = 0;
     }
