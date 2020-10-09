@@ -1,5 +1,7 @@
 package spil;
 
+import java.util.Arrays;
+
 public class FieldList {
     Field[] fields = new Field[6];
 
@@ -12,15 +14,13 @@ public class FieldList {
         fields[5] = new Field(6,"first",200,"This is the first field");
     }
 
-    public int getSize(){ return fields.length; }
-
-    public Field[] getField(int id){
-        return new Field[] {fields[id - 1]};
-    }
-
     public void getAllFields() {
         for (int i = 0; i < getSize(); i++) {
             System.out.println(fields[i]);
         }
     }
+
+    public Field getField(int id) { return fields[id]; }
+    public int getSize(){ return fields.length; }
+    public Field[] getFields(){return fields; }
 }

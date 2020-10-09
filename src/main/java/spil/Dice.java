@@ -4,14 +4,14 @@ import java.util.Random;
 
 public class Dice {
 
-    private int dice1;
-    private int dice2;
+    private int die1;
+    private int die2;
 
 
     //Creates two random dice and gets the sum of them
-    public Dice(int dice1, int dice2) {
-        this.dice1 = dice1;
-        this.dice2 = dice2;
+    public Dice(int die1, int die2) {
+        this.die1 = die1;
+        this.die2 = die2;
         roll();
     }
 
@@ -19,17 +19,17 @@ public class Dice {
     //Method for getting the sum
     public int roll(){
         Random r = new Random();
-        dice1 = r.nextInt(6)+1;
-        dice2 = r.nextInt(6)+1;
+        die1 = r.nextInt(6)+1;
+        die2 = r.nextInt(6)+1;
         return getSum();
     }
 
     //Methods/requirements
-    boolean getEquals(){ return dice1 == dice2; }
-    public void setDice (int dice1, int dice2) { this.dice1 = dice1; this.dice2 = dice2;}
-    public int getDice1() { return dice1; }
-    public int getDice2() { return dice2; }
-    public int getSum() { return dice1 + dice2;}
+    boolean getEquals(){ return die1 == die2; }
+    public void setDice (int dice1, int dice2) { this.die1 = dice1; this.die2 = dice2;}
+    public int getDie1() { return die1; }
+    public int getDie2() { return die2; }
+    public int getSum() { return die1 + die2;}
     public String toString(){
         return Integer.toString(roll());
     }
