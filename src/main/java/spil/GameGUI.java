@@ -12,12 +12,12 @@ public class GameGUI {
     static Player player2;
 
     public GameGUI(){
-        fields = new GUI_Field[40];
+        fields = new GUI_Field[12];
 
         GUI_Street street = new GUI_Street(); //Create new empty street tile
 
         //Populate the entire fields array with street tile
-        for(int i =0;i<40  ;i++){
+        for(int i =0;i<12  ;i++){
             fields[i]=new GUI_Street(String.valueOf(i),"","","",Color.yellow,Color.black);
         }
 
