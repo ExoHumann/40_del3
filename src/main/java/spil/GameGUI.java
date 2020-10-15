@@ -1,69 +1,56 @@
+
 package spil;
 
 import gui_fields.*;
 import gui_main.GUI;
-import java.awt.*;
 
 public class GameGUI {
 
-    static GUI gui;
-    static GUI_Field[] fields;
-    static Player player1;
-    static Player player2;
+    private GUI gui;
+    private GUI_Field[] fields;
+    private GUI_Player[] gui_players;
+    private GUI_Car[] gui_cars;
 
-    public GameGUI(){
-        fields = new GUI_Field[12];
-
-        GUI_Street street = new GUI_Street(); //Create new empty street tile
-
-        //Populate the entire fields array with street tile
-        for(int i =0;i<12  ;i++){
-            fields[i]=new GUI_Street(String.valueOf(i),"","","",Color.yellow,Color.black);
-        }
-
-        //Set the subText of the first field to "start"
-        fields[0].setSubText("Start");
-
-        //Make the GUI with the created fields array and background color of green and return gui;
-        GameGUI.gui = new GUI(fields,Color.cyan);
-
+    public GameGUI(GUI gui){
+        this.gui = gui;
+        this.fields = gui.getFields();
     }
 
     //Players are added to the game and they are placed on the board
-    public void addPlayers(Player player1, Player player2){
-        GameGUI.player1 = player1;
-        GameGUI.player2 = player2;
-        gui.addPlayer(player1);
-        gui.addPlayer(player2);
-        fields[0].setCar(player1, true);
-        fields[0].setCar(player2, true);
+    public void addPlayers(Player[] player){
+
+        for (int i = 0; i < player.length; i++) {
+            gui_cars[i] = new GUI_Car(player[i].getColor(), player[i].getColor(), GUI_Car.Type.UFO, GUI_Car.Pattern.FILL);
+            gui_players[i] = new GUI_Player(player[i].getName(),0, gui_cars[i]);
+            gui.addPlayer(gui_players[i]);
+            fields[0].setCar(gui_players[i], true);
+        }
+
     }
-    //Moves the player around the board
-    public static void movesPlayer(Player player, Dice dice) {
+
+    //Updates the roll and position of the dice
+    public void movesPlayer(Player player, GUI_Player gui_player, Dice dice) {
         int prePos = player.getCurrentPosition();
         gui.showMessage("Roll The Dice: " + player.getName() + "'s Turn");
         player.move(dice.roll());
-        player.setBalance(player.getBalance() + dice.getSum());
-
         int pos = player.getCurrentPosition();
-        if (fields[prePos].hasCar(player)) {
-            gui.setDice(dice.getDice1(), dice.getDice2());
-            fields[prePos].setCar(player, false);
-            fields[pos].setCar(player, true);
+
+        if (fields[prePos].hasCar(gui_player)) {
+            gui.setDice(dice.getDie1(), dice.getDie2());
+            fields[prePos].setCar(gui_player, false);
+            fields[pos].setCar(gui_player, true);
         }
     }
 
-    public static void movesToStart(Player player) {
+    public void movesToStart(Player player, GUI_Player gui_player) {
         int prePos = player.getCurrentPosition();
-        if (fields[prePos].hasCar(player)) {
-            fields[prePos].setCar(player, false);
-            fields[0].setCar(player, true);
-            player.setBalance(0);
+        if (fields[prePos].hasCar(gui_player)) {
+            fields[prePos].setCar(gui_player, false);
+            fields[0].setCar(gui_player, true);
             player.setCurrentPosition(0);
-            player.setScore(0);
         }
     }
 
-    public static String getPlayerName(){ return gui.getUserString("Write player name: "); }
+    public String setPlayerName(){ return gui.getUserString("Write player name: "); }
 
 }

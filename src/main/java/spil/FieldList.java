@@ -1,7 +1,5 @@
 package spil;
 
-import java.util.Arrays;
-
 public class FieldList {
     Field[] fields = new Field[6];
 

@@ -34,4 +34,3 @@ public class Dice {
         return Integer.toString(roll());
     }
 }
-
