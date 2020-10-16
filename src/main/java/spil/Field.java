@@ -24,7 +24,7 @@ public class Field {
     public void setDescription(String description) { this.description = description; }
 
     public String toString(){
-        return ("ID: " + getId() + "\n" + "Title:" + getTitle() + "\n" +  "Price:" + getPrice() + "\n" + "Description" + getDescription() + "\n");
+        return ("ID: " + getId() + "\n" + "Title:" + getTitle() + "\n" +  "Price:" + getPrice() + "\n" + "Description " + getDescription() + "\n");
     }
 }
 
