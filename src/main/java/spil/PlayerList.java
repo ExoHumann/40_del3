@@ -8,6 +8,7 @@ public class PlayerList {
     private int PNum;
     
     private Color[] colors = {Color.CYAN, Color.PINK, Color.WHITE, Color.BLUE};
+
     public PlayerList(int PNum){
         this.PNum = PNum;
         players = new Player[PNum];
