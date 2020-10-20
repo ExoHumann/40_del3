@@ -11,20 +11,21 @@ public class Main {
         Board board = new Board();
         FieldList fl = new FieldList();
 
+        Logic logic = new Logic();
+
         GUI gui = new GUI(board.createBoard(fl.getFields()));
         GameGUI gameGui = new GameGUI(gui);
 
-
-        PlayerList pl = new PlayerList(1);
+        PlayerList pl = new PlayerList(2);
         gameGui.addPlayers(pl.getPlayersList());
 
-        GUI_Car car1 = new GUI_Car(Color.red,Color.red, GUI_Car.Type.CAR, GUI_Car.Pattern.FILL);
-        GUI_Car car2 = new GUI_Car(Color.blue,Color.blue, GUI_Car.Type.CAR, GUI_Car.Pattern.FILL);
+        Dice dice = new Dice(0,0);
 
-        Dice cDice = new Dice(0,0);
-        Dice pDice = new Dice(0,0);
+        pl.getPlayerList(1).move(5);
+        logic.movePlayer(pl.getPlayerList(1), cDice);
 
-       // new Game(player1,player2,2,cDice, pDice);
+
+
 
     }
 }

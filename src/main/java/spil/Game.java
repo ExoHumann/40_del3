@@ -5,10 +5,14 @@ public class Game {
 
     FieldList fl = new FieldList();
     private Player[] players;
+    private int games;
+    private Dice dice;
 
 
-    public Game(Player[] players, int games, Dice cDice, Dice pDice){
+    public Game(Player[] players, int games, Dice dice){
         this.players = players;
+        this.games = games;
+        this.dice = dice;
 
 
         play();
@@ -29,4 +33,5 @@ public class Game {
     public void setPlayers(Player[] players) {
         this.players = players;
     }
+
 }

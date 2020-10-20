@@ -12,12 +12,13 @@ public class Board {
         GUI_Street[] gui_fields = new GUI_Street[fields.length];
 
         for (int i = 0; i < fields.length; i++) {
+
             gui_fields[i] = new GUI_Street(fields[i].getTitle(),
-                    fields[i].getDescription(),
-                    fields[i].getDescription(),
                     String.valueOf(fields[i].getPrice()),
+                    fields[i].getTitle(),
+                    "",
                     fields[i].getColor(),
-                    fields[i].getColor());
+                    Color.black);
         }
         return gui_fields;
     }
