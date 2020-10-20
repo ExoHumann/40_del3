@@ -15,7 +15,6 @@ public class Main {
         GameGUI gameGui = new GameGUI(gui);
 
 
-
         PlayerList pl = new PlayerList(1);
         gameGui.addPlayers(pl.getPlayersList());
 
