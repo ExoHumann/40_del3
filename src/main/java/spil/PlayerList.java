@@ -8,10 +8,10 @@ public class PlayerList {
     private int PNum;
     
     private Color[] colors = {Color.CYAN, Color.PINK, Color.WHITE, Color.BLUE};
-    public PlayerList(int id){
-        this.PNum = id;
-        players = new Player[id];
-        for (int i = 0; i < id; i++) {
+    public PlayerList(int PNum){
+        this.PNum = PNum;
+        players = new Player[PNum];
+        for (int i = 0; i < PNum; i++) {
             players[i] = new Player(null,colors[i]);
         }
     }
