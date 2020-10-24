@@ -5,15 +5,19 @@ import java.awt.*;
 public class PlayerList {
 
     Player[] players;
+    Account[] accounts;
     private int PNum;
-    
+
+    private String[] names = {"Peter", "Marcus", "Oliver", "Phill"};
     private Color[] colors = {Color.CYAN, Color.PINK, Color.WHITE, Color.BLUE};
 
     public PlayerList(int PNum){
         this.PNum = PNum;
         players = new Player[PNum];
+        accounts = new Account[PNum];
         for (int i = 0; i < PNum; i++) {
             players[i] = new Player(null,colors[i]);
+            accounts[i] = new Account(0);
         }
     }
 

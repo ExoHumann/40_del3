@@ -1,13 +1,13 @@
 package spil;
 
-import gui_fields.GUI_Car;
+import gui_fields.GUI_Field;
+import gui_fields.GUI_Player;
 import gui_main.GUI;
-
-import java.awt.*;
 
 import static gui_tests.TestRunExampleGame.sleep;
 
 public class Main {
+
     public static void main(String[] args) {
 
         Board board = new Board();
@@ -18,10 +18,27 @@ public class Main {
         GUI gui = new GUI(board.createBoard(fl.getFields()));
         GameGUI gameGui = new GameGUI(gui);
 
-        PlayerList pl = new PlayerList(gameGui.PNum());
+        int amountOfPlayers = gameGui.setPNum();
+
+        PlayerList pl = new PlayerList(amountOfPlayers);
         gameGui.addPlayers(pl.getPlayersList());
 
         Dice dice = new Dice(0,0);
+
+
+        int turn = 0;
+        for (int i = 0; i < amountOfPlayers; i++) {
+
+        gameGui.rollDiceAction(pl.players, i);
+        logic.movePlayer(pl, fl, gameGui.gui_players, dice, i);
+        gameGui.showDice(dice.getDie1(), dice.getDie2());
+
+        }
+
+
+
+
+
 /*
         public void movePlayer() {
             int prePos = pl.getPlayerList(1).getCurrentPosition();

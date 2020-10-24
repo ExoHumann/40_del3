@@ -8,13 +8,15 @@ public class GameGUI {
 
     private GUI gui;
     private GUI_Field[] fields;
-    private GUI_Player[] gui_players;
+    public GUI_Player[] gui_players;
     private GUI_Car[] gui_cars;
 
     public GameGUI(GUI gui){
         this.gui = gui;
         this.fields = gui.getFields();
     }
+
+    public GUI_Player[] getGui_players() { return gui_players; }
 
     //Players are added to the game and they are placed on the board
     public void addPlayers(Player[] player){
@@ -31,12 +33,11 @@ public class GameGUI {
 
     public String setPlayerName(){ return gui.getUserString("Write player name: "); }
 
-    public int PNum(){ return gui.getUserInteger("Chose 2-4 players", 2, 4);}
-
+    public int setPNum(){ return gui.getUserInteger("Chose 2-4 players", 2, 4);}
 
     public void showDice(int dice1, int dice2){ gui.setDice(dice1,dice2); }
 
-    public void rollDiceAction(Player[] player){ gui.showMessage( "do you want to roll dice?"); }
+    public void rollDiceAction(Player[] players, int i){ gui.showMessage( gui_players[i].getName() + " Do you want to roll dice?"); }
 
 
 }
