@@ -14,18 +14,18 @@ public class Logic {
     public Logic(){
 
     }
-
+/*
     //Updates the roll and position of the dice
     public void movePlayer(Player[] players, Dice dice) {
         this.players = players;
         this.dice = dice;
         int prePos = players[PNum].getCurrentPosition();
-        gui.showMessage("Roll The Dice: " + players[PNum].getName() + "'s Turn");
+        //gui.showMessage("Roll The Dice: " + players[PNum].getName() + "'s Turn");
         players[PNum].move(dice.roll());
         int pos = players[PNum].getCurrentPosition();
 
         if (fields[prePos].hasCar(gui_player)) {
-            gui.setDice(dice.getDie1(), dice.getDie2());
+            //gui.setDice(dice.getDie1(), dice.getDie2());
             fields[prePos].setCar(gui_player, false);
             fields[pos].setCar(gui_player, true);
         }
@@ -39,5 +39,5 @@ public class Logic {
             player.setCurrentPosition(0);
         }
     }
-
+*/
 }

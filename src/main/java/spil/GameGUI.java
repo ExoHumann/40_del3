@@ -29,8 +29,14 @@ public class GameGUI {
         }
     }
 
-
     public String setPlayerName(){ return gui.getUserString("Write player name: "); }
+
+    public int PNum(){ return gui.getUserInteger("Chose 2-4 players", 2, 4);}
+
+
+    public void showDice(int dice1, int dice2){ gui.setDice(dice1,dice2); }
+
+    public void rollDiceAction(Player[] player){ gui.showMessage( "do you want to roll dice?"); }
 
 
 }

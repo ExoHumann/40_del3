@@ -21,10 +21,10 @@ public class PlayerList {
 
 
     public Color[] getColors() { return colors; }
-    public Color getColor(int id) { return colors[getPNum()];}
+    public Color getColor(int id) { return colors[PNum];}
 
     public Player[] getPlayersList() { return players; }
-    public Player getPlayerList(int id) { return players[getPNum()]; }
+    public Player getPlayerList(int id) { return players[PNum]; }
 
     private int getSize() { return players.length; }
 
