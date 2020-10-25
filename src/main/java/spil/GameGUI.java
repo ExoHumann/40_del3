@@ -24,7 +24,7 @@ public class GameGUI {
         gui_players = new GUI_Player[player.length];
 
         for (int i = 0; i < player.length; i++) {
-            gui_cars[i] = new GUI_Car(player[i].getColor(), player[i].getColor(), GUI_Car.Type.UFO, GUI_Car.Pattern.FILL);
+            gui_cars[i] = new GUI_Car(player[i].getColor(), player[i].getColor(), GUI_Car.Type.TRACTOR, GUI_Car.Pattern.FILL);
             gui_players[i] = new GUI_Player(player[i].getName(),0, gui_cars[i]);
             gui.addPlayer(gui_players[i]);
             fields[0].setCar(gui_players[i], true);
@@ -56,5 +56,11 @@ public class GameGUI {
     public void showDice(int dice1, int dice2){ gui.setDice(dice1,dice2); }
 
     public void rollDiceAction(Player[] player, int PNum){ gui.showMessage(player[PNum].getName() + " do you want to roll dice?"); }
+
+    public void showBalance(PlayerList pl, int PNum){
+        int balance = pl.getAccount(PNum).getBalance();
+        gui_players[PNum].setBalance(balance);
+    }
+
 
 }

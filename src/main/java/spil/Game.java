@@ -44,9 +44,9 @@ public class Game {
 
             gameGui.moveGuiPlayers(prePos, pos, playerTurn);
             gameGui.showDice(dice.getDie1(), dice.getDie2());
+            gameGui.showBalance(pl,playerTurn);
 
             playerTurn = (playerTurn + 1)%playerAmount;
-
         }
     }
 }

@@ -29,11 +29,13 @@ package spil;
         public void setBalance(int balance) {
             this.balance = balance;
         }
-        public void addBalance(int amount){
-            balance = balance + amount;
-            if (balance<0) {
-                balance = 0;
 
+        public void addBalance(int amount){
+            setBalance(getBalance() + amount);
+            /*
+            if (getBalance()<0) {
+                setBalance(0);
             }
+             */
         }
     }

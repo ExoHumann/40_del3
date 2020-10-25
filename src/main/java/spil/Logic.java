@@ -28,12 +28,11 @@ public class Logic {
         Account account = pl.getAccount(playerTurn);
 
         prePos = player.getCurrentPosition();
-        System.out.println("Previous position = " + prePos);
         player.move(dice.roll());
         pos = player.getCurrentPosition();
-        System.out.println("You landed on field: " + pos + " \n The price of this field is " + fl.getField(pos).getPrice());
 
         switch (pos) {
+            case 0:
             case 1:
             case 2:
             case 3:
@@ -46,13 +45,28 @@ public class Logic {
             case 10:
             case 11:
             case 12:
-                account.setBalance(fl.getField(pos).getPrice());
+                account.addBalance(fl.getField(pos).getPrice());
                 break;
             default:
                 break;
         }
         System.out.println("your position is " + pos + " your balance is now " + pl.getAccount(playerTurn).getBalance());
     }
+
+/*
+    public void findWinner(PlayerList pl){
+        Player[] player = pl.getPlayersList();
+        Account[] account = pl.getAccounts();
+
+        for (int i = 0; i < p.length; i++) {
+
+            if (account[i].getBalance() >= 2000){
+
+            }
+        }
+
+    }
+*/
 
     public int getPrePos() { return prePos; }
     public int getPos() { return pos; }
