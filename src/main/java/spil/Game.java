@@ -1,37 +1,52 @@
 
 package spil;
 
+import gui_main.GUI;
+
+import java.awt.*;
+
 public class Game {
 
-    FieldList fl = new FieldList();
-    private Player[] players;
-    private int games;
-    private Dice dice;
+    public void play() {
+
+        Board board = new Board();
+        FieldList fl = new FieldList();
+
+        Logic logic = new Logic(0,0);
+
+        GUI gui = new GUI(board.createBoard(fl.getFields()), Color.WHITE);
+        GameGUI gameGui = new GameGUI(gui);
+
+        int playerAmount = gameGui.setPlayerAmount();
+        PlayerList pl = new PlayerList(playerAmount);
+
+        Dice dice = new Dice(0,0);
+
+        for (int i = 0; i < playerAmount; i++) {
+            String name = gameGui.setPlayerName();
+            pl.getPlayerList(i).setName(name);
+            pl.getAccount(i).setBalance(0);
+        }
+
+        gameGui.addPlayers(pl.getPlayersList());
+
+        int playerTurn = 0;
 
 
-    public Game(Player[] players, int games, Dice dice){
-        this.players = players;
-        this.games = games;
-        this.dice = dice;
+        while(true) for (int i = 0; i < playerAmount; i++) {
 
+            gameGui.rollDiceAction(pl.players, playerTurn);
 
-        play();
+            logic.movePlayer(pl, fl, dice, playerTurn);
+            logic.diceInfo(pl, dice, playerTurn);
+            int pos = logic.getPos();
+            int prePos = logic.getPrePos();
+
+            gameGui.moveGuiPlayers(prePos, pos, playerTurn);
+            gameGui.showDice(dice.getDie1(), dice.getDie2());
+
+            playerTurn = (playerTurn + 1)%playerAmount;
+
+        }
     }
-
-    private void play() {
-
-    }
-
-    private void diceInfo(Player player, Dice dice) {
-        System.out.println(player.getName() + " " + dice.getDie1() + "+" + dice.getDie2() + "=" + dice.getSum() + " Position = " + player.getCurrentPosition() + " Balance: " );
-    }
-
-    public Player[] getPlayers() {
-        return players;
-    }
-
-    public void setPlayers(Player[] players) {
-        this.players = players;
-    }
-
 }

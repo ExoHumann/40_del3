@@ -7,6 +7,7 @@ public class Player {
     private String name;
     private Color color;
     private int currentPosition;
+    private int turn;
 
     public Player(String name, Color color){
         this.name = name;
@@ -24,9 +25,12 @@ public class Player {
     }
 
     public void move(int position){
-        this.currentPosition = (currentPosition + position) % 40;
+        this.currentPosition = (currentPosition + position) % 12;
     }
 
+
+    public void incrementTurn(){ turn++; }
+    public int getTurn(){ return turn;}
     public Color getColor() { return color; }
     public void setColor(Color color) { this.color = color; }
     public String getName() { return name; }

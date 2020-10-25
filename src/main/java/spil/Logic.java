@@ -6,51 +6,58 @@ import gui_main.GUI;
 
 public class Logic {
 
+    private int prePos;
+    private int pos;
 
-    private GUI_Field[] fields;
-    private Dice dice;
-    public GUI_Player[] gui_players;
-    private Player[] players;
-    public Logic(){
-
+    public Logic(int prePos, int pos){
+        this.prePos = prePos;
+        this.pos = pos;
     }
 
-    private void diceInfo(PlayerList pl, Dice dice) {
-      //  System.out.println(pl.getPlayerList(PNum).getName() + " " + dice.getDie1() + "+" + dice.getDie2() + "=" + dice.getSum() + " Position = " + pl.getPlayerList(PNum).getName() + " Balance: " );
-    }
+    public void diceInfo(PlayerList pl, Dice dice, int PNum) {
+        System.out.println("Name: " + pl.getPlayerList(PNum).getName() +
+                " Dice Results " + dice.getDie1() + "+" + dice.getDie2() + "=" + dice.getSum() +
+                " Position = " + pl.getPlayerList(PNum).getCurrentPosition() +
+                " Balance: = " + pl.getAccount(PNum).getBalance() );
 
+    }
 
     //Updates the roll and position of the dice
-    public void movePlayer(PlayerList pl, FieldList fl, GUI_Player[] gui_players, Dice dice, int PNum) {
-        this.players = pl.getPlayersList();
-        this.dice = dice;
+    public void movePlayer(PlayerList pl, FieldList fl, Dice dice, int playerTurn) {
+        Player player = pl.getPlayerList(playerTurn);
+        Account account = pl.getAccount(playerTurn);
 
-        System.out.println("Your turn to roll the dice " + gui_players[PNum].getName());
-        int prePos = players[PNum].getCurrentPosition();
-        System.out.println("Previous position = " +prePos);
-        players[PNum].move(dice.roll());
-        System.out.println("Dice Result " + dice.getDie1() + " + " + dice.getDie2() + " = " + dice.getSum());
-        int pos = players[PNum].getCurrentPosition();
+        prePos = player.getCurrentPosition();
+        System.out.println("Previous position = " + prePos);
+        player.move(dice.roll());
+        pos = player.getCurrentPosition();
         System.out.println("You landed on field: " + pos + " \n The price of this field is " + fl.getField(pos).getPrice());
 
-/*        if (fields[prePos].hasCar(gui_players[PNum])) {
-            fields[prePos].setCar(gui_players[PNum], false);
-            fields[pos].setCar(gui_players[PNum], true);
+        switch (pos) {
+            case 1:
+            case 2:
+            case 3:
+            case 4:
+            case 5:
+            case 6:
+            case 7:
+            case 8:
+            case 9:
+            case 10:
+            case 11:
+            case 12:
+                account.setBalance(fl.getField(pos).getPrice());
+                break;
+            default:
+                break;
         }
-
- */
-
+        System.out.println("your position is " + pos + " your balance is now " + pl.getAccount(playerTurn).getBalance());
     }
 
-/*
-    public void moveToStart(PlayerList pl, int PNum) {
-        int prePos = players[PNum].getCurrentPosition();
-        if (fields[prePos].hasCar(gui_players[PNum])) {
-            fields[prePos].setCar(gui_players[PNum], false);
-            fields[0].setCar(gui_players[PNum], true);
-            players[PNum].setCurrentPosition(0);
-        }
-    }
-
- */
+    public int getPrePos() { return prePos; }
+    public int getPos() { return pos; }
+    public void setPos(int pos) { this.pos = pos; }
 }
+
+
+

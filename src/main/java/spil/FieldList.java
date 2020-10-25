@@ -24,7 +24,7 @@ public class FieldList {
         }
     }
 
-    public Field getField(int id) { return fields[id]; }
+    public Field getField(int fieldNum) { return fields[fieldNum]; }
     public int getSize(){ return fields.length; }
     public Field[] getFields(){return fields; }
 }

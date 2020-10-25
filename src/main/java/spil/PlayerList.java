@@ -23,12 +23,14 @@ public class PlayerList {
 
     public int getPNum() { return PNum; }
 
-
     public Color[] getColors() { return colors; }
-    public Color getColor(int id) { return colors[PNum];}
+    public Color getColor(int id) { return colors[id];}
 
     public Player[] getPlayersList() { return players; }
-    public Player getPlayerList(int id) { return players[PNum]; }
+    public Player getPlayerList(int id) { return players[id]; }
+
+    public Account[] getAccounts(){ return accounts; }
+    public Account getAccount(int id){ return accounts[id];}
 
     private int getSize() { return players.length; }
 
