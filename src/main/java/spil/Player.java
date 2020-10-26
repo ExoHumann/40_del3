@@ -24,8 +24,9 @@ public class Player {
         this.currentPosition = position;
     }
 
-    public void move(int position){
-        this.currentPosition = (currentPosition + position) % 12;
+    public void move(int position, FieldList fl){
+        int fieldLength = fl.getSize();
+        this.currentPosition = (currentPosition + position) % fieldLength;
     }
 
 

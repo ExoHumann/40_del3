@@ -4,6 +4,8 @@ package spil;
 import gui_fields.*;
 import gui_main.GUI;
 
+import static java.lang.Thread.sleep;
+
 public class GameGUI {
 
     private GUI gui;
@@ -36,6 +38,20 @@ public class GameGUI {
         if (fields[prePos].hasCar(gui_players[PNum])) {
             fields[prePos].setCar(gui_players[PNum], false);
             fields[pos].setCar(gui_players[PNum], true);
+        }
+    }
+
+    public void fancyMoveGuiPlayer(int prePos, int PNum, Dice dice) throws InterruptedException {
+        int dif = dice.getSum();
+        int fieldLength = fields.length;
+        for (int i = 0; i < dif ; i++) {
+            int pos = (prePos + 1) % fieldLength;
+        if (fields[prePos].hasCar(gui_players[PNum])) {
+            fields[prePos].setCar(gui_players[PNum], false);
+            fields[pos].setCar(gui_players[PNum], true);
+            sleep(200);
+            prePos = (prePos + 1)%12;
+            }
         }
     }
 

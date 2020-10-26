@@ -1,9 +1,5 @@
 package spil;
 
-import gui_fields.GUI_Field;
-import gui_fields.GUI_Player;
-import gui_main.GUI;
-
 public class Logic {
 
     private int prePos;
@@ -21,8 +17,11 @@ public class Logic {
                 " Balance: = " + pl.getAccount(PNum).getBalance() );
     }
 
-    public void displayTurn(PlayerList pl, int PNum){
+    public void displayTakingTurn(PlayerList pl, int PNum){
         System.out.println("The player " + pl.getPlayerList(PNum).getName() + " is now taking his turn turn");
+    }
+
+    public void displayTurn(PlayerList pl, int PNum){
         System.out.println(pl.getPlayerList(PNum).getName() + " has taken: " + pl.getPlayerList(PNum).getTurn() + " Turn(s)");
     }
 
@@ -32,7 +31,7 @@ public class Logic {
         Account account = pl.getAccount(playerTurn);
 
         prePos = player.getCurrentPosition();
-        player.move(dice.roll());
+        player.move(dice.roll(), fl);
         pos = player.getCurrentPosition();
 
         switch (pos) {
@@ -67,20 +66,14 @@ public class Logic {
         System.out.println(pl.getPlayerList(playerTurn).getName() + " landed on the field nr " + pos + " " + fl.getField(pos).getTitle() + " and you will receive/pay the price of this field " + fl.getField(pos).getPrice());
     }
 
-/*
-    public void findWinner(PlayerList pl){
-        Player[] player = pl.getPlayersList();
-        Account[] account = pl.getAccounts();
 
-        for (int i = 0; i < p.length; i++) {
-
-            if (account[i].getBalance() >= 2000){
-
-            }
-        }
-
+    public boolean winCondition(PlayerList pl, int PNum) {
+        boolean winCondition;
+        winCondition = pl.getAccount(PNum).getBalance() <= 3000;
+        return winCondition;
     }
-*/
+
+
 
     public int getPrePos() { return prePos; }
     public int getPos() { return pos; }
