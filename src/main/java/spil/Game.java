@@ -35,6 +35,9 @@ public class Game {
         int playerTurn = 0;
 
 
+        Die die = new Die(50,0);
+        System.out.println("12 sidet terning kast " + die.roll());
+
         while(logic.winCondition(pl, playerTurn)) for (int i = 0; i < playerAmount; i++) {
 
             logic.displayTakingTurn(pl, playerTurn);

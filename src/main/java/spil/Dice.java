@@ -21,7 +21,7 @@ public class Dice {
 
 
     /**
-     * Chooses a random values between 1-6
+     * Chooses two random values between 1-6
      * @return Returns the sum of bot values
      */
     public int roll(){

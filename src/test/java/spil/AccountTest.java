@@ -32,11 +32,4 @@ class AccountTest {
         assertEquals(0,res);
     }
 
-    @Test
-    void addBalance(){
-        Account myAccount = new Account(1);
-        myAccount.addBalance(-2);
-        int res = myAccount.getBalance();
-        assertEquals(0,res);
-    }
 }

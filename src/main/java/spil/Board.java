@@ -7,7 +7,7 @@ import java.awt.*;
 
 public class Board {
     /**
-     * Creates a bord in the GUI class using GUI_Streets
+     * Creates a bord in the GUI class using GUI_Streets method
      * @param fields Fields from the field's list
      * @return Returns all the fields it has created
      */

@@ -33,12 +33,13 @@ public class Logic {
         pos = player.getCurrentPosition();
 
         switch (pos) {
-            case 0: case 1: case 3: case 5: case 6: case 8: case 11:
+            case 0: case 1: case 3: case 5: case 8: case 11:
                 account.deposit(fl.getField(pos).getPrice());
                 break;
             case 2: case 4: case 7: case 9: case 10:
                 account.withdraw(fl.getField(pos).getPrice());
                 break;
+            case 6:
             default:
                 break;
         }
@@ -56,6 +57,8 @@ public class Logic {
         winCondition = pl.getAccount(PNum).getBalance() <= 3000;
         return winCondition;
     }
+
+
 
     public void diceInfo(PlayerList pl, Dice dice, int PNum) {
         System.out.println("Name: " + pl.getPlayerList(PNum).getName() +

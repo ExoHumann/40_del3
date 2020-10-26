@@ -18,7 +18,6 @@ public class FieldList {
         fields[9] = new Field(10,"The werewall",80,"10",Color.red);
         fields[10] = new Field(11,"The pit",50,"11",Color.red);
         fields[11] = new Field(12,"Goldmine",650,"12",Color.green);
-
     }
     // Prints out all the fields to the console
     public void getAllFields() {
