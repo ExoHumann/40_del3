@@ -9,7 +9,7 @@ package spil;
         }
 
         public void addBalance(int amount){
-            setBalance(getBalance() + amount);
+            setBalance(getBalance()+amount);
             if (getBalance()<0) {
                 setBalance(0);
             }
@@ -32,7 +32,6 @@ package spil;
         public int getBalance() {
             return balance;
         }
-
         public void setBalance(int balance) {
             this.balance = balance;
         }

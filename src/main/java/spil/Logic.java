@@ -58,6 +58,7 @@ public class Logic {
             case 20:
             case 21:
             case 22:
+            case 23:
                 account.addBalance(fl.getField(pos).getPrice());
                 break;
             default:
@@ -72,6 +73,8 @@ public class Logic {
         winCondition = pl.getAccount(PNum).getBalance() <= 3000;
         return winCondition;
     }
+
+
 
 
 

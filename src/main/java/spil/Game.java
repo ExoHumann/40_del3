@@ -42,10 +42,10 @@ public class Game {
 
             logic.movePlayer(pl, fl, dice, playerTurn);
 
-            int pos = logic.getPos();
             int prePos = logic.getPrePos();
 
             logic.diceInfo(pl, dice, playerTurn);
+
 
             gameGui.fancyMoveGuiPlayer(prePos, playerTurn, dice);
             //gameGui.moveGuiPlayers(prePos, pos, playerTurn);
