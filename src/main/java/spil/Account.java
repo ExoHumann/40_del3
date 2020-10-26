@@ -32,8 +32,9 @@ package spil;
         public int getBalance() {
             return balance;
         }
+
         public void setBalance(int balance) {
-            this.balance = balance;
+            this.balance = Math.max(balance, 0);
         }
 
 
