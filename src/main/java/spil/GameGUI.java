@@ -28,6 +28,7 @@ public class GameGUI {
             gui_players[i] = new GUI_Player(player[i].getName(),0, gui_cars[i]);
             gui.addPlayer(gui_players[i]);
             fields[0].setCar(gui_players[i], true);
+            gui_players[i].setBalance(1000);
         }
     }
 

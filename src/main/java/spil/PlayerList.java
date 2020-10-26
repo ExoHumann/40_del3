@@ -17,7 +17,7 @@ public class PlayerList {
         accounts = new Account[PNum];
         for (int i = 0; i < PNum; i++) {
             players[i] = new Player(null,colors[i]);
-            accounts[i] = new Account(0);
+            accounts[i] = new Account(1000);
         }
     }
 

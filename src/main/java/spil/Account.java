@@ -8,17 +8,24 @@ package spil;
             this.balance = balance;
         }
 
+        public void addBalance(int amount){
+            setBalance(getBalance() + amount);
+            if (getBalance()<0) {
+                setBalance(0);
+            }
+        }
+
         public void withdraw(int amount) {
-            balance = balance - amount;
-            if (balance<0) {
-                balance = 0;
+            setBalance(getBalance()-amount);
+            if (getBalance()<0) {
+                setBalance(0);
             }
         }
 
         public void deposit(int amount) {
-            balance = balance + amount;
-            if (balance<0) {
-                balance = 0;
+            setBalance(getBalance()+amount);
+            if (getBalance()<0) {
+                setBalance(0);
             }
         }
 
@@ -30,12 +37,5 @@ package spil;
             this.balance = balance;
         }
 
-        public void addBalance(int amount){
-            setBalance(getBalance() + amount);
-            /*
-            if (getBalance()<0) {
-                setBalance(0);
-            }
-             */
-        }
+
     }

@@ -19,7 +19,11 @@ public class Logic {
                 " Dice Results " + dice.getDie1() + "+" + dice.getDie2() + "=" + dice.getSum() +
                 " Position = " + pl.getPlayerList(PNum).getCurrentPosition() +
                 " Balance: = " + pl.getAccount(PNum).getBalance() );
+    }
 
+    public void displayTurn(PlayerList pl, int PNum){
+        System.out.println("The player " + pl.getPlayerList(PNum).getName() + " is now taking his turn turn");
+        System.out.println(pl.getPlayerList(PNum).getName() + " has taken: " + pl.getPlayerList(PNum).getTurn() + " Turn(s)");
     }
 
     //Updates the roll and position of the dice
@@ -45,12 +49,22 @@ public class Logic {
             case 10:
             case 11:
             case 12:
+            case 13:
+            case 14:
+            case 15:
+            case 16:
+            case 17:
+            case 18:
+            case 19:
+            case 20:
+            case 21:
+            case 22:
                 account.addBalance(fl.getField(pos).getPrice());
                 break;
             default:
                 break;
         }
-        System.out.println("your position is " + pos + " your balance is now " + pl.getAccount(playerTurn).getBalance());
+        System.out.println(pl.getPlayerList(playerTurn).getName() + " landed on the field nr " + pos + " " + fl.getField(pos).getTitle() + " and you will receive/pay the price of this field " + fl.getField(pos).getPrice());
     }
 
 /*

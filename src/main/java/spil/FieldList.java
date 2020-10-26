@@ -17,6 +17,17 @@ public class FieldList {
         fields[9] = new Field(10,"The werewall",-80,"10",Color.red);
         fields[10] = new Field(11,"The pit",-50,"11",Color.red);
         fields[11] = new Field(12,"Goldmine",650,"12",Color.green);
+        /*
+        fields[12] = new Field(12,"Goldmine",650,"12",Color.green);
+        fields[13] = new Field(12,"Goldmine",650,"12",Color.green);
+        fields[14] = new Field(12,"Goldmine",650,"12",Color.green);
+        fields[15] = new Field(12,"Goldmine",650,"12",Color.green);
+        fields[16] = new Field(12,"Goldmine",650,"12",Color.green);
+        fields[17] = new Field(12,"Goldmine",650,"12",Color.green);
+        fields[18] = new Field(12,"Goldmine",650,"12",Color.green);
+        fields[19] = new Field(12,"Goldmine",650,"12",Color.green);
+        fields[20] = new Field(12,"Goldmine",650,"12",Color.green);
+        */
     }
     public void getAllFields() {
         for (int i = 0; i < getSize(); i++) {

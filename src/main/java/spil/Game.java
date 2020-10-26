@@ -25,8 +25,9 @@ public class Game {
         for (int i = 0; i < playerAmount; i++) {
             String name = gameGui.setPlayerName();
             pl.getPlayerList(i).setName(name);
-            pl.getAccount(i).setBalance(0);
+            pl.getAccount(i).setBalance(1000);
         }
+
 
         gameGui.addPlayers(pl.getPlayersList());
 
@@ -39,6 +40,7 @@ public class Game {
 
             logic.movePlayer(pl, fl, dice, playerTurn);
             logic.diceInfo(pl, dice, playerTurn);
+
             int pos = logic.getPos();
             int prePos = logic.getPrePos();
 
@@ -46,6 +48,8 @@ public class Game {
             gameGui.showDice(dice.getDie1(), dice.getDie2());
             gameGui.showBalance(pl,playerTurn);
 
+            pl.getPlayerList(playerTurn).incrementTurn();
+            logic.displayTurn(pl,playerTurn);
             playerTurn = (playerTurn + 1)%playerAmount;
         }
     }
