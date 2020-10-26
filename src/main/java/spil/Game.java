@@ -46,10 +46,8 @@ public class Game {
 
             logic.diceInfo(pl, dice, playerTurn);
 
-
-            gameGui.fancyMoveGuiPlayer(prePos, playerTurn, dice);
-            //gameGui.moveGuiPlayers(prePos, pos, playerTurn);
             gameGui.showDice(dice.getDie1(), dice.getDie2());
+            gameGui.fancyMoveGuiPlayer(prePos, playerTurn, dice);
             gameGui.showBalance(pl,playerTurn);
 
             pl.getPlayerList(playerTurn).incrementTurn();

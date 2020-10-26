@@ -6,7 +6,11 @@ import gui_fields.GUI_Street;
 import java.awt.*;
 
 public class Board {
-
+    /**
+     * Creates a bord in the GUI class using GUI_Streets
+     * @param fields Fields from the field's list
+     * @return Returns all the fields it has created
+     */
     public GUI_Street[] createBoard(Field[] fields) {
 
         GUI_Street[] gui_fields = new GUI_Street[fields.length];
