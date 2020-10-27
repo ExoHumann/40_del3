@@ -19,12 +19,14 @@ public class FieldList {
         fields[10] = new Field(11,"The pit",50,"11",Color.red);
         fields[11] = new Field(12,"Goldmine",650,"12",Color.green);
     }
+
     // Prints out all the fields to the console
     public void getAllFields() {
         for (int i = 0; i < getSize(); i++) {
             System.out.println(fields[i]);
         }
     }
+
 
     //Getters and setters
     public Field getField(int fieldNum) { return fields[fieldNum]; }

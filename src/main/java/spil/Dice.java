@@ -31,9 +31,10 @@ public class Dice {
         return getSum();
     }
 
-    //Getters and setters
     boolean getEquals(){ return die1 == die2; }
     public void setDice (int dice1, int dice2) { this.die1 = dice1; this.die2 = dice2;}
+
+    //Getters and setters
     public int getDie1() { return die1; }
     public int getDie2() { return die2; }
     public int getSum() { return die1 + die2;}

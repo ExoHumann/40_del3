@@ -8,21 +8,21 @@ import java.awt.*;
 public class Board {
     /**
      * Creates a bord in the GUI class using GUI_Streets method
-     * @param fields Fields from the field's list
+     * @param fl Fields from the field's list
      * @return Returns all the fields it has created
      */
-    public GUI_Street[] createBoard(Field[] fields) {
+    public GUI_Street[] createBoard(FieldList fl) {
 
-        GUI_Street[] gui_fields = new GUI_Street[fields.length];
+        GUI_Street[] gui_fields = new GUI_Street[fl.getSize()];
 
-        for (int i = 0; i < fields.length; i++) {
-
-            gui_fields[i] = new GUI_Street(fields[i].getTitle(),
-                    String.valueOf(fields[i].getPrice()),
-                    fields[i].getTitle(),
+        for (int i = 0; i < fl.getSize(); i++) {
+            Field field = fl.getField(i);
+            gui_fields[i] = new GUI_Street(field.getTitle(),
+                    String.valueOf(field.getPrice()),
+                    field.getTitle(),
                     "",
-                    fields[i].getColor(),
-                    Color.black);
+                    field.getColor(),
+                    Color.BLACK);
         }
         return gui_fields;
     }

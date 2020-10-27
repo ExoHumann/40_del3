@@ -1,5 +1,7 @@
 package spil;
 
+import testny.Player;
+
 public class Logic {
 
     private int prePos;
@@ -47,17 +49,21 @@ public class Logic {
     }
 
     /**
-     * Describes the win condition of the game
-     * @param pl player list used to access accounts
-     * @param PNum Which player is being checked
+     * Describes the win condition of the game if a player has 3000 balance
+     * @param pl player list used to access accounts and check all counts
      * @return Returns if the condition is met or no
      */
-    public boolean winCondition(PlayerList pl, int PNum) {
-        boolean winCondition;
-        winCondition = pl.getAccount(PNum).getBalance() <= 3000;
+    public boolean winCondition(PlayerList pl) {
+        boolean winCondition = false;
+        for (int i = 0; i <pl.getAccounts().length ; i++) {
+            if (pl.getAccount(i).getBalance() >= 3000) winCondition = true;
+        }
         return winCondition;
     }
 
+    public void findWinner(PlayerList pl, int playerTurn){
+        System.out.println(pl.getPlayerList(playerTurn).getName() + " Has won with the balance of" + pl.getAccount(playerTurn).getBalance());
+    }
 
 
     public void diceInfo(PlayerList pl, Dice dice, int PNum) {

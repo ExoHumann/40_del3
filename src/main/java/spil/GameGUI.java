@@ -3,6 +3,7 @@ package spil;
 
 import gui_fields.*;
 import gui_main.GUI;
+import testny.Player;
 
 import static java.lang.Thread.sleep;
 
@@ -20,18 +21,19 @@ public class GameGUI {
 
     /**
      * Players are placed on a field and shown their balance
-     * @param player gui players and - cars are made from the player length
+     * @param pl gui players and - cars are made from the player length
      */
-    public void addPlayers(Player[] player){
-        gui_cars = new GUI_Car[player.length];
-        gui_players = new GUI_Player[player.length];
+    public void addPlayers(PlayerList pl){
+        gui_cars = new GUI_Car[pl.getPlayersList().length];
+        gui_players = new GUI_Player[pl.getPlayersList().length];
 
-        for (int i = 0; i < player.length; i++) {
-            gui_cars[i] = new GUI_Car(player[i].getColor(), player[i].getColor(), GUI_Car.Type.UFO, GUI_Car.Pattern.FILL);
-            gui_players[i] = new GUI_Player(player[i].getName(),0, gui_cars[i]);
+        for (int i = 0; i < pl.getPlayersList().length; i++) {
+            Player player = pl.getPlayerList(i);
+            gui_cars[i] = new GUI_Car(player.getColor(), player.getColor(), GUI_Car.Type.UFO, GUI_Car.Pattern.FILL);
+            gui_players[i] = new GUI_Player(player.getName(),0, gui_cars[i]);
             gui.addPlayer(gui_players[i]);
             fields[0].setCar(gui_players[i], true);
-            gui_players[i].setBalance(1000);
+            gui_players[i].setBalance(pl.getAccount(i).getStartingBalance());
         }
     }
 
@@ -50,7 +52,7 @@ public class GameGUI {
         if (fields[prePos].hasCar(gui_players[PNum])) {
             fields[prePos].setCar(gui_players[PNum], false);
             fields[pos].setCar(gui_players[PNum], true);
-            sleep(200);
+            sleep(170);
             prePos = (prePos + 1) % fieldLength;
             }
         }
@@ -87,5 +89,9 @@ public class GameGUI {
 
     public void showDice(int dice1, int dice2){ gui.setDice(dice1,dice2); }
 
-    public void rollDiceAction(Player[] player, int PNum){ gui.showMessage(player[PNum].getName() + " do you want to roll dice?"); }
+    public void rollDiceAction(PlayerList pl, int PNum){ gui.showMessage(pl.getPlayerList(PNum).getName() + " do you want to roll dice?"); }
+
+    public void displayWinner(PlayerList pl, int PNum) { gui.showMessage(pl.getPlayerList(PNum).getName() + " Has won the game with balance of " + pl.getAccount(PNum).getBalance()); }
+
+    public void closeGame() { gui.close(); }
 }

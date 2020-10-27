@@ -1,4 +1,6 @@
-package spil;
+package testny;
+
+import spil.FieldList;
 
 import java.awt.*;
 
