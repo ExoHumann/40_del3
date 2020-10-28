@@ -1,8 +1,7 @@
 package spil;
 
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import spil.Account;
+import Model.Playerlist.Account;
 
 import static org.junit.jupiter.api.Assertions.*;
 
