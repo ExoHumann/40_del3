@@ -13,7 +13,7 @@ public class Main {
         if(args.length != 0){
             game.play(args[0]);
         }else{
-            game.play("da");
+            game.play("en");
         }
 
 
