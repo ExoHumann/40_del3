@@ -4,6 +4,7 @@ package Controller;
 import Model.Dice;
 import Model.FieldList;
 import Model.PlayerList;
+import Translation.Translator;
 import View.Board;
 import View.GameGUI;
 import gui_main.GUI;
@@ -12,7 +13,11 @@ import java.awt.*;
 
 public class Game {
 
-    public void play() throws InterruptedException {
+    static public Translator translation;
+
+    public void play(String local) throws InterruptedException {
+
+        translation = new Translator(local);
 
         Board board = new Board();
         FieldList fl = new FieldList(12);
