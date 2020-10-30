@@ -4,7 +4,6 @@ import Model.Field;
 import Model.FieldList;
 import gui_fields.GUI_Street;
 
-
 import java.awt.*;
 
 public class Board {
