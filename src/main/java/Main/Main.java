@@ -10,7 +10,12 @@ public class Main {
 
 
         Game game = new Game();
-        game.play(args[0]);
+        if(args.length != 0){
+            game.play(args[0]);
+        }else{
+            game.play("en");
+        }
+
 
         }
     }
