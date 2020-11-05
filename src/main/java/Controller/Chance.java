@@ -13,7 +13,6 @@ public class Chance {
     public Chance() {
     }
 
-
     int chance;
 
     public void drawCard(){
