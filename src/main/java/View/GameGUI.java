@@ -98,5 +98,7 @@ public class GameGUI {
 
     public void displayWinner(PlayerList pl, int PNum) { gui.showMessage(pl.getPlayerList(PNum).getName() + " " + Game.translation.getWonTheGameString() + pl.getAccount(PNum).getBalance()); }
 
+    public int chance1(){ return gui.getUserInteger("You can move up to 5 fields", 1, 5);}
+
     public void closeGame() { gui.close(); }
 }

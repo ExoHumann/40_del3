@@ -32,14 +32,22 @@ public class Logic {
         player.move(dice.roll(), fl);
         pos = player.getCurrentPosition();
 
+        if (prePos > pos){
+            account.deposit(2);
+        }
+
         switch (pos) {
             case 0: case 1: case 3: case 5: case 8: case 11:
                 account.deposit(fl.getField(pos).getPrice());
                 break;
-            case 2: case 4: case 7: case 9: case 10:
+            case 2: case 4: case 7:
+            case 9:
+                player.setInJail();
+            case 10:
                 account.withdraw(fl.getField(pos).getPrice());
                 break;
             case 6:
+
             default:
                 break;
         }
@@ -56,7 +64,7 @@ public class Logic {
     public boolean winCondition(PlayerList pl) {
         boolean winCondition = false;
         for (int i = 0; i <pl.getAccounts().length ; i++) {
-            if (pl.getAccount(i).getBalance() >= 3000) winCondition = true;
+            if (pl.getAccount(i).getBalance() <= 0) winCondition = true;
         }
         return winCondition;
     }

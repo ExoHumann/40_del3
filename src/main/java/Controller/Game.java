@@ -23,6 +23,7 @@ public class Game {
         FieldList fl = new FieldList(12);
 
         Logic logic = new Logic();
+        Chance chance = new Chance();
 
         GUI gui = new GUI(board.createBoard(fl), Color.WHITE);
         GameGUI gameGui = new GameGUI(gui);
@@ -53,6 +54,7 @@ public class Game {
                 logic.movePlayer(pl, fl, dice, playerTurn);
 
                 logic.diceInfo(pl, dice, playerTurn);
+
 
                 gameGui.showDice(dice.getDie1(), dice.getDie2());
                 gameGui.fancyMoveGuiPlayer(logic.prePos, playerTurn, dice);
