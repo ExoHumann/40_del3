@@ -47,6 +47,7 @@ public class Logic {
                 player.getName(), pos, fl.getField(pos).getTitle(), fl.getField(pos).getPrice());
     }
 
+
     /**
      * Describes the win condition of the game if a player has 3000 balance
      * @param pl player list used to access accounts and check all counts
