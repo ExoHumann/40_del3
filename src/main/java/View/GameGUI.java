@@ -5,11 +5,14 @@ import Controller.Game;
 import Model.Dice;
 import Model.PlayerList;
 import Model.Playerlist.Player;
+//import com.sun.jdi.IntegerValue;
 import gui_fields.GUI_Car;
 import gui_fields.GUI_Field;
 import gui_fields.GUI_Player;
 import gui_main.GUI;
 
+import static gui_fields.GUI_Car.Pattern.*;
+import static gui_fields.GUI_Car.Type.*;
 import static java.lang.Thread.sleep;
 
 public class GameGUI {
@@ -24,17 +27,19 @@ public class GameGUI {
         this.fields = gui.getFields();
     }
 
+
+    GUI_Car.Type[] cars = {CAR, RACECAR, TRACTOR, UFO};
     /**
      * Players are placed on a field and shown their balance
      * @param pl gui players and - cars are made from the player length
      */
     public void addPlayers(PlayerList pl){
-        gui_cars = new GUI_Car[pl.getPlayersList().length];
-        gui_players = new GUI_Player[pl.getPlayersList().length];
+        gui_cars = new GUI_Car[pl.getPlayerAmount()];
+        gui_players = new GUI_Player[pl.getPlayerAmount()];
 
-        for (int i = 0; i < pl.getPlayersList().length; i++) {
+        for (int i = 0; i < pl.getPlayerAmount(); i++) {
             Player player = pl.getPlayerList(i);
-            gui_cars[i] = new GUI_Car(player.getColor(), player.getColor(), GUI_Car.Type.UFO, GUI_Car.Pattern.ZEBRA);
+            gui_cars[i] = new GUI_Car(player.getColor(), player.getColor(), cars[i%pl.getPlayerAmount()], FILL);
             gui_players[i] = new GUI_Player(player.getName(),0, gui_cars[i]);
             gui.addPlayer(gui_players[i]);
             fields[0].setCar(gui_players[i], true);
@@ -88,17 +93,47 @@ public class GameGUI {
     }
 
 
-    public String setPlayerName(){ return gui.getUserString(Game.translation.getPlayerNameAction()); }
 
-    public int setPlayerAmount(){ return gui.getUserInteger(Game.translation.getPlayerSelectAction(), 2, 6);}
+    public void showDice(int dice1, int dice2) {
+        new Thread(() -> {
+            for (int rotation = 0; rotation <= 360; ++rotation) {
+                gui.setDice(dice1, rotation, 4, 1, dice2, rotation, 5, 1);
+                try {
+                    sleep(2);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
+    }
 
-    public void showDice(int dice1, int dice2){ gui.setDice(dice1,dice2); }
+    public void showMessage(String message){
+        gui.showMessage(message);
+    }
 
-    public void rollDiceAction(PlayerList pl, int PNum){ gui.showMessage(pl.getPlayerList(PNum).getName() + " " + Game.translation.getRollDiceAction()); }
+    public String getUserString(String message){ return gui.getUserString(message); }
 
-    public void displayWinner(PlayerList pl, int PNum) { gui.showMessage(pl.getPlayerList(PNum).getName() + " " + Game.translation.getWonTheGameString() + pl.getAccount(PNum).getBalance()); }
 
-    public int chance1(){ return gui.getUserInteger("You can move up to 5 fields", 1, 5);}
+
+    public int getUserButtons(String message, int min, int max){
+        String[] options = new String[max-min+1];
+
+        for (int i = min; i <= max; i++) {
+            options[i-min] = String.valueOf(i);
+        }
+        return Integer.parseInt(gui.getUserButtonPressed(message, options));
+    }
+
+    public int getUserDropDown(String message, int min, int max){
+        String[] options = new String[max-min+1];
+
+        for (int i = min; i <= max; i++) {
+            options[i-min] = String.valueOf(i);
+        }
+        return Integer.parseInt(gui.getUserSelection(message, options));
+    }
+
+
 
     public void closeGame() { gui.close(); }
 }
