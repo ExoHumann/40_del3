@@ -9,7 +9,7 @@ public class FieldList {
 
     Field[] fields = new Field[12];
 
-    public FieldList(int fieldAmount) {
+    public FieldList() {
 
 
         fields[0] = new Field(Game.translation.getFieldsName()[0],200,"1", Color.green);
@@ -36,6 +36,5 @@ public class FieldList {
 
     //Getters and setters
     public Field getField(int fieldNum) { return fields[fieldNum]; }
-    public Field[] getFields(){return fields; }
     public int getSize(){ return fields.length; }
 }

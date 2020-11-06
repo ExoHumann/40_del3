@@ -28,15 +28,13 @@ public class PlayerList {
     }
 
     //Getters and setters
-    public Color[] getColors() { return colors; }
-    public Color getColor(int id) { return colors[id];}
+    public Color getColor(int id) { return colors[id% colors.length];}
 
-    public Player[] getPlayersList() { return players; }
+    public int getPlayerAmount() { return players.length; }
     public Player getPlayerList(int id) { return players[id]; }
 
     public Account[] getAccounts(){ return accounts; }
     public Account getAccount(int id){ return accounts[id];}
 
-    private int getSize() { return players.length; }
 
 }
