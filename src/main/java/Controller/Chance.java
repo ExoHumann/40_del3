@@ -5,6 +5,8 @@ import Model.PlayerList;
 import Model.Playerlist.Account;
 import Model.Playerlist.Player;
 
+//import java.lang.reflect.Array;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.ArrayList;
 import java.util.Random;
@@ -14,7 +16,8 @@ public class Chance {
 
     public Chance() {
     }
-
+boolean init[]=new boolean [20];
+    Random ra=new Random();
     int chance;
     private static final int deckSize=20;
 
@@ -23,7 +26,24 @@ public class Chance {
         Random r = new Random(amountOfCards);
         chance = r.nextInt();
 
-    }
+
+
+//void Shufle(){
+//int[] Bunke=new int[20];
+//for (int i=0; i < Bunke.length  ; i++) {
+//    Bunke[i]=getNewKort();
+}
+//    System.out.println(Arrays.toString(Bunke));}
+
+int getNewKort() {
+    int i=ra.nextInt(20);
+    while (init[i])
+        i=ra.nextInt(20);
+    init[i]=true;
+    return i;
+        }
+
+
 
     public static void main(String[] args) {
         ArrayList<Integer> deck=new ArrayList<>();
