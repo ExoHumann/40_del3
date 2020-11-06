@@ -11,6 +11,7 @@ public class Player {
     private int currentPosition;
     private int turn;
     boolean isInJail;
+    boolean getOutOfJailCard;
 
     /**
      * Constructor for the player takes a name and color
@@ -42,6 +43,7 @@ public class Player {
     public String getName() { return name; }
     public void setName(String name) { this.name = name; }
     public void setInJail(){ isInJail = true; }
+    public void setJailCard(){ getOutOfJailCard = true; }
     public boolean getInJail(){ return isInJail;}
     public String toString(){
         return name;

@@ -52,13 +52,12 @@ public class Chance {
             case 2:
                 player.move(playerChoice, fl);
             case 3:
-                if (playerChoice == 1){
-                    player.setCurrentPosition(3);
-                } else if (playerChoice == 2) {
-                    player.setCurrentPosition(2);
+                if (playerChoice == 12){
+                    player.setCurrentPosition(13);
+                } else if (playerChoice == 13) {
+                    player.setCurrentPosition(14);
                 }
             case 4:
-
                 if (playerChoice == 1){
                     player.move(1,fl);
                 } else if (playerChoice == 2) {
@@ -69,10 +68,15 @@ public class Chance {
             case 7:
             case 8:
             case 9:
+                player.setJailCard();
             case 10:
             case 11:
             case 12:
             case 13:
+                for (int i = 0; i < pl.getPlayerAmount(); i++) {
+                    pl.getAccount(pl.getPlayerAmount()).withdraw(1);
+                    account.deposit(pl.getPlayerAmount());
+                }
             case 14:
             case 15:
             case 16:
@@ -83,8 +87,4 @@ public class Chance {
 
         }
     }
-
-
-
-
 }
