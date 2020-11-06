@@ -32,6 +32,7 @@ public class Game {
         PlayerList pl = new PlayerList(playerAmount);
 
         Dice dice = new Dice(0,0);
+        chance.Shuffle();
 
         for (int i = 0; i < playerAmount; i++) {
             String name = gameGui.setPlayerName();
@@ -54,6 +55,9 @@ public class Game {
                 logic.movePlayer(pl, fl, dice, playerTurn);
 
                 logic.diceInfo(pl, dice, playerTurn);
+
+                chance.printDeck();
+                System.out.println("The chance card is " + chance.drawCard());
 
 
                 gameGui.showDice(dice.getDie1(), dice.getDie2());
