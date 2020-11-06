@@ -11,6 +11,8 @@ import gui_fields.GUI_Field;
 import gui_fields.GUI_Player;
 import gui_main.GUI;
 
+import static gui_fields.GUI_Car.Pattern.*;
+import static gui_fields.GUI_Car.Type.*;
 import static java.lang.Thread.sleep;
 
 public class GameGUI {
@@ -25,6 +27,8 @@ public class GameGUI {
         this.fields = gui.getFields();
     }
 
+
+    GUI_Car.Type[] cars = {CAR, RACECAR, TRACTOR, UFO};
     /**
      * Players are placed on a field and shown their balance
      * @param pl gui players and - cars are made from the player length
@@ -35,7 +39,7 @@ public class GameGUI {
 
         for (int i = 0; i < pl.getPlayerAmount(); i++) {
             Player player = pl.getPlayerList(i);
-            gui_cars[i] = new GUI_Car(player.getColor(), player.getColor(), GUI_Car.Type.UFO, GUI_Car.Pattern.ZEBRA);
+            gui_cars[i] = new GUI_Car(player.getColor(), player.getColor(), cars[i%pl.getPlayerAmount()], FILL);
             gui_players[i] = new GUI_Player(player.getName(),0, gui_cars[i]);
             gui.addPlayer(gui_players[i]);
             fields[0].setCar(gui_players[i], true);
@@ -109,7 +113,18 @@ public class GameGUI {
 
     public String getUserString(String message){ return gui.getUserString(message); }
 
-    public int getUserIntSelection(String message, int min, int max){
+
+
+    public int getUserButtons(String message, int min, int max){
+        String[] options = new String[max-min+1];
+
+        for (int i = min; i <= max; i++) {
+            options[i-min] = String.valueOf(i);
+        }
+        return Integer.parseInt(gui.getUserButtonPressed(message, options));
+    }
+
+    public int getUserDropDown(String message, int min, int max){
         String[] options = new String[max-min+1];
 
         for (int i = min; i <= max; i++) {
@@ -117,6 +132,8 @@ public class GameGUI {
         }
         return Integer.parseInt(gui.getUserSelection(message, options));
     }
+
+
 
     public void closeGame() { gui.close(); }
 }

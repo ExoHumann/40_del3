@@ -43,7 +43,6 @@ public class Player {
     public void setName(String name) { this.name = name; }
     public void setInJail(){ isInJail = true; }
     public boolean getInJail(){ return isInJail;}
-
     public String toString(){
         return name;
     }

@@ -30,7 +30,7 @@ public class Game {
         GUI gui = new GUI(board.createBoard(fl), Color.WHITE);
         GameGUI gameGui = new GameGUI(gui);
 
-        int playerAmount = gameGui.getUserIntSelection(Game.translation.getPlayerSelectAction(), minPlayers,maxPlayers);
+        int playerAmount = gameGui.getUserButtons(Game.translation.getPlayerSelectAction(), minPlayers,maxPlayers);
         PlayerList pl = new PlayerList(playerAmount);
 
         Dice dice = new Dice(0,0);

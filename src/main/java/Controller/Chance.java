@@ -4,6 +4,7 @@ import Model.FieldList;
 import Model.PlayerList;
 import Model.Playerlist.Account;
 import Model.Playerlist.Player;
+import View.GameGUI;
 
 import java.util.Random;
 
@@ -36,6 +37,7 @@ public class Chance {
                 player.move(playerChoice, fl);
             case 3:
             case 4:
+
                 if (playerChoice == 1){
                     player.move(1,fl);
                 } else if (playerChoice == 2) {
