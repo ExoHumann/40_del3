@@ -23,7 +23,8 @@ public class Chance {
 
     public int drawCard() {
         Random r = new Random();
-        return deck.get(r.nextInt(20));
+        chance = deck.get(r.nextInt(20));
+        return chance;
     }
 
     public void printDeck(){
