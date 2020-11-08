@@ -19,37 +19,27 @@ do you want to roll dice?
 WonTheGameString
 Has won the game with balance of
 fieldsName
-This is the first field
-Tower
-Crater
-Palace gates
-Cold Desert
-Walled City
-Monastery
-Black cave
-Huts in the mountain
-The werewall
-The pit
-Goldmine
-Tower
-Crater
-Palace gates
-Cold Desert
-Walled City
-Monastery
-Black cave
-Huts in the mountain
-The werewall
-The pit
-Goldmine
-Tower
-Crater
-Palace gates
-Cold Desert
-Walled City
-Monastery
-Black cave
-Huts in the mountain
-The werewall
-The pit
-Goldmine
+Start
+The burger joint
+The pizza house
+Chance
+The candy shop
+The ice cream parlour
+In prison
+The museum
+The library
+Chance
+The skate park
+The swimming pool
+Parking
+The arcade
+The cinema
+Chance
+The toy store
+The pet shop
+Go to prison
+The bowling alley
+The zoo
+Chance
+The water park
+The seafront

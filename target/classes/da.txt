@@ -19,17 +19,30 @@ vil du slå med terningerne?
 WonTheGameString
 Har vundet spillet med en balance på:
 fieldsName
-Detter er det første felt
-Tårn
-Krater
-Paladsets porte
-kold ørken
-Beskyttet by
-Kloster
-Sort hule
-Hytter i bjergene
-Vareulvvæggen
-Hullet
-Guldminen
+Start
+Burgerbaren
+Pizzahuset
+Chance
+Godtebutikken
+Iskiosken
+I fængsel
+Museet
+Biblioteket
+Chance
+Skaterparken
+Svømmebassinet
+Parkering
+Spillehallen
+Biografen
+Chance
+Legetøjsbutikken
+Dyrebutikken
+Gå i fængsel
+Bowlinghallen
+Zoologisk have
+Chance
+Vandlandet
+Strandpromenaden
+
 
 
