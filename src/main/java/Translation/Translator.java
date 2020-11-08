@@ -78,7 +78,7 @@ public class Translator {
         PlayerSelectAction = file[15];
         RollDiceAction = file[17];
         WonTheGameString = file[19];
-        fieldsName = Arrays.copyOfRange(file,19,file.length);
+        fieldsName = Arrays.copyOfRange(file,21,file.length);
     }
 
     private String readFile(String source){
