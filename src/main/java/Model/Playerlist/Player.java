@@ -43,7 +43,7 @@ public class Player {
     public String getName() { return name; }
     public void setName(String name) { this.name = name; }
     public void setInJail(){ isInJail = true; }
-    public void setJailCard(){ getOutOfJailCard = true; }
+    public void setGetOutOfJailCard(){ getOutOfJailCard = true; }
     public boolean getInJail(){ return isInJail;}
     public String toString(){
         return name;

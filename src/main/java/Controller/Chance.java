@@ -75,7 +75,7 @@ public class Chance {
             case 7:
             case 8:
             case 9:
-                player.setJailCard();
+                player.setGetOutOfJailCard();
             case 10:
             case 11:
             case 12:
