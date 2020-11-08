@@ -63,6 +63,7 @@ public class Chance {
                 playerChoice = gameGUI.getUserButtons("Move to an orange field", 13,14);
                 logic.movePlayer(pl,fl,fl.getSize() + playerChoice - logic.pos,playerTurn);
                 gameGUI.moveToField(logic.prePos,playerTurn,playerChoice);
+                gameGUI.buyField(pl,playerChoice,playerTurn);
                 break;
             case 4:
                 if (playerChoice == 1){

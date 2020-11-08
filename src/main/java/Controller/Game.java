@@ -39,7 +39,7 @@ public class Game {
         for (int i = 0; i < playerAmount; i++) {
             String name = gameGui.getUserString(Game.translation.getPlayerNameAction());
             pl.getPlayerList(i).setName(name);
-            pl.getAccount(i).setBalance(pl.getAccount(i).getStartingBalance());
+            pl.getAccount(i).setBalance(pl.getAccount(i).getStartingBalance(playerAmount));
         }
 
         gameGui.addPlayers(pl);

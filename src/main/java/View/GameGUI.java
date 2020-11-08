@@ -1,15 +1,16 @@
 
 package View;
 
-import Controller.Game;
-import Model.Dice;
 import Model.PlayerList;
 import Model.Playerlist.Player;
 //import com.sun.jdi.IntegerValue;
 import gui_fields.GUI_Car;
 import gui_fields.GUI_Field;
+import gui_fields.GUI_Ownable;
 import gui_fields.GUI_Player;
 import gui_main.GUI;
+
+import java.awt.*;
 
 import static gui_fields.GUI_Car.Pattern.*;
 import static gui_fields.GUI_Car.Type.*;
@@ -28,6 +29,16 @@ public class GameGUI {
     }
 
 
+    public void buyField(PlayerList pl, int fieldNum, int playerTurn){
+        GUI_Ownable ownable = (GUI_Ownable) fields[fieldNum];
+        if (ownable.getOwnerName() == null) {
+            ownable.setOwnerName(pl.getPlayerList(playerTurn).getName());
+            ownable.setBorder(pl.getPlayerList(playerTurn).getColor());
+        } else {
+            System.out.println(ownable.getOwnerName() + " Allready owns this field");
+        }
+    }
+
     GUI_Car.Type[] cars = {CAR, RACECAR, TRACTOR, UFO};
     /**
      * Players are placed on a field and shown their balance
@@ -43,7 +54,7 @@ public class GameGUI {
             gui_players[i] = new GUI_Player(player.getName(),0, gui_cars[i]);
             gui.addPlayer(gui_players[i]);
             fields[0].setCar(gui_players[i], true);
-            gui_players[i].setBalance(pl.getAccount(i).getStartingBalance());
+            gui_players[i].setBalance(pl.getAccount(i).getStartingBalance(pl.getPlayerAmount()));
         }
     }
 
@@ -89,11 +100,9 @@ public class GameGUI {
         gui_players[PNum].setBalance(balance);
     }
 
-
-
     public void showDice(int dice1, int dice2) {
         new Thread(() -> {
-            for (int rotation = 0; rotation <= 360; ++rotation) {
+            for (int rotation = 0; rotation <= 450; ++rotation) {
                 gui.setDice(dice1, rotation, 4, 1, dice2, rotation, 5, 1);
                 try {
                     sleep(2);
@@ -104,13 +113,9 @@ public class GameGUI {
         }).start();
     }
 
-    public void showMessage(String message){
-        gui.showMessage(message);
-    }
+    public void showMessage(String message){ gui.showMessage(message); }
 
     public String getUserString(String message){ return gui.getUserString(message); }
-
-
 
     public int getUserButtons(String message, int min, int max){
         String[] options = new String[max-min+1];
@@ -129,8 +134,6 @@ public class GameGUI {
         }
         return Integer.parseInt(gui.getUserSelection(message, options));
     }
-
-
 
     public void closeGame() { gui.close(); }
 }
