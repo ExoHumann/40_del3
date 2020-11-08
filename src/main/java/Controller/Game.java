@@ -54,17 +54,17 @@ public class Game {
                 logic.displayTakingTurn(pl, playerTurn);
                 gameGui.showMessage(pl.getPlayerList(playerTurn).getName() + " " + Game.translation.getRollDiceAction());
 
-                logic.movePlayer(pl, fl, dice, playerTurn);
+
+                logic.movePlayer(pl, fl, dice.roll(), playerTurn);
 
                 logic.diceInfo(pl, dice, playerTurn);
 
-                chance.printDeck();
-                System.out.println("The chance card is " + chance.drawCard());
-
-
                 gameGui.showDice(dice.getDie1(), dice.getDie2());
-                gameGui.fancyMoveGuiPlayer(logic.prePos, playerTurn, dice);
+                gameGui.fancyMoveGuiPlayer(logic.prePos, playerTurn, dice.getSum());
                 gameGui.showBalance(pl, playerTurn);
+
+                chance.chance(pl,fl,playerTurn,logic,gameGui);
+
 
                 pl.getPlayerList(playerTurn).incrementTurn();
                 logic.displayTurn(pl, playerTurn);

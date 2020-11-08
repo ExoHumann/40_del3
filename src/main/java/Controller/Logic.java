@@ -21,15 +21,15 @@ public class Logic {
      * Manages the balance of the player
      * @param pl Playlist used to access players account and position
      * @param fl FieldList used to access the price of the fields
-     * @param dice Dice used to update the roll and move the player
+     * @param moveAmount Dice used to update the roll and move the player
      * @param playerTurn Which player is taking a turn
      */
-    public void movePlayer(PlayerList pl, FieldList fl, Dice dice, int playerTurn) {
+    public void movePlayer(PlayerList pl, FieldList fl, int moveAmount, int playerTurn) {
         Player player = pl.getPlayerList(playerTurn);
         Account account = pl.getAccount(playerTurn);
 
         prePos = player.getCurrentPosition();
-        player.move(dice.roll(), fl);
+        player.move(moveAmount, fl);
         pos = player.getCurrentPosition();
 
         if (prePos > pos){

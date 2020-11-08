@@ -51,11 +51,10 @@ public class GameGUI {
      * Player is move 1 field at a time
      * @param prePos Previous position of the player
      * @param PNum  The player that are being moved
-     * @param dice  Uses dice.getSum() to find the amount of fields it needs to move
+     * @param dif  The amount of fields it will move uses dice.getSum() to find the amount of fields it needs to move
      * @throws InterruptedException Uses sleep() to make a shot pause before moving again
      */
-    public void fancyMoveGuiPlayer(int prePos, int PNum, Dice dice) throws InterruptedException {
-        int dif = dice.getSum();
+    public void fancyMoveGuiPlayer(int prePos, int PNum, int dif) throws InterruptedException {
         int fieldLength = fields.length;
         for (int i = 0; i < dif ; i++) {
             int pos = (prePos + 1) % fieldLength;
@@ -70,15 +69,13 @@ public class GameGUI {
 
     /**
      * Moves the player to the starting field 0
-     * @param pl Used to find the position of the player that are being moved
+     * @param moveToPos Used to find the position of the player that are being moved
      * @param PNum The player that are being moved
      */
-    public void moveToStart(PlayerList pl, int PNum) {
-        int prePos = pl.getPlayerList(PNum).getCurrentPosition();
+    public void moveToField(int prePos, int PNum, int moveToPos) {
         if (fields[prePos].hasCar(gui_players[PNum])) {
             fields[prePos].setCar(gui_players[PNum], false);
-            fields[0].setCar(gui_players[PNum], true);
-            pl.getPlayerList(PNum).setCurrentPosition(0);
+            fields[moveToPos].setCar(gui_players[PNum], true);
         }
     }
 
