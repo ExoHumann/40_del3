@@ -75,7 +75,7 @@ public class Game {
                     }
 
                 if (pl.getPlayerList(playerTurn).getInJail()) {
-                    logic.movePlayer(pl, fl, fl.getSize() + 6 - logic.pos, playerTurn);
+                    logic.movePlayer(pl, fl, logic.moveAmount(6,fl), playerTurn);
                     gameGui.moveToField(logic.pos, playerTurn, 6);
                 }
 
