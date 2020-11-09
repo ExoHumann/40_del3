@@ -65,15 +65,14 @@ public class Game {
                 gameGui.fancyMoveGuiPlayer(logic.prePos, playerTurn, dice.getSum());
                 gameGui.showBalance(pl, playerTurn);
 
-                //if (logic.landedOnChance) {
+                if (logic.landedOnChance) {
                     chance.chance(pl, fl, playerTurn, logic, gameGui);
-                  //  gameGui.showBalance(pl, playerTurn);
-                //}
+                    gameGui.showBalance(pl, playerTurn);
+                }
                     if (logic.drawAnother) {
                         chance.chance(pl, fl, playerTurn, logic, gameGui);
                         gameGui.showBalance(pl, playerTurn);
                     }
-                //(fl.getSize() + playerChoice - logic.prePos-1)%fl.getSize()+1
 
                 if (pl.getPlayerList(playerTurn).getInJail()) {
                     logic.movePlayer(pl, fl, fl.getSize() + 6 - logic.pos, playerTurn);
