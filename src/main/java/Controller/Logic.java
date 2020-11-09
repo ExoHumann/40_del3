@@ -4,11 +4,11 @@ import Model.Dice;
 import Model.FieldList;
 import Model.PlayerList;
 import Model.Playerlist.*;
-import Translation.Translator;
 
 public class Logic {
 
-
+    boolean landedOnChance;
+    boolean drawAnother;
     public int prePos;
     public int pos;
 
@@ -37,12 +37,20 @@ public class Logic {
         }
 
         switch (pos) {
-            case 0: case 1: case 3: case 5: case 8: case 11:
+            case 3: case 9: case 15: case 21:
+            landedOnChance = true;
+            break;
+
+            case 18:
+                player.setInJail();
+                player.setCurrentPosition(6);
+                break;
+
+            case 0: case 1: case 5: case 8: case 11:
                 account.deposit(fl.getField(pos).getPrice());
                 break;
             case 2: case 4: case 7:
-            case 9:
-                player.setInJail();
+
             case 10:
                 account.withdraw(fl.getField(pos).getPrice());
                 break;
@@ -55,6 +63,9 @@ public class Logic {
                 player.getName(), pos, fl.getField(pos).getTitle(), fl.getField(pos).getPrice());
     }
 
+    public int moveToField(int moveToPos, FieldList fl){
+        return (fl.getSize() + moveToPos - pos-1)%fl.getSize()+1;
+    }
 
     /**
      * Describes the win condition of the game if a player has 3000 balance
