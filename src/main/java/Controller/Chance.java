@@ -70,7 +70,7 @@ public class Chance {
                 break;
             case 3:
                 playerChoice = gameGUI.getUserButtons("Move to an orange field", 13,14);
-                logic.movePlayer(pl,fl, logic.moveToField(playerChoice, fl), playerTurn);
+                logic.movePlayer(pl,fl, logic.moveAmount(playerChoice, fl), playerTurn);
                 gameGUI.moveToField(logic.prePos,playerTurn,playerChoice);
                 gameGUI.buyField(pl,playerChoice,playerTurn);
                 break;

@@ -63,7 +63,7 @@ public class Logic {
                 player.getName(), pos, fl.getField(pos).getTitle(), fl.getField(pos).getPrice());
     }
 
-    public int moveToField(int moveToPos, FieldList fl){
+    public int moveAmount(int moveToPos, FieldList fl){
         return (fl.getSize() + moveToPos - pos-1)%fl.getSize()+1;
     }
 
