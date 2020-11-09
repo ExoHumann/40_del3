@@ -47,6 +47,7 @@ public class Chance {
         chance = r.nextInt((12)+1);
 
 
+
         switch (chance) {
             case 0:
             case 1:
@@ -156,6 +157,8 @@ public class Chance {
                     break;
 
             case 14:
+                gameGUI.showMessage("You ate too much candy! pay 2M to the bank");
+                account.withdraw(2);
             case 15:
             case 16:
             case 17:
