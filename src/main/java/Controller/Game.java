@@ -15,7 +15,7 @@ public class Game {
 
     static public Translator translation;
     private static final int minPlayers = 2;
-    private static final int maxPlayers = 6;
+    private static final int maxPlayers = 4;
 
     public void play(String local) throws InterruptedException {
 
@@ -34,7 +34,9 @@ public class Game {
         PlayerList pl = new PlayerList(playerAmount);
 
         Dice dice = new Dice(0,0);
+
         chance.Shuffle();
+        chance.printDeck();
 
         for (int i = 0; i < playerAmount; i++) {
             String name = gameGui.getUserString(Game.translation.getPlayerNameAction());
@@ -63,8 +65,19 @@ public class Game {
                 gameGui.fancyMoveGuiPlayer(logic.prePos, playerTurn, dice.getSum());
                 gameGui.showBalance(pl, playerTurn);
 
-                chance.chance(pl,fl,playerTurn,logic,gameGui);
+                if (logic.landedOnChance) {
+                    chance.chance(pl, fl, playerTurn, logic, gameGui);
+                    gameGui.showBalance(pl, playerTurn);
+                }
+                    if (logic.drawAnother) {
+                        chance.chance(pl, fl, playerTurn, logic, gameGui);
+                        gameGui.showBalance(pl, playerTurn);
+                    }
 
+                if (pl.getPlayerList(playerTurn).getInJail()) {
+                    logic.movePlayer(pl, fl, logic.moveAmount(6,fl), playerTurn);
+                    gameGui.moveToField(logic.pos, playerTurn, 6);
+                }
 
                 pl.getPlayerList(playerTurn).incrementTurn();
                 logic.displayTurn(pl, playerTurn);

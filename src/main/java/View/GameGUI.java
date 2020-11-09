@@ -83,10 +83,16 @@ public class GameGUI {
      * @param moveToPos Used to find the position of the player that are being moved
      * @param PNum The player that are being moved
      */
-    public void moveToField(int prePos, int PNum, int moveToPos) {
+    public void moveToField(int prePos, int PNum, int moveToPos) throws InterruptedException {
+        int dif = (fields.length + moveToPos - prePos-1)%fields.length+1;
+        for (int i = 0; i < dif ; i++) {
+            moveToPos = (prePos + 1) % fields.length;
         if (fields[prePos].hasCar(gui_players[PNum])) {
             fields[prePos].setCar(gui_players[PNum], false);
             fields[moveToPos].setCar(gui_players[PNum], true);
+            sleep(170);
+            prePos = (prePos + 1) % fields.length;
+            }
         }
     }
 
@@ -133,6 +139,12 @@ public class GameGUI {
             options[i-min] = String.valueOf(i);
         }
         return Integer.parseInt(gui.getUserSelection(message, options));
+    }
+
+    public void displayChance(String message){
+        gui.setChanceCard(message);
+        gui.displayChanceCard();
+        gui.displayChanceCard(message);
     }
 
     public void closeGame() { gui.close(); }

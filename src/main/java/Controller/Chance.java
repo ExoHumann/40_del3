@@ -41,27 +41,36 @@ public class Chance {
     public void chance(PlayerList pl, FieldList fl, int playerTurn, Logic logic, GameGUI gameGUI) throws InterruptedException {
         Player player = pl.getPlayerList(playerTurn);
         Account account = pl.getAccount(playerTurn);
+
         int playerChoice = 0;
-        drawCard();
+
+        logic.landedOnChance = false;
+        logic.drawAnother = false;
+
+
+        gameGUI.showMessage("Do you want to draw a chance card");
         Random r = new Random();
-        chance = r.nextInt((3)+1);
+        chance = drawCard();
+
+         chance = 3;
 
         switch (chance) {
             case 0:
             case 1:
-                gameGUI.showMessage("You move to start and get 2M");
+                gameGUI.displayChance("You move to start and get 2M");
                 logic.movePlayer(pl,fl, fl.getSize()-logic.pos, playerTurn);
                 gameGUI.moveToField(logic.prePos,playerTurn, 0);
                 account.deposit(2);
                 break;
             case 2:
+                gameGUI.displayChance("Chose Between 1-5 fields to move up");
                 playerChoice = gameGUI.getUserButtons("Chose Between 1-5 fields to move up", 1,5);
                 logic.movePlayer(pl,fl, playerChoice, playerTurn);
                 gameGUI.fancyMoveGuiPlayer(logic.prePos,playerTurn, playerChoice);
                 break;
             case 3:
                 playerChoice = gameGUI.getUserButtons("Move to an orange field", 13,14);
-                logic.movePlayer(pl,fl,fl.getSize() + playerChoice - logic.pos,playerTurn);
+                logic.movePlayer(pl,fl, logic.moveAmount(playerChoice, fl), playerTurn);
                 gameGUI.moveToField(logic.prePos,playerTurn,playerChoice);
                 gameGUI.buyField(pl,playerChoice,playerTurn);
                 break;
@@ -69,7 +78,7 @@ public class Chance {
                 if (playerChoice == 1){
                     player.move(1,fl);
                 } else if (playerChoice == 2) {
-                    drawCard();
+                    logic.drawAnother = true;
                 }
             case 5:
             case 6:
