@@ -41,24 +41,20 @@ public class Chance {
     public void chance(PlayerList pl, FieldList fl, int playerTurn, Logic logic, GameGUI gameGUI) throws InterruptedException {
         Player player = pl.getPlayerList(playerTurn);
         Account account = pl.getAccount(playerTurn);
-
         int playerChoice = 0;
-
         logic.landedOnChance = false;
         logic.drawAnother = false;
-
 
         gameGUI.showMessage("Do you want to draw a chance card");
         Random r = new Random();
         chance = drawCard();
 
-         chance = 3;
+        chance = r.nextInt(3);
 
         switch (chance) {
-            case 0:
-            case 1:
+            case 0: case 1:
                 gameGUI.displayChance("You move to start and get 2M");
-                logic.movePlayer(pl,fl, fl.getSize()-logic.pos, playerTurn);
+                logic.movePlayer(pl,fl, logic.moveAmount(0,fl), playerTurn);
                 gameGUI.moveToField(logic.prePos,playerTurn, 0);
                 account.deposit(2);
                 break;
@@ -70,9 +66,8 @@ public class Chance {
                 break;
             case 3:
                 playerChoice = gameGUI.getUserButtons("Move to an orange field", 13,14);
-                logic.movePlayer(pl,fl, logic.moveAmount(playerChoice, fl), playerTurn);
+                logic.movePlayer(pl,fl, logic.moveAmount(playerChoice,fl), playerTurn);
                 gameGUI.moveToField(logic.prePos,playerTurn,playerChoice);
-                gameGUI.buyField(pl,playerChoice,playerTurn);
                 break;
             case 4:
                 if (playerChoice == 1){

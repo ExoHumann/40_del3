@@ -1,6 +1,7 @@
 
 package View;
 
+import Model.FieldList;
 import Model.PlayerList;
 import Model.Playerlist.Player;
 //import com.sun.jdi.IntegerValue;
@@ -28,14 +29,15 @@ public class GameGUI {
         this.fields = gui.getFields();
     }
 
-
-    public void buyField(PlayerList pl, int fieldNum, int playerTurn){
-        GUI_Ownable ownable = (GUI_Ownable) fields[fieldNum];
-        if (ownable.getOwnerName() == null) {
-            ownable.setOwnerName(pl.getPlayerList(playerTurn).getName());
-            ownable.setBorder(pl.getPlayerList(playerTurn).getColor());
-        } else {
-            System.out.println(ownable.getOwnerName() + " Allready owns this field");
+    public void updateFieldBuy(PlayerList pl,FieldList fl){
+        for (int i = 0; i <fields.length ; i++) {
+            GUI_Ownable ownable = (GUI_Ownable) fields[i];
+            int owner = fl.getField(i).getOwner();
+            if (!(fl.getField(i).getOwner() == 0)) {
+                ownable.setOwnerName(pl.getPlayerList(owner-1).getName());
+                ownable.setBorder(pl.getPlayerList(owner-1).getColor());
+                ownable.setRentLabel("\nRent: " + fl.getField(i).getRent());
+            }
         }
     }
 

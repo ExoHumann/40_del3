@@ -64,14 +64,12 @@ public class Game {
                 gameGui.showDice(dice.getDie1(), dice.getDie2());
                 gameGui.fancyMoveGuiPlayer(logic.prePos, playerTurn, dice.getSum());
                 gameGui.showBalance(pl, playerTurn);
+                gameGui.updateFieldBuy(pl,fl);
 
                 if (logic.landedOnChance) {
                     chance.chance(pl, fl, playerTurn, logic, gameGui);
-                    gameGui.showBalance(pl, playerTurn);
-                }
-                    if (logic.drawAnother) {
-                        chance.chance(pl, fl, playerTurn, logic, gameGui);
-                        gameGui.showBalance(pl, playerTurn);
+                }   if (logic.drawAnother) {
+                        chance.chance(pl, fl, playerTurn, logic , gameGui);
                     }
 
                 if (pl.getPlayerList(playerTurn).getInJail()) {
@@ -79,8 +77,14 @@ public class Game {
                     gameGui.moveToField(logic.pos, playerTurn, 6);
                 }
 
+                gameGui.updateFieldBuy(pl,fl);
+                for (int j = 0; j < playerAmount ; j++) {
+                    gameGui.showBalance(pl,j);
+                }
+
                 pl.getPlayerList(playerTurn).incrementTurn();
                 logic.displayTurn(pl, playerTurn);
+
                 playerTurn = (playerTurn + 1)%playerAmount;
             }
         }

@@ -2,6 +2,8 @@ package View;
 
 import Model.Field;
 import Model.FieldList;
+import gui_fields.GUI_Chance;
+import gui_fields.GUI_Jail;
 import gui_fields.GUI_Street;
 
 import java.awt.*;

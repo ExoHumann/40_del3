@@ -37,27 +37,20 @@ public class Logic {
         }
 
         switch (pos) {
+            case 0: case 6: case 12:
+                break;
+
             case 3: case 9: case 15: case 21:
-            landedOnChance = true;
-            break;
+                landedOnChance = true;
+                break;
 
             case 18:
                 player.setInJail();
-                player.setCurrentPosition(6);
+                movePlayer(pl,fl,moveAmount(6,fl),playerTurn);
                 break;
-
-            case 0: case 1: case 5: case 8: case 11:
-                account.deposit(fl.getField(pos).getPrice());
-                break;
-            case 2: case 4: case 7:
-
-            case 10:
-                account.withdraw(fl.getField(pos).getPrice());
-                break;
-            case 6:
 
             default:
-                break;
+                buyField(pl,fl,playerTurn);
         }
         System.out.printf(Game.translation.getLandedString(),
                 player.getName(), pos, fl.getField(pos).getTitle(), fl.getField(pos).getPrice());
@@ -65,6 +58,33 @@ public class Logic {
 
     public int moveAmount(int moveToPos, FieldList fl){
         return (fl.getSize() + moveToPos - pos-1)%fl.getSize()+1;
+    }
+
+    public void buyField(PlayerList pl, FieldList fl, int playerTurn){
+        int fieldPrice = fl.getField(pos).getPrice();
+        Account account = pl.getAccount(playerTurn);
+
+        int ownership = fl.getField(pos).getOwner();
+        int f1 = fl.getField(pos-1).getOwner();
+        int f2 = fl.getField(pos+1).getOwner();
+
+        switch (ownership){
+            case 0:
+                account.withdraw(fieldPrice);
+                fl.getField(pos).setOwner(playerTurn+1);
+                break;
+
+            case 1: case 2: case 3: case 4:
+                System.out.println("The player will now pay to player number " + (ownership-1));
+                if (ownership == f1 || ownership == f2) {
+                    account.withdraw(fieldPrice*2);
+                    pl.getAccount(ownership - 1).deposit(fieldPrice*2);
+                } else {
+                    account.withdraw(fieldPrice);
+                    pl.getAccount(ownership-1).deposit(fieldPrice);
+            }
+                break;
+        }
     }
 
     /**
@@ -90,7 +110,7 @@ public class Logic {
     }
 
     public void displayTakingTurn(PlayerList pl, int PNum){
-        System.out.printf(Game.translation.getTakingTurnString()+ "\n",pl.getPlayerList(PNum).getName());
+        System.out.printf(Game.translation.getTakingTurnString()+ "\n",pl.getPlayerList(PNum).getName(), "Player num: " + PNum);
     }
 
     public void displayTurn(PlayerList pl, int PNum){

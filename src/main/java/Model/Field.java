@@ -13,6 +13,7 @@ public class Field {
     private int price;
     private String rent;
     private Color color;
+    private int owner;
     private final String fieldType;
 
     /**
@@ -29,6 +30,7 @@ public class Field {
         this.rent = description;
         this.color = color;
         this.fieldType = fieldType;
+        int owner = 0;
     }
 
     //Getters and setters
@@ -40,13 +42,13 @@ public class Field {
     public void setRent(String rent) { this.rent = rent; }
     public Color getColor() { return color; }
     public void setColor(Color color) { this.color = color; }
-
+    public int getOwner() { return owner; }
+    public void setOwner(int owner) { this.owner = owner; }
+    public String getFieldType() { return fieldType; }
 
     public String toString(){
-        String string = String.format(Game.translation.getFieldToString(),getTitle(),getPrice(), getRent());
-        return string;
+        return String.format(Game.translation.getFieldToString(),getTitle(),getPrice(), getRent());
     }
-
 }
 
 
