@@ -46,7 +46,7 @@ public class Logic {
 
             case 18:
                 player.setInJail();
-                movePlayer(pl,fl,moveAmount(6,fl),playerTurn);
+                player.setCurrentPosition(6);
                 break;
 
             default:
@@ -65,25 +65,21 @@ public class Logic {
         Account account = pl.getAccount(playerTurn);
 
         int ownership = fl.getField(pos).getOwner();
-        int f1 = fl.getField(pos-1).getOwner();
-        int f2 = fl.getField(pos+1).getOwner();
+        int f1 = fl.getField((pos-1)%fl.getSize()).getOwner();
+        int f2 = fl.getField((pos+1)%fl.getSize()).getOwner();
 
-        switch (ownership){
-            case 0:
+        if (ownership == -1) {
+            account.withdraw(fieldPrice);
+            fl.getField(pos).setOwner(playerTurn);
+        } else if (ownership == 0 || ownership == 1 || ownership == 2 || ownership == 3) {
+            System.out.println("The player will now pay to player number " + (ownership));
+            if (ownership == f1 || ownership == f2) {
+                account.withdraw(fieldPrice*2);
+                pl.getAccount(ownership).deposit(fieldPrice*2);
+            } else {
                 account.withdraw(fieldPrice);
-                fl.getField(pos).setOwner(playerTurn+1);
-                break;
-
-            case 1: case 2: case 3: case 4:
-                System.out.println("The player will now pay to player number " + (ownership-1));
-                if (ownership == f1 || ownership == f2) {
-                    account.withdraw(fieldPrice*2);
-                    pl.getAccount(ownership - 1).deposit(fieldPrice*2);
-                } else {
-                    account.withdraw(fieldPrice);
-                    pl.getAccount(ownership-1).deposit(fieldPrice);
+                pl.getAccount(ownership).deposit(fieldPrice);
             }
-                break;
         }
     }
 

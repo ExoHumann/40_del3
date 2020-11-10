@@ -13,7 +13,6 @@ public class FieldList {
 
     public FieldList() {
 
-
         fields[0] = new Field(Game.translation.getFieldsName()[0],0,"Gratis", Color.white, "Street");
         fields[1] = new Field(Game.translation.getFieldsName()[1],1,"1", Color.red, "Street");
         fields[2] = new Field(Game.translation.getFieldsName()[2],1,"1", Color.red,"Street");

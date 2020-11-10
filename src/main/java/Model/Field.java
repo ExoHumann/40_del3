@@ -30,7 +30,7 @@ public class Field {
         this.rent = description;
         this.color = color;
         this.fieldType = fieldType;
-        int owner = 0;
+        this.owner = -1;
     }
 
     //Getters and setters

@@ -38,12 +38,21 @@ public class Chance {
     }
 
 
+    public void choseField(Logic logic, GameGUI gameGUI, FieldList fl, PlayerList pl, int playerTurn, int min, int max, String message) throws InterruptedException {
+        int playerChoice;
+        playerChoice = gameGUI.getUserButtons(message, min,max);
+        logic.movePlayer(pl,fl, logic.moveAmount(playerChoice,fl), playerTurn);
+        gameGUI.moveToField(logic.prePos,playerTurn,playerChoice);
+    }
+
+
     public void chance(PlayerList pl, FieldList fl, int playerTurn, Logic logic, GameGUI gameGUI) throws InterruptedException {
         Player player = pl.getPlayerList(playerTurn);
         Account account = pl.getAccount(playerTurn);
         int playerChoice;
 
         chance = drawCard();
+
         logic.landedOnChance=false;
 
 
@@ -51,7 +60,7 @@ public class Chance {
         switch (chance) {
         case 0:
         case 1: playerChoice = gameGUI.getUserButtons("Chose Between 1-5 fields to move up", 1,5);
-            logic.movePlayer(pl,fl, logic.moveAmount(playerChoice,fl), playerTurn);
+            logic.movePlayer(pl,fl, playerChoice, playerTurn);
             gameGUI.fancyMoveGuiPlayer(logic.prePos,playerTurn, playerChoice);
             break;
 
@@ -142,7 +151,7 @@ public class Chance {
                 case 13:
                     gameGUI.showMessage("It's your birthday! Every player gives you 1M");
                     for (int i = 0; i < pl.getPlayerAmount(); i++) {
-                        pl.getAccount(pl.getPlayerAmount()).withdraw(1);
+                        pl.getAccount(pl.getPlayerAmount()-1).withdraw(1);
                         account.deposit(pl.getPlayerAmount());
                     }
                     break;

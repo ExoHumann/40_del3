@@ -56,7 +56,6 @@ public class Game {
                 logic.displayTakingTurn(pl, playerTurn);
                 gameGui.showMessage(pl.getPlayerList(playerTurn).getName() + " " + Game.translation.getRollDiceAction());
 
-
                 logic.movePlayer(pl, fl, dice.roll(), playerTurn);
 
                 logic.diceInfo(pl, dice, playerTurn);
@@ -67,17 +66,17 @@ public class Game {
                 gameGui.updateFieldBuy(pl,fl);
 
                 if (logic.landedOnChance) {
-                    chance.chance(pl, fl, playerTurn, logic, gameGui);
+                chance.chance(pl, fl, playerTurn, logic, gameGui);
                 }   if (logic.drawAnother) {
-                        chance.chance(pl, fl, playerTurn, logic , gameGui);
+                    chance.chance(pl, fl, playerTurn, logic , gameGui);
                     }
 
                 if (pl.getPlayerList(playerTurn).getInJail()) {
-                    logic.movePlayer(pl, fl, logic.moveAmount(6,fl), playerTurn);
                     gameGui.moveToField(logic.pos, playerTurn, 6);
                 }
 
                 gameGui.updateFieldBuy(pl,fl);
+
                 for (int j = 0; j < playerAmount ; j++) {
                     gameGui.showBalance(pl,j);
                 }

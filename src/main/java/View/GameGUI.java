@@ -33,9 +33,9 @@ public class GameGUI {
         for (int i = 0; i <fields.length ; i++) {
             GUI_Ownable ownable = (GUI_Ownable) fields[i];
             int owner = fl.getField(i).getOwner();
-            if (!(fl.getField(i).getOwner() == 0)) {
-                ownable.setOwnerName(pl.getPlayerList(owner-1).getName());
-                ownable.setBorder(pl.getPlayerList(owner-1).getColor());
+            if (!(fl.getField(i).getOwner() == -1)) {
+                ownable.setOwnerName(pl.getPlayerList(owner).getName());
+                ownable.setBorder(pl.getPlayerList(owner).getColor());
                 ownable.setRentLabel("\nRent: " + fl.getField(i).getRent());
             }
         }
