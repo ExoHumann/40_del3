@@ -42,9 +42,9 @@ public class Chance {
         Player player = pl.getPlayerList(playerTurn);
         Account account = pl.getAccount(playerTurn);
         int playerChoice;
-        drawCard();
-        Random r = new Random();
-        chance = r.nextInt((12)+1);
+
+        chance = drawCard();
+        logic.landedOnChance=false;
 
 
 
@@ -74,7 +74,7 @@ public class Chance {
             logic.movePlayer(pl,fl, logic.moveAmount(playerChoice,fl), playerTurn);
                 gameGUI.fancyMoveGuiPlayer(logic.prePos,playerTurn, playerChoice);
             } else if (playerChoice == 2) {
-               drawCard();
+               logic.drawAnother=true;
             }
             break;
         case 5:
