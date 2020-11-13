@@ -10,10 +10,10 @@ import java.util.Collections;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class Chance {
+public class ChanceController {
 
 
-    public Chance() {
+    public ChanceController() {
     }
 
     int chance;
@@ -37,29 +37,22 @@ public class Chance {
         Collections.shuffle(deck);
     }
 
-
-    public void choseField(Logic logic, GameGUI gameGUI, FieldList fl, PlayerList pl, int playerTurn, int min, int max, String message) throws InterruptedException {
-        int playerChoice;
-        playerChoice = gameGUI.getUserButtons(message, min,max);
-        logic.movePlayer(pl,fl, logic.moveAmount(playerChoice,fl), playerTurn);
-        gameGUI.moveToField(logic.prePos,playerTurn,playerChoice);
-    }
-
-
     public void chance(PlayerList pl, FieldList fl, int playerTurn, Logic logic, GameGUI gameGUI) throws InterruptedException {
         Player player = pl.getPlayerList(playerTurn);
         Account account = pl.getAccount(playerTurn);
         int playerChoice;
 
         chance = drawCard();
-
         logic.landedOnChance=false;
 
 
 
         switch (chance) {
         case 0:
-        case 1: playerChoice = gameGUI.getUserButtons("Chose Between 1-5 fields to move up", 1,5);
+            gameGUI.displayChance("Move to next possible field");
+            pl.getPlayerList(0).buyNextPossibleField = true;
+            break;
+            case 1: playerChoice = gameGUI.getUserButtons("Chose Between 1-5 fields to move up", 1,5);
             logic.movePlayer(pl,fl, playerChoice, playerTurn);
             gameGUI.fancyMoveGuiPlayer(logic.prePos,playerTurn, playerChoice);
             break;

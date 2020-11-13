@@ -7,11 +7,13 @@ import java.awt.*;
 public class Player {
 
     private String name;
+    private int type;
     private Color color;
     private int currentPosition;
     private int turn;
     boolean isInJail;
     boolean getOutOfJailCard;
+    public boolean buyNextPossibleField;
 
     /**
      * Constructor for the player takes a name and color
@@ -22,6 +24,7 @@ public class Player {
         this.name = name;
         this.color = color;
         int turn = 0;
+        this.type = 0;
     }
 
     /**
@@ -49,4 +52,11 @@ public class Player {
         return name;
     }
 
+    public int getType() {
+        return type;
+    }
+
+    public void setType(int type) {
+        this.type = type;
+    }
 }

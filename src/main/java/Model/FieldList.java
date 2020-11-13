@@ -1,9 +1,9 @@
 package Model;
 
 import Controller.Game;
-import Model.Field;
-import gui_fields.GUI_Start;
-import gui_fields.GUI_Street;
+import Model.Fields.Chance;
+import Model.Fields.Field;
+import Model.Fields.Ownable;
 
 import java.awt.*;
 
@@ -13,30 +13,30 @@ public class FieldList {
 
     public FieldList() {
 
-        fields[0] = new Field(Game.translation.getFieldsName()[0],0,"Gratis", Color.white, "Street");
-        fields[1] = new Field(Game.translation.getFieldsName()[1],1,"1", Color.red, "Street");
-        fields[2] = new Field(Game.translation.getFieldsName()[2],1,"1", Color.red,"Street");
-        fields[3] = new Field(Game.translation.getFieldsName()[3],0,"0", Color.white,"Chance");
-        fields[4] = new Field(Game.translation.getFieldsName()[4],1,"1", Color.yellow,"Street");
-        fields[5] = new Field(Game.translation.getFieldsName()[5],1,"1", Color.yellow,"Street");
-        fields[6] = new Field(Game.translation.getFieldsName()[6],0,"0", Color.white,"VisitJail");
-        fields[7] = new Field(Game.translation.getFieldsName()[7],2,"2", new Color(0,100,0),"Street");
-        fields[8] = new Field(Game.translation.getFieldsName()[8],2,"2", new Color(0,100,0),"Street");
-        fields[9] = new Field(Game.translation.getFieldsName()[9],0,"0",Color.white,"Chance");
-        fields[10] = new Field(Game.translation.getFieldsName()[10],2,"2",Color.blue,"Street");
-        fields[11] = new Field(Game.translation.getFieldsName()[11],2,"2",Color.blue,"Street");
-        fields[12] = new Field(Game.translation.getFieldsName()[12],0,"0", Color.white,"Parking");
-        fields[13] = new Field(Game.translation.getFieldsName()[13],3,"3", Color.orange,"Street");
-        fields[14] = new Field(Game.translation.getFieldsName()[14],3,"3", Color.orange,"Street");
-        fields[15] = new Field(Game.translation.getFieldsName()[15],0,"0", Color.white,"Chance");
-        fields[16] = new Field(Game.translation.getFieldsName()[16],3,"3", Color.cyan,"Street");
-        fields[17] = new Field(Game.translation.getFieldsName()[17],3,"3", Color.cyan,"Street");
-        fields[18] = new Field(Game.translation.getFieldsName()[18],0,"0", Color.white,"GoToJail");
-        fields[19] = new Field(Game.translation.getFieldsName()[19],4,"4", Color.pink,"Street");
-        fields[20] = new Field(Game.translation.getFieldsName()[20],4,"4",Color.pink,"Street");
-        fields[21] = new Field(Game.translation.getFieldsName()[21],0,"0",Color.white,"Chance");
-        fields[22] = new Field(Game.translation.getFieldsName()[22],5,"5",Color.green,"Street");
-        fields[23] = new Field(Game.translation.getFieldsName()[23],5,"5",Color.green,"Street");
+        fields[0] = new Chance(Game.translation.getFieldsName()[0],0,"Gratis", Color.white, "Start");
+        fields[1] = new Ownable(Game.translation.getFieldsName()[1],1,"1", Color.red, "Street","1");
+        fields[2] = new Ownable(Game.translation.getFieldsName()[2],1,"1", Color.red,"Street","1");
+        fields[3] = new Chance(Game.translation.getFieldsName()[3],0,"0", Color.white,"Chance");
+        fields[4] = new Ownable(Game.translation.getFieldsName()[4],1,"1", Color.yellow,"Street","1");
+        fields[5] = new Ownable(Game.translation.getFieldsName()[5],1,"1", Color.yellow,"Street","1");
+        fields[6] = new Chance(Game.translation.getFieldsName()[6],0,"0", Color.white,"VisitJail");
+        fields[7] = new Ownable(Game.translation.getFieldsName()[7],2,"2", new Color(0,100,0),"Street","2");
+        fields[8] = new Ownable(Game.translation.getFieldsName()[8],2,"2", new Color(0,100,0),"Street","2");
+        fields[9] = new Chance(Game.translation.getFieldsName()[9],0,"0",Color.white,"Chance");
+        fields[10] = new Ownable(Game.translation.getFieldsName()[10],2,"2",Color.blue,"Street","2");
+        fields[11] = new Ownable(Game.translation.getFieldsName()[11],2,"2",Color.blue,"Street","2");
+        fields[12] = new Chance(Game.translation.getFieldsName()[12],0,"0", Color.white,"Parking");
+        fields[13] = new Ownable(Game.translation.getFieldsName()[13],3,"3", Color.orange,"Street","3");
+        fields[14] = new Ownable(Game.translation.getFieldsName()[14],3,"3", Color.orange,"Street","3");
+        fields[15] = new Chance(Game.translation.getFieldsName()[15],0,"0", Color.white,"Chance");
+        fields[16] = new Ownable(Game.translation.getFieldsName()[16],3,"3", Color.cyan,"Street","3");
+        fields[17] = new Ownable(Game.translation.getFieldsName()[17],3,"3", Color.cyan,"Street","3");
+        fields[18] = new Chance(Game.translation.getFieldsName()[18],0,"0", Color.white,"GoToJail");
+        fields[19] = new Ownable(Game.translation.getFieldsName()[19],4,"4", Color.pink,"Street","4");
+        fields[20] = new Ownable(Game.translation.getFieldsName()[20],4,"4",Color.pink,"Street","4");
+        fields[21] = new Chance(Game.translation.getFieldsName()[21],0,"0",Color.white,"Chance");
+        fields[22] = new Ownable(Game.translation.getFieldsName()[22],5,"5",Color.green,"Street","4");
+        fields[23] = new Ownable(Game.translation.getFieldsName()[23],5,"5",Color.green,"Street","4");
     }
 
     // Prints out all the fields to the console
@@ -49,5 +49,6 @@ public class FieldList {
 
     //Getters and setters
     public Field getField(int fieldNum) { return fields[fieldNum]; }
+
     public int getSize(){ return fields.length; }
 }

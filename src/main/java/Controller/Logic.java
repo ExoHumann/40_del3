@@ -12,7 +12,10 @@ public class Logic {
     public int prePos;
     public int pos;
 
+    private BuyingController buyingController;
+
     public Logic() {
+        this.buyingController = new BuyingController();
     }
 
     /**
@@ -50,7 +53,7 @@ public class Logic {
                 break;
 
             default:
-                buyField(pl,fl,playerTurn);
+                buyingController.buyField(pl,fl,playerTurn);
         }
         System.out.printf(Game.translation.getLandedString(),
                 player.getName(), pos, fl.getField(pos).getTitle(), fl.getField(pos).getPrice());
@@ -60,32 +63,11 @@ public class Logic {
         return (fl.getSize() + moveToPos - pos-1)%fl.getSize()+1;
     }
 
-    public void buyField(PlayerList pl, FieldList fl, int playerTurn){
-        int fieldPrice = fl.getField(pos).getPrice();
-        Account account = pl.getAccount(playerTurn);
-
-        int ownership = fl.getField(pos).getOwner();
-        int f1 = fl.getField((pos-1)%fl.getSize()).getOwner();
-        int f2 = fl.getField((pos+1)%fl.getSize()).getOwner();
-
-        if (ownership == -1) {
-            account.withdraw(fieldPrice);
-            fl.getField(pos).setOwner(playerTurn);
-        } else if (ownership == 0 || ownership == 1 || ownership == 2 || ownership == 3) {
-            System.out.println("The player will now pay to player number " + (ownership));
-            if (ownership == f1 || ownership == f2) {
-                account.pay(fieldPrice*2, pl.getAccount(ownership));
-            } else {
-                account.pay(fieldPrice, pl.getAccount(ownership));
-            }
-        }
-    }
-
-    /**
-     * Describes the win condition of the game if a player has 3000 balance
-     * @param pl player list used to access accounts and check all counts
-     * @return Returns if the condition is met or no
-     */
+        /**
+         * Describes the win condition of the game if a player has 3000 balance
+         * @param pl player list used to access accounts and check all counts
+         * @return Returns if the condition is met or no
+         */
     public boolean winCondition(PlayerList pl) {
         boolean winCondition = false;
         for (int i = 0; i <pl.getAccounts().length ; i++) {

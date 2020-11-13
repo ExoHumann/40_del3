@@ -25,11 +25,13 @@ public class Game {
 
         translation = new Translator(local);
 
-        Board board = new Board();
         FieldList fl = new FieldList();
+        Board board = new Board(fl);
+        BuyingController buyingController = new BuyingController();
+
 
         Logic logic = new Logic();
-        Chance chance = new Chance();
+        ChanceController chance = new ChanceController();
 
         GUI gui = new GUI(board.createBoard(fl), Color.WHITE);
         GameGUI gameGui = new GameGUI(gui);
@@ -44,6 +46,8 @@ public class Game {
 
         for (int i = 0; i < playerAmount; i++) {
             String name = gameGui.getUserString(Game.translation.getPlayerNameAction());
+            int type = gameGui.getUserButtons("Vælge din bil Type (1) Bil (2) Racecar (3) Tractor, (4) Ufo", 1,4);
+            pl.getPlayerList(i).setType(type);
             pl.getPlayerList(i).setName(name);
             pl.getAccount(i).setBalance(pl.getAccount(i).getStartingBalance(playerAmount));
         }
@@ -67,19 +71,25 @@ public class Game {
                 gameGui.showDice(dice.getDie1(), dice.getDie2());
                 gameGui.fancyMoveGuiPlayer(logic.prePos, playerTurn, dice.getSum());
                 gameGui.showBalance(pl, playerTurn);
-                gameGui.updateFieldBuy(pl,fl);
+                //gameGui.updateFieldBuy(pl,fl);
 
-                if (logic.landedOnChance) {
+                if(pl.getPlayerList(playerTurn).buyNextPossibleField){
+                    gameGui.showMessage("Move to next possible field");
+                    buyingController.buyNextPossibleField(pl,fl,logic,playerTurn);
+                    gameGui.moveToField(logic.prePos,playerTurn,logic.moveAmount(logic.pos,fl));
+                }
+
+                //if (logic.landedOnChance) {
                 chance.chance(pl, fl, playerTurn, logic, gameGui);
-                }   if (logic.drawAnother) {
-                    chance.chance(pl, fl, playerTurn, logic , gameGui);
-                    }
+                //}   if (logic.drawAnother) {
+                  //  chance.chance(pl, fl, playerTurn, logic , gameGui);
+                  //  }
 
                 if (pl.getPlayerList(playerTurn).getInJail()) {
                     gameGui.moveToField(logic.pos, playerTurn, 6);
                 }
 
-                gameGui.updateFieldBuy(pl,fl);
+                //gameGui.updateFieldBuy(pl,fl);
 
                 for (int j = 0; j < playerAmount ; j++) {
                     gameGui.showBalance(pl,j);

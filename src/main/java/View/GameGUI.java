@@ -11,8 +11,6 @@ import gui_fields.GUI_Ownable;
 import gui_fields.GUI_Player;
 import gui_main.GUI;
 
-import java.awt.*;
-
 import static gui_fields.GUI_Car.Pattern.*;
 import static gui_fields.GUI_Car.Type.*;
 import static java.lang.Thread.sleep;
@@ -29,17 +27,17 @@ public class GameGUI {
         this.fields = gui.getFields();
     }
 
-    public void updateFieldBuy(PlayerList pl,FieldList fl){
-        for (int i = 0; i <fields.length ; i++) {
-            GUI_Ownable ownable = (GUI_Ownable) fields[i];
-            int owner = fl.getField(i).getOwner();
-            if (!(fl.getField(i).getOwner() == -1)) {
-                ownable.setOwnerName(pl.getPlayerList(owner).getName());
-                ownable.setBorder(pl.getPlayerList(owner).getColor());
-                ownable.setRentLabel("\nRent: " + fl.getField(i).getRent());
-            }
-        }
-    }
+//    public void updateFieldBuy(PlayerList pl,FieldList fl){
+//        for (int i = 0; i <fields.length ; i++) {
+//            GUI_Ownable ownable = (GUI_Ownable) fields[i];
+//            int owner = fl.getField(i).getOwner();
+//            if (!(fl.getField(i).getOwner() == -1)) {
+//                ownable.setOwnerName(pl.getPlayerList(owner).getName());
+//                ownable.setBorder(pl.getPlayerList(owner).getColor());
+//                ownable.setRentLabel("\nRent: " + fl.getField(i).getDescription());
+//            }
+//        }
+//    }
 
     GUI_Car.Type[] cars = {CAR, RACECAR, TRACTOR, UFO};
     /**
@@ -52,7 +50,7 @@ public class GameGUI {
 
         for (int i = 0; i < pl.getPlayerAmount(); i++) {
             Player player = pl.getPlayerList(i);
-            gui_cars[i] = new GUI_Car(player.getColor(), player.getColor(), cars[i%pl.getPlayerAmount()], FILL);
+            gui_cars[i] = new GUI_Car(player.getColor(), player.getColor(), cars[pl.getPlayerList(i).getType()-1], FILL);
             gui_players[i] = new GUI_Player(player.getName(),0, gui_cars[i]);
             gui.addPlayer(gui_players[i]);
             fields[0].setCar(gui_players[i], true);
