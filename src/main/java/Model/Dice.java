@@ -38,7 +38,19 @@ public class Dice {
     public int getDie1() { return die1; }
     public int getDie2() { return die2; }
     public int getSum() { return die1 + die2;}
-    public String toString(){
-        return Integer.toString(roll());
+
+    @Override
+    public String toString() {
+        return "Dice{" +
+                "die1=" + die1 +
+                ", die2=" + die2 +
+                "\n Sum= " + getSum() +
+                "\n Is Equals= " + getEquals() +
+                '}';
     }
+
+
+    //public String toString(){
+       // return Integer.toString(roll());
+    //}
 }

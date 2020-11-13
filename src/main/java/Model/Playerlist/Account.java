@@ -34,6 +34,11 @@ public class Account {
         }
     }
 
+    public void pay(int amount, Account receiver){
+        withdraw(amount);
+        receiver.deposit(amount);
+    }
+
     //Getters and setters
     public int getStartingBalance(int playerAmount){
         if (playerAmount == 2)

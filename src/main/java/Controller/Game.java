@@ -17,6 +17,10 @@ public class Game {
     private static final int minPlayers = 2;
     private static final int maxPlayers = 4;
 
+    public Game(){
+
+    }
+
     public void play(String local) throws InterruptedException {
 
         translation = new Translator(local);

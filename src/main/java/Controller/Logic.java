@@ -74,11 +74,9 @@ public class Logic {
         } else if (ownership == 0 || ownership == 1 || ownership == 2 || ownership == 3) {
             System.out.println("The player will now pay to player number " + (ownership));
             if (ownership == f1 || ownership == f2) {
-                account.withdraw(fieldPrice*2);
-                pl.getAccount(ownership).deposit(fieldPrice*2);
+                account.pay(fieldPrice*2, pl.getAccount(ownership));
             } else {
-                account.withdraw(fieldPrice);
-                pl.getAccount(ownership).deposit(fieldPrice);
+                account.pay(fieldPrice, pl.getAccount(ownership));
             }
         }
     }
