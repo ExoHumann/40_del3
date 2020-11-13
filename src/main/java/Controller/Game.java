@@ -79,11 +79,11 @@ public class Game {
                     gameGui.moveToField(logic.prePos,playerTurn,logic.moveAmount(logic.pos,fl));
                 }
 
-                //if (logic.landedOnChance) {
+                if (logic.landedOnChance) {
                 chance.chance(pl, fl, playerTurn, logic, gameGui);
-                //}   if (logic.drawAnother) {
-                  //  chance.chance(pl, fl, playerTurn, logic , gameGui);
-                  //  }
+                }   if (logic.drawAnother) {
+                    chance.chance(pl, fl, playerTurn, logic , gameGui);
+                    }
 
                 if (pl.getPlayerList(playerTurn).getInJail()) {
                     gameGui.moveToField(logic.pos, playerTurn, 6);
