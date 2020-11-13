@@ -39,8 +39,15 @@ public abstract class Field {
     public void setColor(Color color) { this.color = color; }
     public String getFieldType() { return fieldType; }
 
-    public String toString(){
-        return String.format(Game.translation.getFieldToString(),getTitle(),getPrice(), getDescription());
+    @Override
+    public String toString() {
+        return "Field{" +
+                "title='" + title + '\'' +
+                ", price=" + price +
+                ", description='" + description + '\'' +
+                ", color=" + color +
+                ", fieldType='" + fieldType + '\'' +
+                '}';
     }
 }
 
