@@ -23,7 +23,7 @@ public class PlayerList {
         players = new Player[playerAmount];
         accounts = new Account[playerAmount];
         for (int i = 0; i < playerAmount; i++) {
-            players[i] = new Player(null,getColor(i));
+            players[i] = new Player(null,colors[i]);
             accounts[i] = new Account(0);
         }
     }

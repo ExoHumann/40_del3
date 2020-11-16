@@ -46,8 +46,6 @@ public class Game {
 
         for (int i = 0; i < playerAmount; i++) {
             String name = gameGui.getUserString(Game.translation.getPlayerNameAction());
-            int type = gameGui.getUserButtons("Vælge din bil Type (1) Bil (2) Racecar (3) Tractor, (4) Ufo", 1,4);
-            pl.getPlayerList(i).setType(type);
             pl.getPlayerList(i).setName(name);
             pl.getAccount(i).setBalance(pl.getAccount(i).getStartingBalance(playerAmount));
         }
@@ -71,11 +69,11 @@ public class Game {
                 gameGui.showDice(dice.getDie1(), dice.getDie2());
                 gameGui.fancyMoveGuiPlayer(logic.prePos, playerTurn, dice.getSum());
                 gameGui.showBalance(pl, playerTurn);
-                //gameGui.updateFieldBuy(pl,fl);
+                gameGui.updateFieldBuy(pl,fl);
 
                 if(pl.getPlayerList(playerTurn).buyNextPossibleField){
                     gameGui.showMessage("Move to next possible field");
-                    buyingController.buyNextPossibleField(pl,fl,logic,playerTurn);
+                    //buyingController.buyNextPossibleField(pl,fl,logic,playerTurn);
                     gameGui.moveToField(logic.prePos,playerTurn,logic.moveAmount(logic.pos,fl));
                 }
 
@@ -89,7 +87,7 @@ public class Game {
                     gameGui.moveToField(logic.pos, playerTurn, 6);
                 }
 
-                //gameGui.updateFieldBuy(pl,fl);
+                gameGui.updateFieldBuy(pl,fl);
 
                 for (int j = 0; j < playerAmount ; j++) {
                     gameGui.showBalance(pl,j);

@@ -2,13 +2,10 @@
 package View;
 
 import Model.FieldList;
+import Model.Fields.Ownable;
 import Model.PlayerList;
 import Model.Playerlist.Player;
-//import com.sun.jdi.IntegerValue;
-import gui_fields.GUI_Car;
-import gui_fields.GUI_Field;
-import gui_fields.GUI_Ownable;
-import gui_fields.GUI_Player;
+import gui_fields.*;
 import gui_main.GUI;
 
 import static gui_fields.GUI_Car.Pattern.*;
@@ -27,17 +24,23 @@ public class GameGUI {
         this.fields = gui.getFields();
     }
 
-//    public void updateFieldBuy(PlayerList pl,FieldList fl){
-//        for (int i = 0; i <fields.length ; i++) {
-//            GUI_Ownable ownable = (GUI_Ownable) fields[i];
-//            int owner = fl.getField(i).getOwner();
-//            if (!(fl.getField(i).getOwner() == -1)) {
-//                ownable.setOwnerName(pl.getPlayerList(owner).getName());
-//                ownable.setBorder(pl.getPlayerList(owner).getColor());
-//                ownable.setRentLabel("\nRent: " + fl.getField(i).getDescription());
-//            }
-//        }
-//    }
+    public void updateFieldBuy(PlayerList pl,FieldList fl){
+        for (int i = 0; i <fields.length ; i++) {
+
+            if (fields[i] instanceof GUI_Street){
+
+                GUI_Ownable ownable = (GUI_Ownable) fields[i];
+                Ownable ownableField = (Ownable) fl.getField(i);
+
+            int owner = ownableField.getOwner();
+
+            if (!(ownableField.getOwner() == -1)) {
+                ownable.setOwnerName(pl.getPlayerList(owner).getName());
+                ownable.setBorder(pl.getPlayerList(owner).getColor());
+                }
+            }
+        }
+    }
 
     GUI_Car.Type[] cars = {CAR, RACECAR, TRACTOR, UFO};
     /**
@@ -50,7 +53,7 @@ public class GameGUI {
 
         for (int i = 0; i < pl.getPlayerAmount(); i++) {
             Player player = pl.getPlayerList(i);
-            gui_cars[i] = new GUI_Car(player.getColor(), player.getColor(), cars[pl.getPlayerList(i).getType()-1], FILL);
+            gui_cars[i] = new GUI_Car(player.getColor(), player.getColor(), cars[i%pl.getPlayerAmount()], FILL);
             gui_players[i] = new GUI_Player(player.getName(),0, gui_cars[i]);
             gui.addPlayer(gui_players[i]);
             fields[0].setCar(gui_players[i], true);
