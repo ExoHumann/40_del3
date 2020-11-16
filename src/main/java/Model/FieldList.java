@@ -11,7 +11,7 @@ public class FieldList {
 
     public FieldList() {
 
-        fields[0] = new Start(Game.translation.getFieldsName()[0],0,"Gratis", Color.white, "Start");
+        fields[0] = new Start(Game.translation.getFieldsName()[0],0,Game.translation.getFieldsName()[24], Color.white, "Start");
         fields[1] = new Ownable(Game.translation.getFieldsName()[1],1,"1", Color.red, "Street","1");
         fields[2] = new Ownable(Game.translation.getFieldsName()[2],1,"1", Color.red,"Street","1");
         fields[3] = new Chance("?",0,"0", Color.GREEN,"Chance");

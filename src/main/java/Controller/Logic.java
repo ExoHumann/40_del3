@@ -2,6 +2,7 @@ package Controller;
 
 import Model.Dice;
 import Model.FieldList;
+import Model.Fields.Field;
 import Model.PlayerList;
 import Model.Playerlist.*;
 
@@ -35,6 +36,7 @@ public class Logic {
         player.move(moveAmount, fl);
         pos = player.getCurrentPosition();
 
+        //Player crossed start
         if (prePos > pos){
             account.deposit(2);
         }
@@ -91,6 +93,14 @@ public class Logic {
 
     public void displayTurn(PlayerList pl, int PNum){
         System.out.printf(Game.translation.getDisplayTurnString()+ "\n", pl.getPlayerList(PNum).getName(),pl.getPlayerList(PNum).getTurn());
+    }
+
+    public int[] getNearbyFields(Player player){
+        int[] nearbyFields = new int[2];
+        int position = player.getCurrentPosition();
+        nearbyFields[0]=position-1;
+        nearbyFields[1]=position+1;
+        return nearbyFields;
     }
 
     public int getPrePos() { return prePos; }
