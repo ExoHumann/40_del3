@@ -23,8 +23,7 @@ public class Player {
     public Player(String name, Color color){
         this.name = name;
         this.color = color;
-        int turn = 0;
-        this.type = 0;
+        this.turn = 0;
     }
 
     /**
@@ -52,11 +51,4 @@ public class Player {
         return name;
     }
 
-    public int getType() {
-        return type;
-    }
-
-    public void setType(int type) {
-        this.type = type;
-    }
 }
