@@ -16,8 +16,8 @@ public class BuyingController {
     }
 
     public boolean isAllFieldInSeriesOwned(PlayerList pl, FieldList fl, int playerTurn) {
-        int colorAmount = 0;
-        int colorsOwned = 0;
+        int fieldsWithColor = 0;
+        int fieldsOwnedInTheSameColor = 0;
         for (int i = 0; i <fl.getSize() ; i++) {
 
             int pos = pl.getPlayerList(playerTurn).getCurrentPosition();
@@ -26,15 +26,15 @@ public class BuyingController {
             Field field = fl.getField(i);
 
             if (field.getColor() == currentField.getColor()){
-                colorAmount++;
+                fieldsWithColor++;
                 if (field instanceof Ownable && currentField instanceof Ownable) {
                     if (((Ownable) field).getOwner() == ((Ownable) currentField).getOwner()){
-                        colorsOwned++;
+                        fieldsOwnedInTheSameColor++;
                     }
                 }
             }
 
-            isAllFieldsInSeriesOwned = colorAmount == colorsOwned;
+            isAllFieldsInSeriesOwned = fieldsWithColor == fieldsOwnedInTheSameColor;
         }
         return isAllFieldsInSeriesOwned;
     }

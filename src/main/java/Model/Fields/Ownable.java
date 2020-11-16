@@ -18,7 +18,7 @@ public class Ownable extends Field{
      */
     public Ownable(String title, int price, String description, Color color, String fieldType, String rent) {
         super(title, price, description, color, fieldType);
-        this.owner = 0;
+        this.owner = -1;
         this.rent = rent;
     }
 
