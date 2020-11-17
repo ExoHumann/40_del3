@@ -36,6 +36,7 @@ public class Board {
             } else if(field instanceof Parking){
                 parking[i] = (Parking) field;
             }
+
         }
     }
 
@@ -88,15 +89,6 @@ public class Board {
             }
         return gui_fields;
     }
-
-    public Chance getChance(int id) {
-        return chance[id];
-    }
-
-    public Ownable getOwnable(int id) {
-        return ownable[id];
-    }
-
 }
 
 

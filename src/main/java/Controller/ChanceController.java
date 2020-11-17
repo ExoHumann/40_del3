@@ -46,7 +46,6 @@ public class ChanceController {
         logic.landedOnChance=false;
 
 
-
         switch (chance) {
         case 0:
             gameGUI.displayChance("Move to next possible field");
@@ -106,7 +105,7 @@ public class ChanceController {
                 gameGUI.moveToField(logic.prePos,playerTurn,playerChoice);}
                 break;
         case 9:
-            player.setGetOutOfJailCard();
+            player.setGetOutOfJailCard(true);
             break;
         case 10:
             playerChoice = gameGUI.getUserButtons("Move to (1) a pink field or (2) a dark blue field",1,2);

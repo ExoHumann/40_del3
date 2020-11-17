@@ -18,22 +18,21 @@ public class BuyingController {
     public boolean isAllFieldInSeriesOwned(PlayerList pl, FieldList fl, int playerTurn) {
         int fieldsWithColor = 0;
         int fieldsOwnedInTheSameColor = 0;
-        for (int i = 0; i <fl.getSize() ; i++) {
+        for (int i = 0; i < fl.getSize(); i++) {
 
             int pos = pl.getPlayerList(playerTurn).getCurrentPosition();
 
             Field currentField = fl.getField(pos);
             Field field = fl.getField(i);
 
-            if (field.getColor() == currentField.getColor()){
+            if (field.getColor() == currentField.getColor()) {
                 fieldsWithColor++;
                 if (field instanceof Ownable && currentField instanceof Ownable) {
-                    if (((Ownable) field).getOwner() == ((Ownable) currentField).getOwner()){
+                    if (((Ownable) field).getOwner() == ((Ownable) currentField).getOwner()) {
                         fieldsOwnedInTheSameColor++;
                     }
                 }
             }
-
             isAllFieldsInSeriesOwned = fieldsWithColor == fieldsOwnedInTheSameColor;
         }
         return isAllFieldsInSeriesOwned;
@@ -42,18 +41,24 @@ public class BuyingController {
 
     public void buyNextPossibleField(PlayerList pl, FieldList fl, int playerTurn) {
         Player player = pl.getPlayerList(playerTurn);
-        int pos = pl.getPlayerList(playerTurn).getCurrentPosition();
-        Ownable field = (Ownable) fl.getField(pos);
 
-        if (field != null) {
-            while (field.getOwner() == -1) {
-                player.move(1, fl);
-            }
-        } else {
-                player.move(1,fl);
-        }
-        buyField(pl, fl, playerTurn);
+        Field field;
         player.buyNextPossibleField = false;
+
+        for (int i = player.getCurrentPosition() + 1;
+             i != player.getCurrentPosition();
+             i = (i + 1) % fl.getSize()) {
+
+            field = fl.getField(i);
+            if (field instanceof Ownable) {
+
+                if (((Ownable) field).getOwner() == -1) {
+                    player.setCurrentPosition(i);
+                    buyField(pl, fl, playerTurn);
+                    return;
+                }
+            }
+        }
     }
 
 
@@ -64,20 +69,21 @@ public class BuyingController {
 
         Ownable field = (Ownable) fl.getField(pos);
 
-        if (field != null){
-        int ownership = field.getOwner();
+        if (field != null) {
+            int ownership = field.getOwner();
 
-        if (ownership == -1) {
-            account.withdraw(fieldPrice);
-            field.setOwner(playerTurn);
-        } else {
-            System.out.println("The player will now pay to player number " + (ownership));
-            if (isAllFieldInSeriesOwned(pl, fl, playerTurn)) {
-                account.pay(fieldPrice * 2, pl.getAccount(ownership));
+            if (ownership == -1) {
+                account.withdraw(fieldPrice);
+                field.setOwner(playerTurn);
             } else {
-                account.pay(fieldPrice, pl.getAccount(ownership));
+                if (isAllFieldInSeriesOwned(pl, fl, playerTurn)) {
+                    System.out.println("The player will now pay the double price to player number " + (ownership));
+                    account.pay(fieldPrice * 2, pl.getAccount(ownership));
+                } else {
+                    System.out.println("The player will now pay to player number " + (ownership));
+                    account.pay(fieldPrice, pl.getAccount(ownership));
+                }
             }
-        }
         }
     }
 }

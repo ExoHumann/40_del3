@@ -11,6 +11,7 @@ public class PlayerList {
 
     Player[] players;
     Account[] accounts;
+    int currentPlayer = -1;
 
     private String[] names = {"Peter", "Marcus", "Oliver", "Phill"};
     private Color[] colors = {Color.CYAN, Color.GREEN, Color.WHITE, Color.BLUE, Color.orange, Color.RED, Color.WHITE };
@@ -36,6 +37,29 @@ public class PlayerList {
 
     public Account[] getAccounts(){ return accounts; }
     public Account getAccount(int id){ return accounts[id];}
+
+
+    public void setNames(String[] names) {
+        this.names = names;
+    }
+
+
+
+    public Player getCurrentPlayer(){
+        return players[currentPlayer];
+    }
+
+
+    public Player getNextPlayer(){
+        currentPlayer = (currentPlayer + 1) % players.length;
+        return players[currentPlayer];
+    }
+
+
+
+
+
+
 
 
 }

@@ -7,7 +7,6 @@ import java.awt.*;
 public class Player {
 
     private String name;
-    private int type;
     private Color color;
     private int currentPosition;
     private int turn;
@@ -38,15 +37,22 @@ public class Player {
 
     public int getCurrentPosition() { return currentPosition; }
     public  void setCurrentPosition(int position){ this.currentPosition = position; }
+
     public void incrementTurn(){ turn++; }
     public int getTurn(){ return turn;}
+
     public Color getColor() { return color; }
     public void setColor(Color color) { this.color = color; }
+
     public String getName() { return name; }
     public void setName(String name) { this.name = name; }
-    public void setInJail(){ isInJail = true; }
-    public void setGetOutOfJailCard(){ getOutOfJailCard = true; }
+
+    public void setInJail(boolean isInJail){ this.isInJail = isInJail; }
     public boolean getInJail(){ return isInJail;}
+
+    public void setGetOutOfJailCard(boolean getOutOfJailCard){ this.getOutOfJailCard = getOutOfJailCard; }
+    public boolean isGetOutOfJailCard() { return getOutOfJailCard; }
+
     public String toString(){
         return name;
     }

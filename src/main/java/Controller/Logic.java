@@ -50,7 +50,7 @@ public class Logic {
                 break;
 
             case 18:
-                player.setInJail();
+                player.setInJail(true);
                 player.setCurrentPosition(6);
                 break;
 
