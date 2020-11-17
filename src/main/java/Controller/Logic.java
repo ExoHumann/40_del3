@@ -50,7 +50,7 @@ public class Logic {
                 break;
 
             case 18:
-                player.setInJail();
+                jailPlayer(player);
                 player.setCurrentPosition(6);
                 break;
 
@@ -66,7 +66,7 @@ public class Logic {
     }
 
         /**
-         * Describes the win condition of the game if a player has 3000 balance
+         * Describes the win condition of the game if a player has 0 balance
          * @param pl player list used to access accounts and check all counts
          * @return Returns if the condition is met or no
          */
@@ -95,12 +95,39 @@ public class Logic {
         System.out.printf(Game.translation.getDisplayTurnString()+ "\n", pl.getPlayerList(PNum).getName(),pl.getPlayerList(PNum).getTurn());
     }
 
+    /**
+     * Gets the 2 nearby fields of the player
+     * @param player player
+     * @return array of field id's
+     */
     public int[] getNearbyFields(Player player){
         int[] nearbyFields = new int[2];
         int position = player.getCurrentPosition();
         nearbyFields[0]=position-1;
         nearbyFields[1]=position+1;
         return nearbyFields;
+    }
+
+    /**
+     * Finds the player id, that has the highest balance.
+     * @param list List of Players
+     * @return id of the player with the highest balance
+     */
+    public int getPlayerHighestBalance(PlayerList list){
+        Account highBalance;
+        highBalance = list.getAccount(0);
+        int id = 0;
+        for (int i = 0; i < list.getAccounts().length; i++) {
+            if (list.getAccounts()[i].getBalance()>highBalance.getBalance()){
+                highBalance = list.getAccount(i);
+                id=i;
+            }
+        }
+        return id;
+    }
+
+    public void jailPlayer(Player player){
+        player.setInJail();
     }
 
     public int getPrePos() { return prePos; }
