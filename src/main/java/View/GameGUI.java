@@ -24,7 +24,7 @@ public class GameGUI {
         this.fields = gui.getFields();
     }
 
-    public void updateFieldBuy(PlayerList pl,FieldList fl){
+    public void updateFieldBuy(FieldList fl){
         for (int i = 0; i <fields.length ; i++) {
 
             if (fields[i] instanceof GUI_Street){
@@ -32,11 +32,11 @@ public class GameGUI {
                 GUI_Ownable ownable = (GUI_Ownable) fields[i];
                 Ownable ownableField = (Ownable) fl.getField(i);
 
-            int owner = ownableField.getOwner();
+           Player owner = ownableField.getOwner();
 
-            if (!(ownableField.getOwner() == -1)) {
-                ownable.setOwnerName(pl.getPlayerList(owner).getName());
-                ownable.setBorder(pl.getPlayerList(owner).getColor());
+            if (!(ownableField.getOwner() == null)) {
+                ownable.setOwnerName(owner.getName());
+                ownable.setBorder(ownableField.getColor());
                 }
             }
         }

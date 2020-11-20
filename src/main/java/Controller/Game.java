@@ -21,7 +21,7 @@ public class Game {
     private final Board board;
     private final BuyingController buyingController;
     private final Logic logic;
-    private final ChanceController chance;
+    //private final ChanceController chance;
     private final GUI gui;
     private final GameGUI gameGUI;
     private final PlayerList pl;
@@ -35,7 +35,7 @@ public class Game {
         gameGUI = new GameGUI(gui);
         buyingController = new BuyingController();
         logic = new Logic();
-        chance = new ChanceController();
+        //chance = new ChanceController();
         dice = new Dice(0, 0);
 
         int playerAmount = gameGUI.getUserButtons(Game.translation.getPlayerSelectAction(), minPlayers, maxPlayers);
@@ -47,8 +47,8 @@ public class Game {
             pl.getAccount(i).setBalance(pl.getAccount(i).getStartingBalance(playerAmount));
         }
 
-        chance.Shuffle();
-        chance.printDeck();
+        //chance.Shuffle();
+        //chance.printDeck();
         gameGUI.addPlayers(pl);
     }
 
@@ -57,45 +57,49 @@ public class Game {
         int playerAmount = pl.getPlayerAmount();
 
         while (!logic.winCondition(pl)) {
-            Player player = pl.getPlayerList(playerTurn);
+            Player p = pl.getCurrentPlayer();
 
             logic.displayTakingTurn(pl, playerTurn);
-            gameGUI.showMessage(player.getName() + " " + Game.translation.getRollDiceAction());
+            gameGUI.showMessage(p.getName() + " " + Game.translation.getRollDiceAction());
 
-            logic.movePlayer(pl, fl, dice.roll(), playerTurn);
+            int prePos = p.getCurrentPosition();
+            p.move(dice.roll(), fl);
+            int pos = p.getCurrentPosition();
 
-            logic.diceInfo(pl, dice, playerTurn);
+            logic.diceInfo(p,dice);
+            logic.landedOn(p, fl);
+
 
             gameGUI.showDice(dice.getDie1(), dice.getDie2());
             gameGUI.fancyMoveGuiPlayer(logic.prePos, playerTurn, dice.getSum());
             gameGUI.showBalance(pl, playerTurn);
-            gameGUI.updateFieldBuy(pl, fl);
+            gameGUI.updateFieldBuy(fl);
 
             if (logic.landedOnChance) {
-                chance.chance(pl, fl, playerTurn, logic, gameGUI);
+                //      chance.chance(pl, fl, playerTurn, logic, gameGUI);
             }
             if (logic.drawAnother) {
-                chance.chance(pl, fl, playerTurn, logic, gameGUI);
+                //     chance.chance(pl, fl, playerTurn, logic, gameGUI);
             }
 
-            if (player.buyNextPossibleField) {
+            if (p.buyNextPossibleField) {
                 gameGUI.showMessage("Move to next possible field");
-                buyingController.buyNextPossibleField(pl, fl, playerTurn);
-                gameGUI.moveToField(logic.prePos, playerTurn, logic.pos%fl.getSize());
+                buyingController.buyNextPossibleField(p,fl);
+                gameGUI.moveToField(prePos, playerTurn, pos%fl.getSize());
             }
 
-            if (player.getInJail()) {
+            if (p.getInJail()) {
                 gameGUI.moveToField(logic.pos, playerTurn, 6);
                 pl.getPlayerList(playerTurn).setInJail(false);
             }
 
-            gameGUI.updateFieldBuy(pl, fl);
+            gameGUI.updateFieldBuy(fl);
 
             for (int j = 0; j < playerAmount; j++) {
                 gameGUI.showBalance(pl, j);
             }
 
-            player.incrementTurn();
+            p.incrementTurn();
             logic.displayTurn(pl, playerTurn);
             playerTurn = (playerTurn + 1) % playerAmount;
 

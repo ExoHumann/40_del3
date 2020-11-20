@@ -11,7 +11,8 @@ public class PlayerList {
 
     Player[] players;
     Account[] accounts;
-    int currentPlayer = -1;
+    Player currentPlayer;
+    int currentPlayerID;
 
     private String[] names = {"Peter", "Marcus", "Oliver", "Phill"};
     private Color[] colors = {Color.CYAN, Color.GREEN, Color.WHITE, Color.BLUE, Color.orange, Color.RED, Color.WHITE };
@@ -24,8 +25,9 @@ public class PlayerList {
         players = new Player[playerAmount];
         accounts = new Account[playerAmount];
         for (int i = 0; i < playerAmount; i++) {
-            players[i] = new Player(null,colors[i]);
             accounts[i] = new Account(0);
+            players[i] = new Player(null,colors[i], accounts[i]);
+            players[i].setAccount(accounts[i]);
         }
     }
 
@@ -43,16 +45,14 @@ public class PlayerList {
         this.names = names;
     }
 
-
-
     public Player getCurrentPlayer(){
-        return players[currentPlayer];
+        return currentPlayer;
     }
 
-
     public Player getNextPlayer(){
-        currentPlayer = (currentPlayer + 1) % players.length;
-        return players[currentPlayer];
+        currentPlayerID = (currentPlayerID + 1) % players.length;
+        currentPlayer = players[currentPlayerID];
+        return currentPlayer;
     }
 
 

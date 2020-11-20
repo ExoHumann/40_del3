@@ -2,7 +2,6 @@ package Controller;
 
 import Model.Dice;
 import Model.FieldList;
-import Model.Fields.Field;
 import Model.PlayerList;
 import Model.Playerlist.*;
 
@@ -23,22 +22,14 @@ public class Logic {
      * Updates the roll and position of the dice
      * Moves the player outside of the GUI.
      * Manages the balance of the player
-     * @param pl Playlist used to access players account and position
+     * @param p Which player is taking a turn
      * @param fl FieldList used to access the price of the fields
-     * @param moveAmount Dice used to update the roll and move the player
-     * @param playerTurn Which player is taking a turn
      */
-    public void movePlayer(PlayerList pl, FieldList fl, int moveAmount, int playerTurn) {
-        Player player = pl.getPlayerList(playerTurn);
-        Account account = pl.getAccount(playerTurn);
-
-        prePos = player.getCurrentPosition();
-        player.move(moveAmount, fl);
-        pos = player.getCurrentPosition();
+    public void landedOn(Player p, FieldList fl) {
 
         //Player crossed start
         if (prePos > pos){
-            account.deposit(2);
+            p.getAccount().deposit(2);
         }
 
         switch (pos) {
@@ -50,15 +41,15 @@ public class Logic {
                 break;
 
             case 18:
-                player.setInJail(true);
-                player.setCurrentPosition(6);
+                p.setInJail(true);
+                p.setCurrentPosition(6);
                 break;
 
             default:
-                buyingController.buyField(pl,fl,playerTurn);
+                buyingController.buyField(p,fl);
         }
                 System.out.printf(Game.translation.getLandedString(),
-                player.getName(), pos, fl.getField(pos).getTitle(), fl.getField(pos).getPrice());
+                p.getName(), pos, fl.getField(pos).getTitle(), fl.getField(pos).getPrice());
     }
 
     public int moveAmount(int moveToPos, FieldList fl){
@@ -72,7 +63,7 @@ public class Logic {
          */
     public boolean winCondition(PlayerList pl) {
         boolean winCondition = false;
-        for (int i = 0; i <pl.getAccounts().length ; i++) {
+        for (int i = 0; i <pl.getPlayerAmount() ; i++) {
             if (pl.getAccount(i).getBalance() <= 0) winCondition = true;
         }
         return winCondition;
@@ -83,8 +74,8 @@ public class Logic {
     }
 
 
-    public void diceInfo(PlayerList pl, Dice dice, int PNum) {
-        System.out.printf(Game.translation.getDiceInfo() +"\n",pl.getPlayerList(PNum).getName(),dice.getDie1(),dice.getDie2(),dice.getSum(),pl.getPlayerList(PNum).getCurrentPosition(),pl.getAccount(PNum).getBalance());
+    public void diceInfo(Player p, Dice dice) {
+        System.out.printf(Game.translation.getDiceInfo() +"\n",p.getName(),dice.getDie1(),dice.getDie2(),dice.getSum(),p.getCurrentPosition(),p.getAccount().getBalance());
     }
 
     public void displayTakingTurn(PlayerList pl, int PNum){

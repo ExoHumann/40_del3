@@ -6,8 +6,10 @@ import java.awt.*;
 
 public class Player {
 
+    private int pNum;
     private String name;
     private Color color;
+    private Account account;
     private int currentPosition;
     private int turn;
     boolean isInJail;
@@ -18,10 +20,12 @@ public class Player {
      * Constructor for the player takes a name and color
      * @param name Players name
      * @param color Players color used for example to set his car color
+     * @param account
      */
-    public Player(String name, Color color){
+    public Player(String name, Color color, Account account){
         this.name = name;
         this.color = color;
+        this.account = account;
         this.turn = 0;
     }
 
@@ -57,4 +61,15 @@ public class Player {
         return name;
     }
 
+    public Account getAccount() {
+        return account;
+    }
+
+    public void setAccount(Account account) {
+        this.account = account;
+    }
+
+    public int getpNum() { return pNum; }
+
+    public void setpNum(int pNum) { this.pNum = pNum; }
 }

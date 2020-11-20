@@ -1,10 +1,12 @@
 package Model.Fields;
 
+import Model.Playerlist.Player;
+
 import java.awt.*;
 
 public class Ownable extends Field{
 
-    private int owner;
+    private Player owner;
     private String rent;
 
     /**
@@ -18,14 +20,12 @@ public class Ownable extends Field{
      */
     public Ownable(String title, int price, String description, Color color, String fieldType, String rent) {
         super(title, price, description, color, fieldType);
-        this.owner = -1;
+        this.owner = null;
         this.rent = rent;
     }
 
-
-    public int getOwner() { return owner; }
-    public void setOwner(int owner) { this.owner = owner; }
-
+    public Player getOwner() { return owner; }
+    public void setOwner(Player p) { this.owner = p; }
 
     public String getRent() { return rent; }
     public void setRent(String rent) { this.rent = rent; }
