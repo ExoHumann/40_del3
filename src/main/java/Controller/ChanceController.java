@@ -24,8 +24,9 @@ public class ChanceController {
     public int drawCard() {
         chance = deck.get(chanceCard);
         chanceCard++;
-        if(chanceCard >= deckSize)
-        chanceCard = 0;
+        if(chanceCard >= deckSize){
+            chanceCard = 0;
+        }
         return chance;
     }
 

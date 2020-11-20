@@ -57,7 +57,7 @@ public class Logic {
             default:
                 buyingController.buyField(pl,fl,playerTurn);
         }
-        System.out.printf(Game.translation.getLandedString(),
+                System.out.printf(Game.translation.getLandedString(),
                 player.getName(), pos, fl.getField(pos).getTitle(), fl.getField(pos).getPrice());
     }
 
