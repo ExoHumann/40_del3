@@ -71,9 +71,10 @@ public class Game {
             gameGUI.showBalance(pl, playerTurn);
             gameGUI.updateFieldBuy(pl, fl);
 
-            if (logic.landedOnChance) {
+            //if (logic.landedOnChance) {
                 chance.chance(pl, fl, playerTurn, logic, gameGUI);
-            }
+            //}
+            chance.printDeck();
             if (logic.drawAnother) {
                 chance.chance(pl, fl, playerTurn, logic, gameGUI);
             }

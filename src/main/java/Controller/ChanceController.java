@@ -16,18 +16,22 @@ public class ChanceController {
     public ChanceController() {
     }
 
+    int chanceCard = 0;
     int chance;
     private static final int deckSize = 20;
     public ArrayList<Integer> deck = new ArrayList<>(deckSize);
 
     public int drawCard() {
-        Random r = new Random();
-        chance = deck.get(r.nextInt(20));
+        chance = deck.get(chanceCard);
+        chanceCard++;
+        if(chanceCard >= deckSize)
+        chanceCard = 0;
         return chance;
     }
 
     public void printDeck(){
         System.out.println(deck);
+        System.out.println("Array index" + chanceCard + " ChanceCard: " + deck.get(chanceCard));
     }
 
     public void Shuffle() {
