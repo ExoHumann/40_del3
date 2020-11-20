@@ -9,8 +9,6 @@ public class Logic {
 
     boolean landedOnChance;
     boolean drawAnother;
-    public int prePos;
-    public int pos;
 
     private BuyingController buyingController;
 
@@ -27,10 +25,11 @@ public class Logic {
      */
     public void landedOn(Player p, FieldList fl) {
 
+        int pos = p.getCurrentPosition();
         //Player crossed start
-        if (prePos > pos){
+        /*if (prePos > pos){
             p.getAccount().deposit(2);
-        }
+        }*/
 
         switch (pos) {
             case 0: case 6: case 12:
@@ -50,10 +49,6 @@ public class Logic {
         }
                 System.out.printf(Game.translation.getLandedString(),
                 p.getName(), pos, fl.getField(pos).getTitle(), fl.getField(pos).getPrice());
-    }
-
-    public int moveAmount(int moveToPos, FieldList fl){
-        return (fl.getSize() + moveToPos - pos-1)%fl.getSize()+1;
     }
 
         /**
@@ -78,8 +73,8 @@ public class Logic {
         System.out.printf(Game.translation.getDiceInfo() +"\n",p.getName(),dice.getDie1(),dice.getDie2(),dice.getSum(),p.getCurrentPosition(),p.getAccount().getBalance());
     }
 
-    public void displayTakingTurn(PlayerList pl, int PNum){
-        System.out.printf(Game.translation.getTakingTurnString()+ "\n",pl.getPlayerList(PNum).getName(), "Player num: " + PNum);
+    public void displayTakingTurn(Player p){
+        System.out.printf(Game.translation.getTakingTurnString()+ "\n",p.getName(), "Player num: " + p.getNum());
     }
 
     public void displayTurn(PlayerList pl, int PNum){
@@ -93,10 +88,6 @@ public class Logic {
         nearbyFields[1]=position+1;
         return nearbyFields;
     }
-
-    public int getPrePos() { return prePos; }
-    public int getPos() { return pos; }
-    public void setPos(int pos) { this.pos = pos; }
 }
 
 

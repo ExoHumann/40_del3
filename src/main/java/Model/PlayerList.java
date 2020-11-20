@@ -5,13 +5,13 @@ import Model.Playerlist.Account;
 import Model.Playerlist.Player;
 
 import java.awt.*;
-import java.util.Random;
 
 public class PlayerList {
 
     Player[] players;
     Account[] accounts;
     Player currentPlayer;
+
     int currentPlayerID;
 
     private String[] names = {"Peter", "Marcus", "Oliver", "Phill"};
@@ -28,6 +28,7 @@ public class PlayerList {
             accounts[i] = new Account(0);
             players[i] = new Player(null,colors[i], accounts[i]);
             players[i].setAccount(accounts[i]);
+            players[i].setNum(i);
         }
     }
 
@@ -45,6 +46,10 @@ public class PlayerList {
         this.names = names;
     }
 
+    public Player setCurrentPlayer(int index){
+        return currentPlayer = players[index];
+    }
+
     public Player getCurrentPlayer(){
         return currentPlayer;
     }
@@ -54,12 +59,4 @@ public class PlayerList {
         currentPlayer = players[currentPlayerID];
         return currentPlayer;
     }
-
-
-
-
-
-
-
-
 }

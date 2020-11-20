@@ -64,12 +64,12 @@ public class GameGUI {
     /**
      * Player is move 1 field at a time
      * @param prePos Previous position of the player
-     * @param PNum  The player that are being moved
      * @param dif  The amount of fields it will move uses dice.getSum() to find the amount of fields it needs to move
      * @throws InterruptedException Uses sleep() to make a shot pause before moving again
      */
-    public void fancyMoveGuiPlayer(int prePos, int PNum, int dif) throws InterruptedException {
+    public void fancyMoveGuiPlayer(int prePos, Player p, int dif) throws InterruptedException {
         int fieldLength = fields.length;
+        int PNum = p.getNum();
         for (int i = 0; i < dif ; i++) {
             int pos = (prePos + 1) % fieldLength;
         if (fields[prePos].hasCar(gui_players[PNum])) {
@@ -84,10 +84,10 @@ public class GameGUI {
     /**
      * Moves the player to the starting field 0
      * @param moveToPos Used to find the position of the player that are being moved
-     * @param PNum The player that are being moved
      */
-    public void moveToField(int prePos, int PNum, int moveToPos) throws InterruptedException {
+    public void moveToField(int prePos, Player p, int moveToPos) throws InterruptedException {
         int dif = (fields.length + moveToPos - prePos-1)%fields.length+1;
+        int PNum = p.getNum();
         for (int i = 0; i < dif ; i++) {
             moveToPos = (prePos + 1) % fields.length;
         if (fields[prePos].hasCar(gui_players[PNum])) {
@@ -101,12 +101,10 @@ public class GameGUI {
 
     /**
      * Updates the balance that is shown on the screen
-     * @param pl Used to get the players account
-     * @param PNum The player that are being accessed
      */
-    public void showBalance(PlayerList pl, int PNum){
-        int balance = pl.getAccount(PNum).getBalance();
-        gui_players[PNum].setBalance(balance);
+    public void showBalance(Player p){
+        int balance = p.getAccount().getBalance();
+        gui_players[p.getNum()].setBalance(balance);
     }
 
     public void showDice(int dice1, int dice2) {

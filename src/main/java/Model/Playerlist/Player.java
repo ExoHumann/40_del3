@@ -20,7 +20,7 @@ public class Player {
      * Constructor for the player takes a name and color
      * @param name Players name
      * @param color Players color used for example to set his car color
-     * @param account
+     * @param account Player account
      */
     public Player(String name, Color color, Account account){
         this.name = name;
@@ -38,6 +38,10 @@ public class Player {
         int fieldLength = fl.getSize();
         this.currentPosition = (currentPosition + position) % fieldLength;
     }
+
+//    public int moveAmount(int moveToPos, FieldList fl){
+//        return (fl.getSize() + moveToPos - getCurrentPosition()-1)%fl.getSize()+1;
+//    }
 
     public int getCurrentPosition() { return currentPosition; }
     public  void setCurrentPosition(int position){ this.currentPosition = position; }
@@ -69,7 +73,7 @@ public class Player {
         this.account = account;
     }
 
-    public int getpNum() { return pNum; }
+    public int getNum() { return pNum; }
 
-    public void setpNum(int pNum) { this.pNum = pNum; }
+    public void setNum(int pNum) { this.pNum = pNum; }
 }

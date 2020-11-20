@@ -26,6 +26,8 @@ public class Game {
     private final GameGUI gameGUI;
     private final PlayerList pl;
     private final Dice dice;
+    public int prePos;
+    public int pos;
 
     public Game(String local) {
         translation = new Translator(local);
@@ -53,26 +55,27 @@ public class Game {
     }
 
     public void play() throws InterruptedException {
-        int playerTurn = 0;
         int playerAmount = pl.getPlayerAmount();
+        pl.setCurrentPlayer(0);
 
         while (!logic.winCondition(pl)) {
             Player p = pl.getCurrentPlayer();
 
-            logic.displayTakingTurn(pl, playerTurn);
+            logic.displayTakingTurn(p);
+
             gameGUI.showMessage(p.getName() + " " + Game.translation.getRollDiceAction());
 
-            int prePos = p.getCurrentPosition();
+            prePos = p.getCurrentPosition();
             p.move(dice.roll(), fl);
-            int pos = p.getCurrentPosition();
-
             logic.diceInfo(p,dice);
+            pos = p.getCurrentPosition();
+
             logic.landedOn(p, fl);
 
 
             gameGUI.showDice(dice.getDie1(), dice.getDie2());
-            gameGUI.fancyMoveGuiPlayer(logic.prePos, playerTurn, dice.getSum());
-            gameGUI.showBalance(pl, playerTurn);
+            gameGUI.fancyMoveGuiPlayer(prePos, p, dice.getSum());
+            gameGUI.showBalance(p);
             gameGUI.updateFieldBuy(fl);
 
             if (logic.landedOnChance) {
@@ -85,27 +88,28 @@ public class Game {
             if (p.buyNextPossibleField) {
                 gameGUI.showMessage("Move to next possible field");
                 buyingController.buyNextPossibleField(p,fl);
-                gameGUI.moveToField(prePos, playerTurn, pos%fl.getSize());
+              //  gameGUI.moveToField(prePos, playerTurn, pos%fl.getSize());
             }
 
             if (p.getInJail()) {
-                gameGUI.moveToField(logic.pos, playerTurn, 6);
-                pl.getPlayerList(playerTurn).setInJail(false);
+                //gameGUI.moveToField(logic.pos, playerTurn, 6);
+                //pl.getPlayerList(playerTurn).setInJail(false);
             }
 
             gameGUI.updateFieldBuy(fl);
 
             for (int j = 0; j < playerAmount; j++) {
-                gameGUI.showBalance(pl, j);
+                gameGUI.showBalance(p);
             }
 
             p.incrementTurn();
-            logic.displayTurn(pl, playerTurn);
-            playerTurn = (playerTurn + 1) % playerAmount;
+            //logic.displayTurn(pl, playerTurn);
+            //playerTurn = (playerTurn + 1) % playerAmount;
 
+            pl.getNextPlayer();
         }
-        logic.findWinner(pl, playerTurn);
-        gameGUI.showMessage(pl.getPlayerList(playerTurn).getName() + " " + Game.translation.getWonTheGameString() + pl.getAccount(playerTurn).getBalance());
+        //logic.findWinner(pl, playerTurn);
+        //gameGUI.showMessage(pl.getPlayerList(playerTurn).getName() + " " + Game.translation.getWonTheGameString() + pl.getAccount(playerTurn).getBalance());
         gui.close();
     }
 }
