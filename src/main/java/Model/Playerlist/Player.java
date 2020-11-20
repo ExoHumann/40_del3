@@ -56,7 +56,7 @@ public class Player {
     public void setName(String name) { this.name = name; }
 
     public void setInJail(boolean isInJail){ this.isInJail = isInJail; }
-    public boolean getInJail(){ return isInJail;}
+    public boolean isInJail(){ return isInJail;}
 
     public void setGetOutOfJailCard(boolean getOutOfJailCard){ this.getOutOfJailCard = getOutOfJailCard; }
     public boolean isGetOutOfJailCard() { return getOutOfJailCard; }

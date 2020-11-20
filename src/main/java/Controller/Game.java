@@ -61,10 +61,11 @@ public class Game {
         while (!logic.winCondition(pl)) {
             p = pl.getCurrentPlayer();
 
-            takingTurnMessage();
-            rollNMove();
-            logic.landedOn(p, fl);
-            updateGUI();
+            takeTurn();
+
+            if (p.isInJail()){ takeJailTurn(); }
+            if (logic.landedOnChance) { }
+            if (logic.drawAnother) { }
 
             p.incrementTurn();logic.displayTurn(p);
             pl.getNextPlayer();
@@ -73,15 +74,19 @@ public class Game {
         //gameGUI.showMessage(pl.getPlayerList(playerTurn).getName() + " " + Game.translation.getWonTheGameString() + pl.getAccount(playerTurn).getBalance());
         gui.close();
     }
+
+
     public void rollNMove(){
         prePos = p.getCurrentPosition();
         p.move(dice.roll(), fl);
         logic.diceInfo(p,dice);
         pos = p.getCurrentPosition();
     }
-    public void updateGUI() throws InterruptedException {
+    public void updateGUIMove() throws InterruptedException {
         gameGUI.showDice(dice.getDie1(), dice.getDie2());
         gameGUI.fancyMoveGuiPlayer(prePos, pl.getCurrentPlayer(), dice.getSum());
+    }
+    public void updateGUIBalanceAndFieldColor(){
         gameGUI.updateFieldBuy(fl);
         for (int j = 0; j < pl.getPlayerAmount(); j++) {
             gameGUI.showBalance(p);
@@ -90,5 +95,12 @@ public class Game {
     public void takingTurnMessage(){
         logic.displayTakingTurn(p);
         gameGUI.showMessage(p.getName() + " " + Game.translation.getRollDiceAction());
+    }
+
+    public void takeTurn() throws InterruptedException {
+        takingTurnMessage();
+        rollNMove();
+        updateGUIMove();
+        updateGUIBalanceAndFieldColor();
     }
 }
