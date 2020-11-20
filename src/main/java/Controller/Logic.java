@@ -64,8 +64,8 @@ public class Logic {
         return winCondition;
     }
 
-    public void findWinner(PlayerList pl, int playerTurn){
-        System.out.println(pl.getPlayerList(playerTurn).getName() + Game.translation.getWonString() + pl.getAccount(playerTurn).getBalance());
+    public void findWinner(Player p){
+        System.out.println(p.getName() + Game.translation.getWonString() + p.getAccount().getBalance());
     }
 
 
@@ -77,8 +77,8 @@ public class Logic {
         System.out.printf(Game.translation.getTakingTurnString()+ "\n",p.getName(), "Player num: " + p.getNum());
     }
 
-    public void displayTurn(PlayerList pl, int PNum){
-        System.out.printf(Game.translation.getDisplayTurnString()+ "\n", pl.getPlayerList(PNum).getName(),pl.getPlayerList(PNum).getTurn());
+    public void displayTurn(Player p){
+        System.out.printf(Game.translation.getDisplayTurnString()+ "\n", p.getName(),p.getTurn());
     }
 
     public int[] getNearbyFields(Player player){

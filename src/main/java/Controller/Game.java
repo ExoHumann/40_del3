@@ -26,6 +26,7 @@ public class Game {
     private final GameGUI gameGUI;
     private final PlayerList pl;
     private final Dice dice;
+    private Player p;
     public int prePos;
     public int pos;
 
@@ -55,61 +56,39 @@ public class Game {
     }
 
     public void play() throws InterruptedException {
-        int playerAmount = pl.getPlayerAmount();
         pl.setCurrentPlayer(0);
 
         while (!logic.winCondition(pl)) {
-            Player p = pl.getCurrentPlayer();
+            p = pl.getCurrentPlayer();
 
-            logic.displayTakingTurn(p);
-
-            gameGUI.showMessage(p.getName() + " " + Game.translation.getRollDiceAction());
-
-            prePos = p.getCurrentPosition();
-            p.move(dice.roll(), fl);
-            logic.diceInfo(p,dice);
-            pos = p.getCurrentPosition();
-
+            takingTurnMessage();
+            rollNMove();
             logic.landedOn(p, fl);
+            updateGUI();
 
-
-            gameGUI.showDice(dice.getDie1(), dice.getDie2());
-            gameGUI.fancyMoveGuiPlayer(prePos, p, dice.getSum());
-            gameGUI.showBalance(p);
-            gameGUI.updateFieldBuy(fl);
-
-            if (logic.landedOnChance) {
-                //      chance.chance(pl, fl, playerTurn, logic, gameGUI);
-            }
-            if (logic.drawAnother) {
-                //     chance.chance(pl, fl, playerTurn, logic, gameGUI);
-            }
-
-            if (p.buyNextPossibleField) {
-                gameGUI.showMessage("Move to next possible field");
-                buyingController.buyNextPossibleField(p,fl);
-              //  gameGUI.moveToField(prePos, playerTurn, pos%fl.getSize());
-            }
-
-            if (p.getInJail()) {
-                //gameGUI.moveToField(logic.pos, playerTurn, 6);
-                //pl.getPlayerList(playerTurn).setInJail(false);
-            }
-
-            gameGUI.updateFieldBuy(fl);
-
-            for (int j = 0; j < playerAmount; j++) {
-                gameGUI.showBalance(p);
-            }
-
-            p.incrementTurn();
-            //logic.displayTurn(pl, playerTurn);
-            //playerTurn = (playerTurn + 1) % playerAmount;
-
+            p.incrementTurn();logic.displayTurn(p);
             pl.getNextPlayer();
         }
         //logic.findWinner(pl, playerTurn);
         //gameGUI.showMessage(pl.getPlayerList(playerTurn).getName() + " " + Game.translation.getWonTheGameString() + pl.getAccount(playerTurn).getBalance());
         gui.close();
+    }
+    public void rollNMove(){
+        prePos = p.getCurrentPosition();
+        p.move(dice.roll(), fl);
+        logic.diceInfo(p,dice);
+        pos = p.getCurrentPosition();
+    }
+    public void updateGUI() throws InterruptedException {
+        gameGUI.showDice(dice.getDie1(), dice.getDie2());
+        gameGUI.fancyMoveGuiPlayer(prePos, pl.getCurrentPlayer(), dice.getSum());
+        gameGUI.updateFieldBuy(fl);
+        for (int j = 0; j < pl.getPlayerAmount(); j++) {
+            gameGUI.showBalance(p);
+        }
+    }
+    public void takingTurnMessage(){
+        logic.displayTakingTurn(p);
+        gameGUI.showMessage(p.getName() + " " + Game.translation.getRollDiceAction());
     }
 }

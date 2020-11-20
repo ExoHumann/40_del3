@@ -36,7 +36,7 @@ public class GameGUI {
 
             if (!(ownableField.getOwner() == null)) {
                 ownable.setOwnerName(owner.getName());
-                ownable.setBorder(ownableField.getColor());
+                ownable.setBorder(owner.getColor());
                 }
             }
         }
@@ -85,16 +85,17 @@ public class GameGUI {
      * Moves the player to the starting field 0
      * @param moveToPos Used to find the position of the player that are being moved
      */
-    public void moveToField(int prePos, Player p, int moveToPos) throws InterruptedException {
-        int dif = (fields.length + moveToPos - prePos-1)%fields.length+1;
+    public void moveToField(Player p, int moveToPos) throws InterruptedException {
+        int pos = p.getCurrentPosition();
+        int dif = (fields.length + moveToPos - pos-1)%fields.length+1;
         int PNum = p.getNum();
         for (int i = 0; i < dif ; i++) {
-            moveToPos = (prePos + 1) % fields.length;
-        if (fields[prePos].hasCar(gui_players[PNum])) {
-            fields[prePos].setCar(gui_players[PNum], false);
+            moveToPos = (pos + 1) % fields.length;
+        if (fields[pos].hasCar(gui_players[PNum])) {
+            fields[pos].setCar(gui_players[PNum], false);
             fields[moveToPos].setCar(gui_players[PNum], true);
             sleep(170);
-            prePos = (prePos + 1) % fields.length;
+            pos = (pos + 1) % fields.length;
             }
         }
     }
