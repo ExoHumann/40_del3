@@ -55,6 +55,7 @@ public class ChanceController {
         case 0:
             gameGUI.displayChance("Move to next possible field");
             pl.getPlayerList(0).buyNextPossibleField = true;
+
             break;
             case 1: playerChoice = gameGUI.getUserButtons("Chose Between 1-5 fields to move up", 1,5);
             logic.movePlayer(pl,fl, playerChoice, playerTurn);
@@ -63,7 +64,7 @@ public class ChanceController {
 
         case 2:
             gameGUI.displayChance("You move to start and get 2M");
-           // gameGUI.showMessage("You move to start and get 2M");
+            //gameGUI.showMessage("You move to start and get 2M");
             logic.movePlayer(pl,fl, logic.moveAmount(0,fl), playerTurn);
             gameGUI.moveToField(logic.prePos,playerTurn, 0);
             account.deposit(2);

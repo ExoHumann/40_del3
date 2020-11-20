@@ -71,10 +71,9 @@ public class Game {
             gameGUI.showBalance(pl, playerTurn);
             gameGUI.updateFieldBuy(pl, fl);
 
-            //if (logic.landedOnChance) {
+            if (logic.landedOnChance) {
                 chance.chance(pl, fl, playerTurn, logic, gameGUI);
-            //}
-            chance.printDeck();
+            }
             if (logic.drawAnother) {
                 chance.chance(pl, fl, playerTurn, logic, gameGUI);
             }
@@ -82,7 +81,7 @@ public class Game {
             if (player.buyNextPossibleField) {
                 gameGUI.showMessage("Move to next possible field");
                 buyingController.buyNextPossibleField(pl, fl, playerTurn);
-                gameGUI.moveToField(logic.prePos, playerTurn, logic.moveAmount(logic.pos, fl));
+                gameGUI.moveToField(logic.prePos, playerTurn, logic.pos%fl.getSize());
             }
 
             if (player.getInJail()) {
