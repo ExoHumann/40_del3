@@ -41,7 +41,6 @@ public class Logic {
 
             case 18:
                 p.setInJail(true);
-                p.setCurrentPosition(6);
                 break;
 
             default:
@@ -49,6 +48,10 @@ public class Logic {
         }
                 System.out.printf(Game.translation.getLandedString(),
                 p.getName(), pos, fl.getField(pos).getTitle(), fl.getField(pos).getPrice());
+    }
+
+    public int moveAmount(Player p, FieldList fl, int moveToPos) {
+        return (fl.getSize() + moveToPos - p.getCurrentPosition() - 1) % fl.getSize() + 1;
     }
 
         /**
@@ -67,7 +70,6 @@ public class Logic {
     public void findWinner(Player p){
         System.out.println(p.getName() + Game.translation.getWonString() + p.getAccount().getBalance());
     }
-
 
     public void diceInfo(Player p, Dice dice) {
         System.out.printf(Game.translation.getDiceInfo() +"\n",p.getName(),dice.getDie1(),dice.getDie2(),dice.getSum(),p.getCurrentPosition(),p.getAccount().getBalance());

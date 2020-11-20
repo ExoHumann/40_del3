@@ -12,6 +12,8 @@ import gui_main.GUI;
 
 import java.awt.*;
 
+import static gui_tests.TestRunExampleGame.sleep;
+
 public class Game {
 
     static public Translator translation;
@@ -21,10 +23,10 @@ public class Game {
     private final Board board;
     private final BuyingController buyingController;
     private final Logic logic;
-    //private final ChanceController chance;
+    private final ChanceController chance;
     private final GUI gui;
     private final GameGUI gameGUI;
-    private final PlayerList pl;
+    private PlayerList pl;
     private final Dice dice;
     private Player p;
     public int prePos;
@@ -38,32 +40,28 @@ public class Game {
         gameGUI = new GameGUI(gui);
         buyingController = new BuyingController();
         logic = new Logic();
-        //chance = new ChanceController();
+        chance = new ChanceController();
         dice = new Dice(0, 0);
-
-        int playerAmount = gameGUI.getUserButtons(Game.translation.getPlayerSelectAction(), minPlayers, maxPlayers);
-        pl = new PlayerList(playerAmount);
-
-        for (int i = 0; i < playerAmount; i++) {
-            String name = gameGUI.getUserString(Game.translation.getPlayerNameAction());
-            pl.getPlayerList(i).setName(name);
-            pl.getAccount(i).setBalance(pl.getAccount(i).getStartingBalance(playerAmount));
-        }
-
-        //chance.Shuffle();
-        //chance.printDeck();
-        gameGUI.addPlayers(pl);
     }
 
     public void play() throws InterruptedException {
+
+        gameSetup();
+
         pl.setCurrentPlayer(0);
 
         while (!logic.winCondition(pl)) {
             p = pl.getCurrentPlayer();
 
+            if (p.isInJail()){ takeJailTurn(); }
+
             takeTurn();
 
-            if (p.isInJail()){ takeJailTurn(); }
+            if(p.isInJail()){
+                gameGUI.showMessage("You will now go to jail");
+                gameGUI.moveToField(p,6);
+                pos = 6; p.setCurrentPosition(pos); }
+
             if (logic.landedOnChance) { }
             if (logic.drawAnother) { }
 
@@ -75,12 +73,30 @@ public class Game {
         gui.close();
     }
 
+    public void takeJailTurn() throws InterruptedException {
+        p.setInJail(false);
+        String yes = "Yes"; String no = "No";
+        if (p.isGetOutOfJailCard()){
+            String choice = gui.getUserSelection("You have a get out of Jail card do you wnat to use it", yes, no);
+            if (yes.equals(choice)){
+                takeTurn();
+            } else if (no.equals(choice)) pl.getNextPlayer();
+        }  else {
+            String choice1 = gui.getUserSelection("Do you want to pay 1M for release", yes, no);
+            if (yes.equals(choice1)) {
+                p.getAccount().withdraw(1);
+                takeTurn();
+            } else if (no.equals(choice1)) pl.getNextPlayer();
+        }
+    }
+
 
     public void rollNMove(){
         prePos = p.getCurrentPosition();
         p.move(dice.roll(), fl);
         logic.diceInfo(p,dice);
-        pos = p.getCurrentPosition();
+        pos = p.getCurrentPosition(); p.setCurrentPosition(pos);
+        logic.landedOn(p,fl);
     }
     public void updateGUIMove() throws InterruptedException {
         gameGUI.showDice(dice.getDie1(), dice.getDie2());
@@ -88,9 +104,7 @@ public class Game {
     }
     public void updateGUIBalanceAndFieldColor(){
         gameGUI.updateFieldBuy(fl);
-        for (int j = 0; j < pl.getPlayerAmount(); j++) {
-            gameGUI.showBalance(p);
-        }
+        gameGUI.showBalance(pl);
     }
     public void takingTurnMessage(){
         logic.displayTakingTurn(p);
@@ -103,4 +117,17 @@ public class Game {
         updateGUIMove();
         updateGUIBalanceAndFieldColor();
     }
+    public void gameSetup(){
+        int playerAmount = gameGUI.getUserButtons(Game.translation.getPlayerSelectAction(), minPlayers, maxPlayers);
+        pl = new PlayerList(playerAmount);
+        for (int i = 0; i < playerAmount; i++) {
+            String name = gameGUI.getUserString(Game.translation.getPlayerNameAction());
+            pl.getPlayerList(i).setName(name);
+            pl.getAccount(i).setBalance(pl.getAccount(i).getStartingBalance(playerAmount));
+        }
+        chance.Shuffle();
+        chance.printDeck();
+        gameGUI.addPlayers(pl);
+    }
+
 }

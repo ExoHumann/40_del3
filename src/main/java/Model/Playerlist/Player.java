@@ -39,10 +39,6 @@ public class Player {
         this.currentPosition = (currentPosition + position) % fieldLength;
     }
 
-//    public int moveAmount(int moveToPos, FieldList fl){
-//        return (fl.getSize() + moveToPos - getCurrentPosition()-1)%fl.getSize()+1;
-//    }
-
     public int getCurrentPosition() { return currentPosition; }
     public  void setCurrentPosition(int position){ this.currentPosition = position; }
 

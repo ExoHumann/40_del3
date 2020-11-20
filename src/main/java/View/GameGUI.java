@@ -34,7 +34,7 @@ public class GameGUI {
 
            Player owner = ownableField.getOwner();
 
-            if (!(ownableField.getOwner() == null)) {
+            if (ownableField.getOwner() != null) {
                 ownable.setOwnerName(owner.getName());
                 ownable.setBorder(owner.getColor());
                 }
@@ -103,9 +103,12 @@ public class GameGUI {
     /**
      * Updates the balance that is shown on the screen
      */
-    public void showBalance(Player p){
-        int balance = p.getAccount().getBalance();
-        gui_players[p.getNum()].setBalance(balance);
+    public void showBalance(PlayerList pl){
+        for (int i = 0; i < pl.getPlayerAmount() ; i++) {
+            Player p = pl.getPlayerList(i);
+            int balance = p.getAccount().getBalance();
+            gui_players[i].setBalance(balance);
+        }
     }
 
     public void showDice(int dice1, int dice2) {
