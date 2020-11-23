@@ -1,6 +1,7 @@
 
 package View;
 
+import Model.Dice;
 import Model.FieldList;
 import Model.Fields.Ownable;
 import Model.PlayerList;
@@ -67,7 +68,7 @@ public class GameGUI {
      * @param dif  The amount of fields it will move uses dice.getSum() to find the amount of fields it needs to move
      * @throws InterruptedException Uses sleep() to make a shot pause before moving again
      */
-    public void fancyMoveGuiPlayer(int prePos, Player p, int dif) throws InterruptedException {
+    public void fancyMoveGuiPlayer(int prePos, Player p, int dif) {
         int fieldLength = fields.length;
         int PNum = p.getNum();
         for (int i = 0; i < dif ; i++) {
@@ -75,7 +76,11 @@ public class GameGUI {
         if (fields[prePos].hasCar(gui_players[PNum])) {
             fields[prePos].setCar(gui_players[PNum], false);
             fields[pos].setCar(gui_players[PNum], true);
-            sleep(170);
+            try {
+                sleep(170);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
             prePos = (prePos + 1) % fieldLength;
             }
         }
@@ -85,7 +90,7 @@ public class GameGUI {
      * Moves the player to the starting field 0
      * @param moveToPos Used to find the position of the player that are being moved
      */
-    public void moveToField(Player p, int moveToPos) throws InterruptedException {
+    public void moveToField(Player p, int moveToPos) {
         int pos = p.getCurrentPosition();
         int dif = (fields.length + moveToPos - pos-1)%fields.length+1;
         int PNum = p.getNum();
@@ -94,7 +99,11 @@ public class GameGUI {
         if (fields[pos].hasCar(gui_players[PNum])) {
             fields[pos].setCar(gui_players[PNum], false);
             fields[moveToPos].setCar(gui_players[PNum], true);
-            sleep(170);
+            try {
+                sleep(170);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
             pos = (pos + 1) % fields.length;
             }
         }
@@ -111,10 +120,10 @@ public class GameGUI {
         }
     }
 
-    public void showDice(int dice1, int dice2) {
+    public void showDice(Dice dice) {
         new Thread(() -> {
             for (int rotation = 0; rotation <= 450; ++rotation) {
-                gui.setDice(dice1, rotation, 4, 1, dice2, rotation, 5, 1);
+                gui.setDice(dice.getDie1(), rotation, 4, 1, dice.getDie2(), rotation, 5, 1);
                 try {
                     sleep(2);
                 } catch (InterruptedException e) {
@@ -130,10 +139,8 @@ public class GameGUI {
 
     public int getUserButtons(String message, int min, int max){
         String[] options = new String[max-min+1];
-
-        for (int i = min; i <= max; i++) {
-            options[i-min] = String.valueOf(i);
-        }
+        for (int i = min; i <= max; i++)
+            options[i - min] = String.valueOf(i);
         return Integer.parseInt(gui.getUserButtonPressed(message, options));
     }
 

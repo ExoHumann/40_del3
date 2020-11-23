@@ -1,5 +1,6 @@
 package View;
 
+import Model.Fields.Chance;
 import Model.Fields.*;
 import Model.FieldList;
 import gui_fields.*;

@@ -1,19 +1,18 @@
 package Controller;
 
+import Model.ChanceCards.ChanceCard;
 import Model.FieldList;
-import Model.PlayerList;
-import Model.Playerlist.Account;
 import Model.Playerlist.Player;
 import View.GameGUI;
 //import java.lang.reflect.Array;
 import java.util.Collections;
 import java.util.ArrayList;
-import java.util.Random;
 
 public class ChanceController {
 
-
+    Logic logic;
     public ChanceController() {
+    logic = new Logic();
     }
 
     int chanceCard = 0;
@@ -35,21 +34,18 @@ public class ChanceController {
         System.out.println("Array index" + chanceCard + " ChanceCard: " + deck.get(chanceCard));
     }
 
-    public void Shuffle() {
+    public void init() {
         for (int i = 0; i < deckSize; i++) {
             deck.add(i);
         }
         Collections.shuffle(deck);
     }
 
-//    public void chance(PlayerList pl, FieldList fl, int playerTurn, Logic logic, GameGUI gameGUI) throws InterruptedException {
-//        Player player = pl.getPlayerList(playerTurn);
-//        Account account = pl.getAccount(playerTurn);
+//    public void chance(Player p, FieldList fl, GameGUI gameGUI) throws InterruptedException {
 //        int playerChoice;
 //
 //        chance = drawCard();
 //        logic.landedOnChance=false;
-//
 //
 //        switch (chance) {
 //        case 0:
@@ -58,22 +54,22 @@ public class ChanceController {
 //
 //            break;
 //            case 1: playerChoice = gameGUI.getUserButtons("Chose Between 1-5 fields to move up", 1,5);
-//            logic.movePlayer(pl,fl, playerChoice, playerTurn);
-//            gameGUI.fancyMoveGuiPlayer(logic.prePos,playerTurn, playerChoice);
+//            p.move(playerChoice, fl);
+//            logic.landedOn(p,fl);
+//            gameGUI.fancyMoveGuiPlayer(prePos ,playerTurn, playerChoice);
 //            break;
 //
 //        case 2:
 //            gameGUI.displayChance("You move to start and get 2M");
 //            //gameGUI.showMessage("You move to start and get 2M");
-//            logic.movePlayer(pl,fl, logic.moveAmount(0,fl), playerTurn);
-//            gameGUI.moveToField(logic.prePos,playerTurn, 0);
-//            account.deposit(2);
+//            p.setCurrentPosition(0);
+//            gameGUI.moveToField(p, 0);
+//            p.getAccount().deposit(2);
 //            break;
 //        case 3:
 //            playerChoice = gameGUI.getUserButtons("Move to an orange field", 13,14);
 //            logic.movePlayer(pl,fl, logic.moveAmount(playerChoice,fl), playerTurn);
 //            gameGUI.moveToField(logic.prePos,playerTurn,playerChoice);
-//
 //            break;
 //        case 4:
 //           playerChoice = gameGUI.getUserButtons("Move one field or draw another card", 1,2);

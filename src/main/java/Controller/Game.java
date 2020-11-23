@@ -17,23 +17,23 @@ import static gui_tests.TestRunExampleGame.sleep;
 public class Game {
 
     static public Translator translation;
-    private static final int minPlayers = 2;
-    private static final int maxPlayers = 4;
-    private final FieldList fl;
-    private final Board board;
-    private final BuyingController buyingController;
-    private final Logic logic;
-    private final ChanceController chance;
-    private final GUI gui;
-    private final GameGUI gameGUI;
-    private PlayerList pl;
-    private final Dice dice;
-    private Player p;
+    protected static final int minPlayers = 2;
+    protected static final int maxPlayers = 4;
+    protected final FieldList fl;
+    protected final Board board;
+    protected final BuyingController buyingController;
+    protected final Logic logic;
+    protected final ChanceController chance;
+    protected final GUI gui;
+    protected final GameGUI gameGUI;
+    protected PlayerList pl;
+    protected final Dice dice;
+    protected Player p;
     public int prePos;
     public int pos;
 
-    public Game(String local) {
-        translation = new Translator(local);
+    public Game() {
+        translation = new Translator("en");
         fl = new FieldList();
         board = new Board(fl);
         gui = new GUI(board.createBoard(fl), Color.WHITE);
@@ -42,27 +42,31 @@ public class Game {
         logic = new Logic();
         chance = new ChanceController();
         dice = new Dice(0, 0);
+        gameSetup();
     }
 
+
     public void play() throws InterruptedException {
-
-        gameSetup();
-
         pl.setCurrentPlayer(0);
 
         while (!logic.winCondition(pl)) {
             p = pl.getCurrentPlayer();
 
-            if (p.isInJail()){ takeJailTurn(); }
-
-            takeTurn();
+            if (p.isInJail()) {
+                takeJailTurn();
+            } else {
+                takeTurn();
+            }
 
             if(p.isInJail()){
-                gameGUI.showMessage("You will now go to jail");
+                gameGUI.showMessage(p.getName() + " You will now go to jail");
                 gameGUI.moveToField(p,6);
-                pos = 6; p.setCurrentPosition(pos); }
+                pos = 6; p.setCurrentPosition(pos);
+            }
 
-            if (logic.landedOnChance) { }
+            if (logic.landedOnChance) {
+
+            }
             if (logic.drawAnother) { }
 
             p.incrementTurn();logic.displayTurn(p);
@@ -74,23 +78,32 @@ public class Game {
     }
 
     public void takeJailTurn() throws InterruptedException {
-        p.setInJail(false);
         String yes = "Yes"; String no = "No";
+        p.setInJail(false);
         if (p.isGetOutOfJailCard()){
-            String choice = gui.getUserSelection("You have a get out of Jail card do you wnat to use it", yes, no);
-            if (yes.equals(choice)){
+            String choice = gui.getUserButtonPressed(p.getName() + "You have a get out of Jail card do you wnat to use it", yes, no);
+
+            if (choice.equals(yes)){
+                p.setGetOutOfJailCard(false);
                 takeTurn();
-            } else if (no.equals(choice)) pl.getNextPlayer();
-        }  else {
-            String choice1 = gui.getUserSelection("Do you want to pay 1M for release", yes, no);
-            if (yes.equals(choice1)) {
-                p.getAccount().withdraw(1);
-                takeTurn();
-            } else if (no.equals(choice1)) pl.getNextPlayer();
+                return;
+            }
+        }
+        String choice1 = gui.getUserButtonPressed(p.getName() + "Do you want to pay 1M for release", yes, no );
+
+        if (choice1.equals(yes)){
+            p.getAccount().withdraw(1);
+            updateGUIBalanceAndFieldColor();
+            takeTurn();
         }
     }
-
-
+    public void takeTurn() throws InterruptedException {
+        takingTurnMessage();
+        rollNMove();
+        updateGUIMove();
+        passStartMoney();
+        updateGUIBalanceAndFieldColor();
+    }
     public void rollNMove(){
         prePos = p.getCurrentPosition();
         p.move(dice.roll(), fl);
@@ -99,8 +112,8 @@ public class Game {
         logic.landedOn(p,fl);
     }
     public void updateGUIMove() throws InterruptedException {
-        gameGUI.showDice(dice.getDie1(), dice.getDie2());
-        gameGUI.fancyMoveGuiPlayer(prePos, pl.getCurrentPlayer(), dice.getSum());
+        gameGUI.showDice(dice);
+        gameGUI.fancyMoveGuiPlayer(prePos, p, dice.getSum());
     }
     public void updateGUIBalanceAndFieldColor(){
         gameGUI.updateFieldBuy(fl);
@@ -110,13 +123,6 @@ public class Game {
         logic.displayTakingTurn(p);
         gameGUI.showMessage(p.getName() + " " + Game.translation.getRollDiceAction());
     }
-
-    public void takeTurn() throws InterruptedException {
-        takingTurnMessage();
-        rollNMove();
-        updateGUIMove();
-        updateGUIBalanceAndFieldColor();
-    }
     public void gameSetup(){
         int playerAmount = gameGUI.getUserButtons(Game.translation.getPlayerSelectAction(), minPlayers, maxPlayers);
         pl = new PlayerList(playerAmount);
@@ -125,9 +131,13 @@ public class Game {
             pl.getPlayerList(i).setName(name);
             pl.getAccount(i).setBalance(pl.getAccount(i).getStartingBalance(playerAmount));
         }
-        chance.Shuffle();
+        chance.init();
         chance.printDeck();
         gameGUI.addPlayers(pl);
     }
-
+    public void passStartMoney(){
+        if (prePos > pos){
+            p.getAccount().deposit(2);
+        }
+    }
 }

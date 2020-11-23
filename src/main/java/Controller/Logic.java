@@ -33,10 +33,12 @@ public class Logic {
 
         switch (pos) {
             case 0: case 6: case 12:
+                p.setInJail(true);
                 break;
 
             case 3: case 9: case 15: case 21:
                 landedOnChance = true;
+                p.setInJail(true);
                 break;
 
             case 18:

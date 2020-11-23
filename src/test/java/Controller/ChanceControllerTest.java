@@ -9,7 +9,7 @@ class ChanceControllerTest {
     @Test
     public void drawCard() {
         ChanceController chanceController = new ChanceController();
-        chanceController.Shuffle();
+        chanceController.init();
 
         int deckSize = chanceController.deck.size();
         int actual = 0;
@@ -28,5 +28,4 @@ class ChanceControllerTest {
 
         assertEquals(firstCard, actual);
     }
-
 }
