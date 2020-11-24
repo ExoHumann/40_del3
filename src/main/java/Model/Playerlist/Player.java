@@ -10,6 +10,7 @@ public class Player {
     private String name;
     private Color color;
     private Account account;
+    private int previousPosition;
     private int currentPosition;
     private int turn;
     boolean isInJail;
@@ -36,14 +37,30 @@ public class Player {
      */
     public void move(int position, FieldList fl){
         int fieldLength = fl.getSize();
+        setPreviousPosition();
         this.currentPosition = (currentPosition + position) % fieldLength;
     }
 
-    public int getCurrentPosition() { return currentPosition; }
-    public  void setCurrentPosition(int position){ this.currentPosition = position; }
+    public int getPreviousPosition(){
+        return previousPosition;
+    }
+    public void setPreviousPosition(){
+        this.previousPosition = currentPosition;
+    }
 
-    public void incrementTurn(){ turn++; }
-    public int getTurn(){ return turn;}
+
+    public int getCurrentPosition() {
+        return currentPosition;
+    }
+    public  void setCurrentPosition(int position){
+        setPreviousPosition();
+        this.currentPosition = position;
+    }
+
+    public void incrementTurn(){
+        turn++; }
+    public int getTurn(){
+        return turn;}
 
     public Color getColor() { return color; }
     public void setColor(Color color) { this.color = color; }
@@ -72,4 +89,5 @@ public class Player {
     public int getNum() { return pNum; }
 
     public void setNum(int pNum) { this.pNum = pNum; }
+
 }

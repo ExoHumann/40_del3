@@ -24,21 +24,14 @@ public class Logic {
      * @param fl FieldList used to access the price of the fields
      */
     public void landedOn(Player p, FieldList fl) {
-
         int pos = p.getCurrentPosition();
-        //Player crossed start
-        /*if (prePos > pos){
-            p.getAccount().deposit(2);
-        }*/
 
         switch (pos) {
             case 0: case 6: case 12:
-                p.setInJail(true);
                 break;
 
             case 3: case 9: case 15: case 21:
                 landedOnChance = true;
-                p.setInJail(true);
                 break;
 
             case 18:
@@ -48,6 +41,7 @@ public class Logic {
             default:
                 buyingController.buyField(p,fl);
         }
+        System.out.println(fl.getField(pos));
                 System.out.printf(Game.translation.getLandedString(),
                 p.getName(), pos, fl.getField(pos).getTitle(), fl.getField(pos).getPrice());
     }

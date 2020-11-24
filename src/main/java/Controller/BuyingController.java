@@ -40,13 +40,15 @@ public class BuyingController {
 
 
     public void buyNextPossibleField(Player p, FieldList fl) { ;
+        int pos = p.getCurrentPosition();
         Field field;
+
         p.buyNextPossibleField = false;
 
-        for (int i = p.getCurrentPosition() + 1; i != p.getCurrentPosition(); i = (i + 1) % fl.getSize()) {
-
+        for (int i = pos + 1; i != pos; i = (i + 1) % fl.getSize()) {
             field = fl.getField(i);
             if (field instanceof Ownable) {
+
                 if (((Ownable) field).getOwner() == null) {
                     p.setCurrentPosition(i);
                     buyField(p, fl);
@@ -70,6 +72,7 @@ public class BuyingController {
                 p.getAccount().withdraw(fieldPrice);
                 field.setOwner(p);
             } else {
+
                 if (isAllFieldInSeriesOwned(p,fl)) {
                     System.out.println("The player will now pay the double price to player number " + (ownership));
                     p.getAccount().pay(fieldPrice * 2, ownership.getAccount());

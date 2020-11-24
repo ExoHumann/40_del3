@@ -12,8 +12,6 @@ import gui_main.GUI;
 
 import java.awt.*;
 
-import static gui_tests.TestRunExampleGame.sleep;
-
 public class Game {
 
     static public Translator translation;
@@ -29,8 +27,6 @@ public class Game {
     protected PlayerList pl;
     protected final Dice dice;
     protected Player p;
-    public int prePos;
-    public int pos;
 
     public Game() {
         translation = new Translator("en");
@@ -46,7 +42,7 @@ public class Game {
     }
 
 
-    public void play() throws InterruptedException {
+    public void play() {
         pl.setCurrentPlayer(0);
 
         while (!logic.winCondition(pl)) {
@@ -58,16 +54,26 @@ public class Game {
                 takeTurn();
             }
 
+            if (logic.landedOnChance) {
+                logic.landedOnChance = false;
+                takeChance();
+            }
+            if (logic.drawAnother) {
+                takeChance();
+                logic.drawAnother = false;
+            }
+
             if(p.isInJail()){
                 gameGUI.showMessage(p.getName() + " You will now go to jail");
-                gameGUI.moveToField(p,6);
-                pos = 6; p.setCurrentPosition(pos);
+                p.setCurrentPosition(6);
+                gameGUI.moveToField(p);
             }
 
-            if (logic.landedOnChance) {
-
+            if(p.buyNextPossibleField){
+                buyingController.buyNextPossibleField(p,fl);
+                gameGUI.moveToField(p);
+                updateGUIBalanceAndFieldColor();
             }
-            if (logic.drawAnother) { }
 
             p.incrementTurn();logic.displayTurn(p);
             pl.getNextPlayer();
@@ -77,11 +83,11 @@ public class Game {
         gui.close();
     }
 
-    public void takeJailTurn() throws InterruptedException {
+    public void takeJailTurn() {
         String yes = "Yes"; String no = "No";
         p.setInJail(false);
         if (p.isGetOutOfJailCard()){
-            String choice = gui.getUserButtonPressed(p.getName() + "You have a get out of Jail card do you wnat to use it", yes, no);
+            String choice = gui.getUserButtonPressed(p.getName() + "You have a get out of Jail card do you want to use it", yes, no);
 
             if (choice.equals(yes)){
                 p.setGetOutOfJailCard(false);
@@ -97,23 +103,27 @@ public class Game {
             takeTurn();
         }
     }
-    public void takeTurn() throws InterruptedException {
+    public void takeChance(){
+        gameGUI.showMessage(p.getName() + " will now draw a chance card");
+        chance.chance(p,pl,fl,logic,gameGUI);
+        passStartMoney();
+        updateGUIBalanceAndFieldColor();
+    }
+    public void takeTurn() {
         takingTurnMessage();
-        rollNMove();
+        moveAndLandOn();
         updateGUIMove();
         passStartMoney();
         updateGUIBalanceAndFieldColor();
     }
-    public void rollNMove(){
-        prePos = p.getCurrentPosition();
+    public void moveAndLandOn(){
         p.move(dice.roll(), fl);
         logic.diceInfo(p,dice);
-        pos = p.getCurrentPosition(); p.setCurrentPosition(pos);
         logic.landedOn(p,fl);
     }
-    public void updateGUIMove() throws InterruptedException {
+    public void updateGUIMove() {
         gameGUI.showDice(dice);
-        gameGUI.fancyMoveGuiPlayer(prePos, p, dice.getSum());
+        gameGUI.fancyMoveGuiPlayer(p, dice.getSum());
     }
     public void updateGUIBalanceAndFieldColor(){
         gameGUI.updateFieldBuy(fl);
@@ -131,12 +141,12 @@ public class Game {
             pl.getPlayerList(i).setName(name);
             pl.getAccount(i).setBalance(pl.getAccount(i).getStartingBalance(playerAmount));
         }
-        chance.init();
+        chance.shuffle();
         chance.printDeck();
         gameGUI.addPlayers(pl);
     }
     public void passStartMoney(){
-        if (prePos > pos){
+        if (p.getPreviousPosition() > p.getCurrentPosition()){
             p.getAccount().deposit(2);
         }
     }

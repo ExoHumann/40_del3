@@ -29,7 +29,6 @@ public class GameGUI {
         for (int i = 0; i <fields.length ; i++) {
 
             if (fields[i] instanceof GUI_Street){
-
                 GUI_Ownable ownable = (GUI_Ownable) fields[i];
                 Ownable ownableField = (Ownable) fl.getField(i);
 
@@ -64,14 +63,15 @@ public class GameGUI {
 
     /**
      * Player is move 1 field at a time
-     * @param prePos Previous position of the player
-     * @param dif  The amount of fields it will move uses dice.getSum() to find the amount of fields it needs to move
+     * @param p Previous position of the player
+     * @param  moveAmount The amount of fields it will move uses dice.getSum() to find the amount of fields it needs to move
      * @throws InterruptedException Uses sleep() to make a shot pause before moving again
      */
-    public void fancyMoveGuiPlayer(int prePos, Player p, int dif) {
+    public void fancyMoveGuiPlayer(Player p, int moveAmount) {
         int fieldLength = fields.length;
         int PNum = p.getNum();
-        for (int i = 0; i < dif ; i++) {
+        int prePos = p.getPreviousPosition();
+        for (int i = 0; i < moveAmount ; i++) {
             int pos = (prePos + 1) % fieldLength;
         if (fields[prePos].hasCar(gui_players[PNum])) {
             fields[prePos].setCar(gui_players[PNum], false);
@@ -90,8 +90,9 @@ public class GameGUI {
      * Moves the player to the starting field 0
      * @param moveToPos Used to find the position of the player that are being moved
      */
-    public void moveToField(Player p, int moveToPos) {
-        int pos = p.getCurrentPosition();
+    public void moveToField(Player p) {
+        int pos = p.getPreviousPosition();
+        int moveToPos = p.getCurrentPosition();
         int dif = (fields.length + moveToPos - pos-1)%fields.length+1;
         int PNum = p.getNum();
         for (int i = 0; i < dif ; i++) {

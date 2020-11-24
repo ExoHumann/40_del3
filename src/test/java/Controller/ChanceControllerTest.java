@@ -9,7 +9,7 @@ class ChanceControllerTest {
     @Test
     public void drawCard() {
         ChanceController chanceController = new ChanceController();
-        chanceController.init();
+        chanceController.shuffle();
 
         int deckSize = chanceController.deck.size();
         int actual = 0;
