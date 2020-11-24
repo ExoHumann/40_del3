@@ -44,7 +44,7 @@ public class Player {
     public void setColor(Color color) { this.color = color; }
     public String getName() { return name; }
     public void setName(String name) { this.name = name; }
-    public void setInJail(){ isInJail = true; }
+    public void setInJail(boolean jail){ isInJail = jail; }
     public void setGetOutOfJailCard(){ getOutOfJailCard = true; }
     public boolean getInJail(){ return isInJail;}
     public String toString(){

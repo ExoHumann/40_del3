@@ -25,12 +25,12 @@ public class Game {
 
         translation = new Translator(local);
 
-        FieldList fl = new FieldList();
+        FieldList fl = new FieldList(translation);
         Board board = new Board(fl);
         BuyingController buyingController = new BuyingController();
 
 
-        Logic logic = new Logic();
+        Logic logic = new Logic(translation);
         ChanceController chance = new ChanceController();
 
         GUI gui = new GUI(board.createBoard(fl), Color.WHITE);
@@ -82,7 +82,6 @@ public class Game {
                 }   if (logic.drawAnother) {
                     chance.chance(pl, fl, playerTurn, logic , gameGui);
                     }
-
                 if (pl.getPlayerList(playerTurn).getInJail()) {
                     gameGui.moveToField(logic.pos, playerTurn, 6);
                 }

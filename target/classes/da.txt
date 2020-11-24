@@ -13,7 +13,7 @@ Title: %s \n Pris: %d \n  Beskrivelse %s \n
 PlayerNameAction
 Indtast spiller navn:
 PlayerSelectAction
-Vælg 2-6 spillere
+Vælg 2-4 spillere
 RollDiceAction
 vil du slå med terningerne?
 WonTheGameString

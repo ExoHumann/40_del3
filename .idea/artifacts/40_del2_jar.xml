@@ -2,7 +2,7 @@
   <artifact type="jar" name="40_del2:jar">
     <output-path>$PROJECT_DIR$/out/artifacts/40_del2_jar</output-path>
     <root id="archive" name="40_del2.jar">
-      <element id="module-output" name="40_del2" />
+      <element id="module-output" name="40_del3" />
       <element id="extracted-dir" path="$MAVEN_REPOSITORY$/diplomitdtu/matadorgui/3.1.7/matadorgui-3.1.7.jar" path-in-jar="/" />
     </root>
   </artifact>
