@@ -2,7 +2,6 @@ package Controller;
 
 import Model.Dice;
 import Model.FieldList;
-import Model.Fields.Field;
 import Model.PlayerList;
 import Model.Playerlist.*;
 
@@ -10,8 +9,6 @@ public class Logic {
 
     boolean landedOnChance;
     boolean drawAnother;
-    public int prePos;
-    public int pos;
 
     private BuyingController buyingController;
 
@@ -23,23 +20,11 @@ public class Logic {
      * Updates the roll and position of the dice
      * Moves the player outside of the GUI.
      * Manages the balance of the player
-     * @param pl Playlist used to access players account and position
+     * @param p Which player is taking a turn
      * @param fl FieldList used to access the price of the fields
-     * @param moveAmount Dice used to update the roll and move the player
-     * @param playerTurn Which player is taking a turn
      */
-    public void movePlayer(PlayerList pl, FieldList fl, int moveAmount, int playerTurn) {
-        Player player = pl.getPlayerList(playerTurn);
-        Account account = pl.getAccount(playerTurn);
-
-        prePos = player.getCurrentPosition();
-        player.move(moveAmount, fl);
-        pos = player.getCurrentPosition();
-
-        //Player crossed start
-        if (prePos > pos){
-            account.deposit(2);
-        }
+    public void landedOn(Player p, FieldList fl) {
+        int pos = p.getCurrentPosition();
 
         switch (pos) {
             case 0: case 6: case 12:
@@ -50,19 +35,19 @@ public class Logic {
                 break;
 
             case 18:
-                jailPlayer(player);
-                player.setCurrentPosition(6);
+                p.setInJail(true);
                 break;
 
             default:
-                buyingController.buyField(pl,fl,playerTurn);
+                buyingController.buyField(p,fl);
         }
-        System.out.printf(Game.translation.getLandedString(),
-                player.getName(), pos, fl.getField(pos).getTitle(), fl.getField(pos).getPrice());
+        System.out.println(fl.getField(pos));
+                System.out.printf(Game.translation.getLandedString(),
+                p.getName(), pos, fl.getField(pos).getTitle(), fl.getField(pos).getPrice());
     }
 
-    public int moveAmount(int moveToPos, FieldList fl){
-        return (fl.getSize() + moveToPos - pos-1)%fl.getSize()+1;
+    public int moveAmount(Player p, FieldList fl, int moveToPos) {
+        return (fl.getSize() + moveToPos - p.getCurrentPosition() - 1) % fl.getSize() + 1;
     }
 
         /**
@@ -72,27 +57,26 @@ public class Logic {
          */
     public boolean winCondition(PlayerList pl) {
         boolean winCondition = false;
-        for (int i = 0; i <pl.getAccounts().length ; i++) {
+        for (int i = 0; i <pl.getPlayerAmount() ; i++) {
             if (pl.getAccount(i).getBalance() <= 0) winCondition = true;
         }
         return winCondition;
     }
 
-    public void findWinner(PlayerList pl, int playerTurn){
-        System.out.println(pl.getPlayerList(playerTurn).getName() + Game.translation.getWonString() + pl.getAccount(playerTurn).getBalance());
+    public void findWinner(Player p){
+        System.out.println(p.getName() + Game.translation.getWonString() + p.getAccount().getBalance());
     }
 
-
-    public void diceInfo(PlayerList pl, Dice dice, int PNum) {
-        System.out.printf(Game.translation.getDiceInfo() +"\n",pl.getPlayerList(PNum).getName(),dice.getDie1(),dice.getDie2(),dice.getSum(),pl.getPlayerList(PNum).getCurrentPosition(),pl.getAccount(PNum).getBalance());
+    public void diceInfo(Player p, Dice dice) {
+        System.out.printf(Game.translation.getDiceInfo() +"\n",p.getName(),dice.getDie1(),dice.getDie2(),dice.getSum(),p.getCurrentPosition(),p.getAccount().getBalance());
     }
 
-    public void displayTakingTurn(PlayerList pl, int PNum){
-        System.out.printf(Game.translation.getTakingTurnString()+ "\n",pl.getPlayerList(PNum).getName(), "Player num: " + PNum);
+    public void displayTakingTurn(Player p){
+        System.out.printf(Game.translation.getTakingTurnString()+ "\n",p.getName(), "Player num: " + p.getNum());
     }
 
-    public void displayTurn(PlayerList pl, int PNum){
-        System.out.printf(Game.translation.getDisplayTurnString()+ "\n", pl.getPlayerList(PNum).getName(),pl.getPlayerList(PNum).getTurn());
+    public void displayTurn(Player p){
+        System.out.printf(Game.translation.getDisplayTurnString()+ "\n", p.getName(),p.getTurn());
     }
 
     /**
@@ -126,13 +110,6 @@ public class Logic {
         return id;
     }
 
-    public void jailPlayer(Player player){
-        player.setInJail();
-    }
-
-    public int getPrePos() { return prePos; }
-    public int getPos() { return pos; }
-    public void setPos(int pos) { this.pos = pos; }
 }
 
 

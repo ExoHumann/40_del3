@@ -1,6 +1,7 @@
 package Model;
 
 import Controller.Game;
+import Model.Fields.Chance;
 import Model.Fields.*;
 
 import java.awt.*;

@@ -5,12 +5,14 @@ import Model.Playerlist.Account;
 import Model.Playerlist.Player;
 
 import java.awt.*;
-import java.util.Random;
 
 public class PlayerList {
 
     Player[] players;
     Account[] accounts;
+    Player currentPlayer;
+
+    int currentPlayerID;
 
     private String[] names = {"Peter", "Marcus", "Oliver", "Phill"};
     private Color[] colors = {Color.CYAN, Color.GREEN, Color.WHITE, Color.BLUE, Color.orange, Color.RED, Color.WHITE };
@@ -23,8 +25,10 @@ public class PlayerList {
         players = new Player[playerAmount];
         accounts = new Account[playerAmount];
         for (int i = 0; i < playerAmount; i++) {
-            players[i] = new Player(null,colors[i]);
             accounts[i] = new Account(0);
+            players[i] = new Player(null,colors[i], accounts[i]);
+            players[i].setAccount(accounts[i]);
+            players[i].setNum(i);
         }
     }
 
@@ -38,4 +42,21 @@ public class PlayerList {
     public Account getAccount(int id){ return accounts[id];}
 
 
+    public void setNames(String[] names) {
+        this.names = names;
+    }
+
+    public Player setCurrentPlayer(int index){
+        return currentPlayer = players[index];
+    }
+
+    public Player getCurrentPlayer(){
+        return currentPlayer;
+    }
+
+    public Player getNextPlayer(){
+        currentPlayerID = (currentPlayerID + 1) % players.length;
+        currentPlayer = players[currentPlayerID];
+        return currentPlayer;
+    }
 }

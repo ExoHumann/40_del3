@@ -41,12 +41,11 @@ public class Dice {
 
     @Override
     public String toString() {
-        return "Dice{" +
-                "die1=" + die1 +
+        return "Dice: " +
+                "\ndie1=" + die1 +
                 ", die2=" + die2 +
-                "\n Sum= " + getSum() +
-                "\n Is Equals= " + getEquals() +
-                '}';
+                " \nSum= " + getSum() +
+                " Is Equals= " + getEquals();
     }
 
 

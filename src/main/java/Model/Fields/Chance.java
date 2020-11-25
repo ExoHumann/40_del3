@@ -1,5 +1,4 @@
 package Model.Fields;
-
 import java.awt.*;
 
 public class Chance extends Field {
@@ -17,4 +16,5 @@ public class Chance extends Field {
     public Chance(String title, int price, String description, Color color, String fieldType) {
         super(title, price, description, color, fieldType);
     }
+
 }
