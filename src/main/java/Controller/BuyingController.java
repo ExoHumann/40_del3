@@ -39,13 +39,13 @@ public class BuyingController {
     }
 
 
-    public void buyNextPossibleField(Player p, FieldList fl) { ;
+    public void buyNextPossibleField(Player p, FieldList fl) {
         int pos = p.getCurrentPosition();
         Field field;
 
         p.buyNextPossibleField = false;
 
-        for (int i = pos + 1; i != pos; i = (i + 1) % fl.getSize()) {
+        for (int i = (pos + 1)%fl.getSize(); i != pos; i = (i + 1) % fl.getSize()) {
             field = fl.getField(i);
             if (field instanceof Ownable) {
 

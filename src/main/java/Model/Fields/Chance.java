@@ -1,7 +1,4 @@
 package Model.Fields;
-
-import Model.Fields.Field;
-
 import java.awt.*;
 
 public class Chance extends Field {

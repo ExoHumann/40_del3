@@ -70,6 +70,7 @@ public class Game {
             }
 
             if(p.buyNextPossibleField){
+                gameGUI.showMessage(p.getName() + " Will now buy the next possible field");
                 buyingController.buyNextPossibleField(p,fl);
                 gameGUI.moveToField(p);
                 updateGUIBalanceAndFieldColor();
