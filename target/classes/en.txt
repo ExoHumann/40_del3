@@ -13,7 +13,7 @@ Title: %s \n Price: %d \n  Description %s \n
 PlayerNameAction
 Write player name:
 PlayerSelectAction
-Chose 2-6 players
+Chose 2-4 players
 RollDiceAction
 do you want to roll dice?
 WonTheGameString

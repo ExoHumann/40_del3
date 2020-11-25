@@ -63,7 +63,9 @@ public class Logic {
         return winCondition;
     }
 
-    public void findWinner(Player p){
+    public void findWinner(PlayerList pl){
+        int winnerIndex = getPlayerHighestBalance(pl);
+        Player p = pl.getPlayerList(winnerIndex);
         System.out.println(p.getName() + Game.translation.getWonString() + p.getAccount().getBalance());
     }
 

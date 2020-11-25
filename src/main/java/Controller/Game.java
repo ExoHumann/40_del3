@@ -79,8 +79,10 @@ public class Game {
             p.incrementTurn();logic.displayTurn(p);
             pl.getNextPlayer();
         }
-        //logic.findWinner(pl, playerTurn);
-        //gameGUI.showMessage(pl.getPlayerList(playerTurn).getName() + " " + Game.translation.getWonTheGameString() + pl.getAccount(playerTurn).getBalance());
+        logic.findWinner(pl);
+        int winnerIndex = logic.getPlayerHighestBalance(pl);
+        pl.setCurrentPlayer(winnerIndex);
+        gameGUI.showMessage(p.getName() + " Won the game with the balance of " + p.getAccount().getBalance());
         gui.close();
     }
 
