@@ -26,11 +26,16 @@ class LogicTest {
         lg = new Logic(tr);
     }
 
+    //TC01
     @Test
     void moveOverStart(){
+        //Set player start balance
         pl.getAccount(0).setBalance(20);
+        //Move player to sixth field
         lg.movePlayer(pl,fl,6,0);
+        //Move player over start
         lg.movePlayer(pl,fl,18,0);
+        //Get the players balance
         int balance = pl.getAccount(0).getBalance();
         assertEquals(22,balance);
     }
